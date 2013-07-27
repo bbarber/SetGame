@@ -3,5 +3,5 @@ require 'sinatra'
 
 
 get '/' do
-	"Hello, World!"
+	erb :site
 end
