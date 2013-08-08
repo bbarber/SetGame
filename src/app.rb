@@ -3,13 +3,14 @@ require 'sinatra'
 
 
 get '/' do
-	erb :site
+	'hello'
+	#erb :site
 end
 
-get '/api/Game/GetDailySeed/:today' do
+get '/api/Game/GetDailySeed/:today' do |today|
 	# Seed the random with today's date
-	r = Random.new(params[:today].to_i)
-	r.rand(1_0000000000_0000000000_0000000000_0000000000).to_s
+	r = Random.new(today.to_i)
+	r.rand(10 ** 40).to_s
 end
 
 
