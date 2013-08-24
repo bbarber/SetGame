@@ -3,8 +3,7 @@ require 'sinatra'
 
 
 get '/' do
-	'hello'
-	#erb :site
+	erb :site
 end
 
 get '/api/Game/GetDailySeed/:today' do |today|
