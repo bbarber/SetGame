@@ -39,21 +39,15 @@ setgame.card = function (piece, numPieces) {
         return (self.numPieces).toString() +
         (self.piece.pieceColor.value + 1).toString() +
         (self.piece.pieceType.value + 1).toString() +        
-        (self.piece.pieceShade.value + 1).toString();
+        (self.piece.pieceShade.value + 1).toString() + '.gif';
     }
-    
-    self.spriteClass = function() {
-        return "card-" + self.fileName();
-    };
-
     
         
     self.isSelected = ko.observable(false);
 
     self.toggleSelection = function (arg, event) {
         self.isSelected(!self.isSelected());
-        $(event.currentTarget).toggleClass('selected');
-        
+
         if (self.isSelected()) {
             setgame.viewModel.selections.push(self);
         }

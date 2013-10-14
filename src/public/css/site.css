@@ -35,12 +35,9 @@
 
     #board-container .card
     {
-        background-image: url('../img/cards-sprite.png');
         width: 92px;
         height: 65px;
         margin: 4px 10px;
-        border: 1px solid transparent;
-        padding-right: 96px;
     }
 
     #board-container .selected
@@ -50,7 +47,6 @@
 
 .found-card
 {
-    background-image: url('../img/cards-sprite.png');
     width: 46px;
     height: 32px;
 }
