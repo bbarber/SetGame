@@ -27,23 +27,32 @@ setgame.piece = function (pieceColor, pieceType, pieceShade) {
     self.pieceColor = pieceColor;
     self.pieceType = pieceType;
     self.pieceShade = pieceShade;
-}
+};
 
 setgame.card = function (piece, numPieces) {
     var self = this;
     self.piece = piece;
     self.numPieces = numPieces;
 
-    self.fileName =
-        (self.numPieces).toString() +
+    // now used for css sprite
+    self.fileName = function() {
+        return (self.numPieces).toString() +
         (self.piece.pieceColor.value + 1).toString() +
         (self.piece.pieceType.value + 1).toString() +        
-        (self.piece.pieceShade.value + 1).toString() + ".gif";
+        (self.piece.pieceShade.value + 1).toString();
+    }
+    
+    self.spriteClass = function() {
+        return "card-" + self.fileName();
+    };
 
+    
+        
     self.isSelected = ko.observable(false);
 
     self.toggleSelection = function (arg, event) {
         self.isSelected(!self.isSelected());
+        $(event.currentTarget).toggleClass('selected');
         
         if (self.isSelected()) {
             setgame.viewModel.selections.push(self);
@@ -55,9 +64,9 @@ setgame.card = function (piece, numPieces) {
         if (setgame.viewModel.selections().length === 3) {
             setgame.game.checkIfValidSet(setgame.viewModel.selections());
         }
-    };
-
-}
+    };    
+    
+};
 
 Array.prototype.remove = function () {
     var what, a = arguments, L = a.length, ax;

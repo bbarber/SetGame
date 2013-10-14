@@ -1,0 +1,43 @@
+<div data-bind="if: gameState() === 'stopped'">
+    <h1>Set Game</h1>
+    <a class="btn btn-large" 
+    data-bind="text: currentTab() === 'practice' ? 'Practice meow' : 'Play meow',
+                css: currentTab() === 'practice' ? 'btn-inverse' : 'btn-success'" 
+    onclick="setgame.game.startDailyGame('TODO');"></a>
+</div>
+<div data-bind="if: gameState() === 'loading'">
+    <h1>Set Game</h1>
+    <img id="spinner" src="img/ajax-loader.gif" />
+</div>
+<div data-bind="if: gameState() === 'started'">
+    <div id="board-container">
+        <div data-bind="foreach: board">
+            <div class="row show-grid" data-bind="foreach: $data">
+                <div class="span3 card" data-bind="click: toggleSelection, css: spriteClass()" />
+            </div>
+        </div>
+    </div>
+    <hr>
+    <div class="row-fluid marketing">
+        <div class="masthead" id="setsfound">
+            <h3 class="muted">Found Sets</h3>
+        </div>
+        <div class="span3"></div>
+        <div class="span2" data-bind="foreach: setgame.viewModel.foundSets().slice(0, 3)">
+            <div class="row" data-bind="foreach: $data">
+                <div class="span4">
+                    <!--<img class="found-card" data-bind="attr:{src: '../Content/images/cards/' + $data.fileName}" />-->
+                    <div class="found-card" data-bind="css: spriteClass()" />
+                </div>
+            </div>
+        </div>
+        <div class="span1"></div>
+        <div class="span2" data-bind="foreach: setgame.viewModel.foundSets().slice(3, 6)">
+            <div class="row" data-bind="foreach: $data">
+                <div class="span4">
+                    <img class="found-card" data-bind="attr:{src: '../Content/images/cards/' + $data.fileName}" />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

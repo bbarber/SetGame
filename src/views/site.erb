@@ -3,18 +3,19 @@
 	<head>		
 		<link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet">
 		<link rel="stylesheet" text="text/css" href="css/site.css"/>
+        <link rel="stylesheet" text="text/css" href="css/card-sprites.css"/>
 	</head>
 
 	<body>
 
-		<div class="container">
+		<div class="container" data-bind="with: setgame.viewModel">
 
 			<div class="masthead">
 				<ul class="nav nav-pills pulls-right">
-					<li class="active"><a>Home</a></li>
-					<li><a>Practice</a></li>
-					<li><a>Stats</a></li>
-					<li><a>Leaderboard</a></li>
+					<li data-bind="attr: { class: currentTab() === 'home' ? 'active' : '' }"><a data-bind="click: function() { currentTab('home');}" >Home</a></li>
+					<li data-bind="attr: { class: currentTab() === 'practice' ? 'active' : '' }"><a data-bind="click: function() { currentTab('practice');}" >Practice</a></li>
+					<li data-bind="attr: { class: currentTab() === 'stats' ? 'active' : '' }"><a data-bind="click: function() { currentTab('stats');}" >Stats</a></li>					
+                    <li data-bind="attr: { class: currentTab() === 'leaderboard' ? 'active' : '' }"><a data-bind="click: function() { currentTab('leaderboard');}" >Leaderboard</a></li>
 				</ul>
 				<ul class="nav nav-pills">					
 				</ul>
@@ -22,11 +23,16 @@
 
 			<hr>
 
-			<div class="jumbotron">
-				<div>
-					<h1>Set Game</h1>
-					<a class="btn btn-large btn-success">Play meow</a>
-				</div>
+			<div class="jumbotron" data-bind="visible: setgame.viewModel.currentTab() === 'home' || 'practice'">
+				<%= erb :_home %>
+			</div>
+            
+            <div class="jumbotron" data-bind="visible: setgame.viewModel.currentTab() === 'stats'">
+                <%= erb :_stats %>
+            </div>
+            
+            <div class="jumbotron" data-bind="visible: setgame.viewModel.currentTab() === 'leaderboard'">
+                <%= erb :_leaderboard %>
 			</div>
 
 			<hr>

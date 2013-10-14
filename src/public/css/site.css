@@ -1,27 +1,156 @@
+*
+{
+    box-sizing: border-box;
+}
+
+.ninja-col
+{
+	color:transparent;
+}
+
+#stats-container
+{
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+    #stats-container table
+    {
+    }
+
+.table
+{
+    margin: 0px auto;
+}
+
+    .table th, .table td
+    {
+        text-align: center !important;
+    }
+
+#board-container
+{
+    display: inline-block;
+}
+
+    #board-container .card
+    {
+        background-image: url('../img/cards-sprite.png');
+        width: 92px;
+        height: 65px;
+        margin: 4px 10px;
+        border: 1px solid transparent;
+        padding-right: 96px;
+    }
+
+    #board-container .selected
+    {
+        border: 1px solid #08C;
+    }
+
+.found-card
+{
+    background-image: url('../img/cards-sprite.png');
+    width: 46px;
+    height: 32px;
+}
+
+#spinner
+{
+    margin-bottom: 34px;
+}
+
+.dropdown-h3
+{
+    width: 110%;
+    text-align: center;
+}
+
+ul h3:hover
+{
+    background-color: #EEE;
+    border-radius: 5px;
+}
+
+#setsfound
+{
+    display: table;
+    margin-top: -50px;
+}
+
+#score
+{
+}
+
+    #score h3
+    {
+        display: inline;
+    }
+
+#login
+{
+    float: right;
+    margin-right: 18px;
+    margin-top: -8px;
+}
+
+    #login div
+    {
+        display: inline;
+    }
+
+    #login span
+    {
+        display: inline;
+        margin: 2px;
+        color: #333;
+    }
+
 body
 {
-	padding: 20px 0 40px 0;	
+    padding-top: 20px;
+    padding-bottom: 40px;
 }
 
-.pulls-right
+/* Custom container */
+.container-narrow
 {
-	float: right;
+    margin: 0 auto;
+    max-width: 700px;
 }
 
+    .container-narrow > hr
+    {
+        margin: 20px 0;
+    }
+
+/* Main marketing message and sign up button */
 .jumbotron
 {
-	margin: 60px 0;
-	text-align: center;
+    margin: 60px 0;
+    text-align: center;
 }
 
-.jumbotron h1
+    .jumbotron h1
+    {
+        font-size: 72px;
+        line-height: 1;
+    }
+
+    .jumbotron a
+    {
+        font-size: 21px;
+        padding: 14px 24px;
+    }
+
+/* Supporting marketing content */
+.marketing
 {
-	font-size: 72px;
-	line-height: 1;
+    margin: 60px 0;
+    height: 96px;
 }
 
-.jumbotron a 
-{
-	font-size: 21px;
-	padding: 14px 24px;
-}
+    .marketing p + h4
+    {
+        margin-top: 28px;
+    }
