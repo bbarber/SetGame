@@ -1,15 +1,20 @@
 <div data-bind="if: gameState() === 'stopped'">
     <h1>Set Game</h1>
-    <a class="btn btn-large" 
+    <a class="btn btn-large btn-success" 
     data-bind="text: currentTab() === 'practice' ? 'Practice meow' : 'Play meow',
                 css: currentTab() === 'practice' ? 'btn-inverse' : 'btn-success'" 
-    onclick="setgame.game.startDailyGame('TODO');"></a>
+    onclick="setgame.game.startDailyGame();">Play meow</a>
+    <div id="login" class="hidden" data-bind="visible: setgame.viewModel.login() && setgame.viewModel.currentTab() !== 'practice'">
+        <span class="btn btn-inverse">Twitter</span>
+        <span class="btn btn-inverse">Google</span>
+        <span class="btn btn-inverse">Facebook</span>
+    </div>
 </div>
-<div data-bind="if: gameState() === 'loading'">
+<div class="hidden" data-bind="visible: gameState() === 'loading'">
     <h1>Set Game</h1>
     <img id="spinner" src="img/ajax-loader.gif" />
 </div>
-<div data-bind="if: gameState() === 'started'">
+<div class="hidden" data-bind="visible: gameState() === 'started'">
    <div id="board-container">
        <div data-bind="foreach: board">
            <div class="row show-grid" data-bind="foreach: $data">
@@ -20,7 +25,7 @@
     <hr>
    <div class="row-fluid marketing">
        <div class="masthead" id="setsfound">
-           <h3 class="muted">Found Sets</h3>
+           <h3 id="found-label" class="muted">Found Sets</h3>
        </div>
        <div class="span3"></div>
        <div class="span2" data-bind="foreach: foundSets.slice(0, 3)">

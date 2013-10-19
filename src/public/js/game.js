@@ -25,7 +25,7 @@ setgame.game = (function () {
         setgame.viewModel.startTime(new Date().getTime());
     }
 
-    game.getTodaysSeed = function () {
+    game.getTodaysSeed = function (callback) {
         // Caclulate offset milliseconds, so we can use local time
         var offset = new Date().getTimezoneOffset() * 1000 * 60;
         var today = Math.floor((Date.now() - offset) / 1000 / 60 / 60 / 24);
@@ -38,15 +38,7 @@ setgame.game = (function () {
                 setgame.viewModel.seed(seed);
                 setgame.viewModel.LeaderboardVM.getAllGames();
 
-                ko.applyBindings(setgame.viewModel);
-
-                $('.demo-3').hide('fast', function () {
-                    $('.container-narrow').show('slow', function () {
-                    });
-                });
-
-
-
+                callback();
             }
         });
     }

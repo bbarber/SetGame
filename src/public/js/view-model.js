@@ -27,6 +27,12 @@ var setgame = (function () {
 
 
 $(function () {
-    setgame.game.getTodaysSeed();
+    setgame.game.getTodaysSeed(
+        function() {
+            // Showtime!
+            ko.applyBindings(setgame.viewModel);
+            $('.hidden').removeClass('hidden');
+        }
+    );
 });
 

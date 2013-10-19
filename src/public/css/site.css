@@ -28,6 +28,16 @@
         text-align: center !important;
     }
 
+#found-label
+{
+    font-size:20px;
+}
+
+.hidden
+{
+    display: none;
+}
+
 #board-container
 {
     display: inline-block;
@@ -85,21 +95,12 @@ ul h3:hover
 
 #login
 {
-    float: right;
-    margin-right: 18px;
-    margin-top: -8px;
+    margin-top: 20px;
 }
-
-    #login div
-    {
-        display: inline;
-    }
 
     #login span
     {
-        display: inline;
         margin: 2px;
-        color: #333;
     }
        
 .nav>li>a
