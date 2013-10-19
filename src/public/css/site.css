@@ -101,11 +101,30 @@ ul h3:hover
         margin: 2px;
         color: #333;
     }
+       
+.nav>li>a
+{
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+    border-radius: 0;
+}
+.pulls-right
+{
+    float:right;
+}
+
+.btn-large
+{
+    font-size: 20px;
+    margin-top:20px;
+    text-shadow: 0px 1px green;
+}
 
 body
 {
     padding-top: 20px;
     padding-bottom: 40px;
+    font-family: 'Roboto', sans-serif;
 }
 
 /* Custom container */
@@ -130,12 +149,12 @@ body
     .jumbotron h1
     {
         font-size: 72px;
+        font-weight: 100;
         line-height: 1;
     }
 
     .jumbotron a
     {
-        font-size: 21px;
         padding: 14px 24px;
     }
 
@@ -150,3 +169,37 @@ body
     {
         margin-top: 28px;
     }
+
+
+
+/* Flatten das boostrap */
+.well, 
+.navbar-inner, 
+.popover, 
+.btn, 
+.tooltip, 
+input, 
+select, 
+textarea, 
+pre, 
+.progress, 
+.modal, 
+.add-on, 
+.alert, 
+.table-bordered, 
+.nav>.active>a, 
+.dropdown-menu, 
+.tooltip-inner, 
+.badge, 
+.label, 
+.img-polaroid 
+{
+  -moz-box-shadow: none;
+	-webkit-box-shadow: none;
+	box-shadow: none;
+	-webkit-border-radius: 0;
+	-moz-border-radius: 0;
+	border-radius: 0;
+	border-collapse: collapse;
+	background-image: none;
+}
