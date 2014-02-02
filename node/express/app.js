@@ -7,9 +7,10 @@ var routes = require('./routes');
 var user = require('./routes/user');
 var http = require('http');
 var path = require('path');
-
 var mongo = require('mongodb');
 var monk = require('monk');
+var passport = require('passport')
+
 var db = monk(process.env.IP + ':27017/test');
 var users = db.get('users');
 
@@ -24,10 +25,13 @@ app.use(express.logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded());
 app.use(express.methodOverride());
-app.use(express.cookieParser('your secret here'));
-app.use(express.session());
-app.use(app.router);
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.cookieParser());
+app.use(express.bodyParser());
+app.use(express.session({ secret: 'keyboard cat' }));
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(app.router);
 
 // development only
 if ('development' == app.get('env')) {
@@ -37,8 +41,23 @@ if ('development' == app.get('env')) {
 app.get('/', routes.index);
 app.get('/users', user.list(db));
 
-var passport = require('passport'),
-    TwitterStrategy = require('passport-twitter').Strategy;
+var TwitterStrategy = require('passport-twitter').Strategy;
+
+passport.serializeUser(function(user, done) {
+    console.log('Serializing user...');
+    console.log('\t  User: ' + JSON.stringify(user));
+    done(null, {uid: user.uid, provider: user.provider});
+});
+
+passport.deserializeUser(function(user, done) {
+    console.log('Deserializing user...');
+    console.log('\t  User: ' + JSON.stringify(user));
+    users.findOne({uid: user.uid, provider: user.provider}, function(err, user){
+        console.log('Found deserialized user...');
+        console.log('\t  User: ' + JSON.stringify(user));
+        done(null, user); 
+    });
+});
 
 passport.use(new TwitterStrategy({
     consumerKey: 'ufDSp6R98HGuu8OInPzQQ',
