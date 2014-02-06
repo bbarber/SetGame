@@ -3,20 +3,24 @@
  */
 
 var express = require('express');
+var partials = require('express-partials')
 var routes = require('./routes');
 var user = require('./routes/user');
 var http = require('http');
 var path = require('path');
+var seed = require('seed-random');
 var mongo = require('mongodb');
 var monk = require('monk');
 var passport = require('passport')
 
 var db = monk(process.env.IP + ':27017/test');
 var users = db.get('users');
+var games = db.get('games');
 
 var app = express();
 
 // all environments
+app.use(partials());
 app.set('port', process.env.PORT || 3000);
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
@@ -64,10 +68,13 @@ passport.use(new TwitterStrategy({
     consumerSecret: 'DvINlmdcNFxgEkKPM2IR96wvABj8AEwTVV1hjJNEH4',
     callbackURL: "https://setgame-c9-branmantwo.c9.io/auth/twitter/oauth_callback"
 },
-
 function(token, tokenSecret, profile, done) {
     
-    var twitterUser = {uid: profile.id, provider: 'twitter'};
+    var twitterUser = {
+        uid: profile.id, 
+        provider: 'twitter', 
+        username: profile.username
+    };
     
     users.findOne(twitterUser, function(err, user) {
         
@@ -106,11 +113,34 @@ app.get('/auth/twitter', passport.authenticate('twitter'));
 // access was granted, the user will be logged in.  Otherwise,
 // authentication has failed.
 app.get('/auth/twitter/oauth_callback',
-passport.authenticate('twitter', {
-    successRedirect: '/',
-    failureRedirect: '/login'
-}));
+    passport.authenticate('twitter', {
+        successRedirect: '/',
+        failureRedirect: '/login'
+    })
+);
 
+
+app.get('/user', function(req, res){
+    res.send(req.user);
+});
+
+
+app.get('/api/GetDailySeed/:time', function(req, res){
+    seed(req.params.time, {global: true});
+    
+    var r1 = Math.random().toFixed(10).substr(2);
+    var r2 = Math.random().toFixed(10).substr(2);
+    var r3 = Math.random().toFixed(10).substr(2);
+    var r4 = Math.random().toFixed(10).substr(2);
+    
+    res.send(r1 + r2 + r3 + r4);
+});
+
+app.get('/api/GetAllGames', function(req, res){
+    games.find({}, function(err, doc){
+        res.send(doc);
+    });
+});
 
 
 http.createServer(app).listen(app.get('port'), function() {

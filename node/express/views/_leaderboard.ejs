@@ -1,0 +1,116 @@
+<div id="leaderboard-container" data-bind="with: LeaderboardVM">
+
+    <ul class="nav nav-tabs">
+        <li class="leader-nav active"><a id="leader-today" data-bind="click: function () { leaderNav('today') }">Today's Puzzle</a></li>
+        <li class="leader-nav"><a id="leader-fastest" data-bind="click: function () { leaderNav('fastest') }">Fastest Time</a></li>
+        <li class="leader-nav"><a id="leader-average" data-bind="click: function () { leaderNav('average') }">Average Time</a></li>
+        <li class="leader-nav"><a id="leader-last30Days" data-bind="click: function () { leaderNav('last30Days') }">Last 30 Days</a></li>
+    </ul>
+
+    <table class="table table-striped" data-bind="visible: leaderBoardTab() == 'today'">
+        <thead>
+            <tr>
+                <td></td>
+                <td>
+                    <h5>User</h5>
+                </td>
+                <td>
+                    <h5>Time</h5>
+                </td>
+                <td>
+                    <h5>Date</h5>
+                </td>
+            </tr>
+        </thead>
+        <tbody data-bind="foreach: todaysGames()">
+            <tr class="ninja-row">
+                <td data-bind="text: $index() + 1" class="ninja-col"></td>
+                <td data-bind="text: $data.UserName"></td>
+                <td data-bind="text: $data.Score"></td>
+                <td data-bind="text: $data.DatePlayed"></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <table class="table table-striped" data-bind="visible: leaderBoardTab() == 'fastest'">
+        <thead>
+            <tr>
+                <td></td>
+                <td>
+                    <h5>User</h5>
+                </td>
+                <td>
+                    <h5>Time</h5>
+                </td>
+                <td>
+                    <h5>Date</h5>
+                </td>
+
+
+            </tr>
+        </thead>
+        <tbody data-bind="foreach: fastestGames()">
+            <tr class="ninja-row">
+                <td data-bind="text: $index() + 1" class="ninja-col"></td>
+                <td data-bind="text: $data.UserName"></td>
+                <td data-bind="text: $data.Score"></td>
+                <td data-bind="text: $data.DatePlayed"></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <table class="table table-striped" data-bind="visible: leaderBoardTab() == 'average'">
+        <thead>
+            <tr>
+                <td></td>
+                <td>
+                    <h5>User</h5>
+                </td>
+                <td>
+                    <h5>Average Time</h5>
+                </td>
+                <td>
+                    <h5>Games Played</h5>
+                </td>
+
+
+            </tr>
+        </thead>
+        <tbody data-bind="foreach: averageGames()">
+            <tr class="ninja-row">
+                <td data-bind="text: $index() + 1" class="ninja-col"></td>
+                <td data-bind="text: $data.UserName"></td>
+                <td data-bind="text: $data.Score"></td>
+                <td data-bind="text: $data.GamesPlayed"></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <table class="table table-striped" data-bind="visible: leaderBoardTab() == 'last30Days'">
+        <thead>
+            <tr>
+                <td></td>
+                <td>
+                    <h5>User</h5>
+                </td>
+                <td>
+                    <h5>Average Time</h5>
+                </td>
+                <td>
+                    <h5>Games Played</h5>
+                </td>
+
+
+            </tr>
+        </thead>
+        <tbody data-bind="foreach: last30Days()">
+            <tr class="ninja-row">
+                <td data-bind="text: $index() + 1" class="ninja-col"></td>
+                <td data-bind="text: $data.UserName"></td>
+                <td data-bind="text: $data.Score"></td>
+                <td data-bind="text: $data.GamesPlayed"></td>
+            </tr>
+        </tbody>
+    </table>
+
+</div>
