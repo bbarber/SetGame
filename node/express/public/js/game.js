@@ -1,15 +1,17 @@
 setgame.game = (function () {
     var game = {};
 
-    game.startDailyGame = function (userName) {
+    game.startDailyGame = function (user) {
+        
         if (setgame.viewModel.currentTab() === 'practice') {
             game.start();
         }
-        else if (userName == null || userName === '') {
+        else if (user == null) {
             setgame.viewModel.login(true);
         }
         else {
             setgame.viewModel.login(false);
+            game.username = user ? user.username : null;
             game.start();
         }
     }
@@ -76,9 +78,8 @@ setgame.game = (function () {
         setgame.viewModel.currentTab('stats');
 
         if (!wasPractice) {
-            console.error("Fix this ajax");
             $.ajax({
-                url: 'api/Completed/' + setgame.helpers.GetUserName() + "/" + score + "/" + setgame.viewModel.seed(),
+                url: 'api/Completed/' + game.username + "/" + score + "/" + setgame.viewModel.seed(),
                 dataType: 'json',
                 success: function () {
                     getStats(GetUserName());

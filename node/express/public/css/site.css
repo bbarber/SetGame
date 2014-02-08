@@ -20,7 +20,7 @@
 
 .table
 {
-    margin: 0px auto;
+    margin: 0 auto;
 }
 
     .table th, .table td
@@ -178,6 +178,9 @@ body
         margin-top: 28px;
     }
 
+.dropdown-menu {
+    margin:0
+}
 
 
 /* Flatten das boostrap */
@@ -200,14 +203,19 @@ pre,
 .tooltip-inner, 
 .badge, 
 .label, 
-.img-polaroid 
+.img-polaroid,
+.nav-pills .dropdown-menu
 {
-  -moz-box-shadow: none;
+       -moz-box-shadow: none;
 	-webkit-box-shadow: none;
-	box-shadow: none;
+	        box-shadow: none;
 	-webkit-border-radius: 0;
-	-moz-border-radius: 0;
-	border-radius: 0;
+	   -moz-border-radius: 0;
+	        border-radius: 0;
 	border-collapse: collapse;
 	background-image: none;
 }
+
+
+
+

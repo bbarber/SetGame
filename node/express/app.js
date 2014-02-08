@@ -19,6 +19,7 @@ var games = db.get('games');
 
 var app = express();
 
+
 // all environments
 app.use(partials());
 app.set('port', process.env.PORT || 3000);
@@ -30,6 +31,7 @@ app.use(express.json());
 app.use(express.urlencoded());
 app.use(express.methodOverride());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'public/img'), {maxAge: 86400000}));
 app.use(express.cookieParser());
 app.use(express.bodyParser());
 app.use(express.session({ secret: 'keyboard cat' }));
@@ -41,6 +43,13 @@ app.use(app.router);
 if ('development' == app.get('env')) {
     app.use(express.errorHandler());
 }
+
+
+
+
+
+
+
 
 app.get('/', routes.index);
 app.get('/users', user.list(db));
@@ -120,9 +129,9 @@ app.get('/auth/twitter/oauth_callback',
 );
 
 
-app.get('/user', function(req, res){
-    res.send(req.user);
-});
+// app.get('/user', function(req, res){
+//     res.send(req.user);
+// });
 
 
 app.get('/api/GetDailySeed/:time', function(req, res){
@@ -140,6 +149,31 @@ app.get('/api/GetAllGames', function(req, res){
     games.find({}, function(err, doc){
         res.send(doc);
     });
+});
+
+app.get('/api/Completed/:username/:score/:seed', function(req, res){
+
+    var game = {
+      Seed: req.params.seed,
+      UserName: req.params.username
+    };
+    
+    games.find(game, function(err, doc){
+        
+        // Check for duplicates
+        if(doc.length === 0) {
+            
+            game.DatePlayed = new Date();
+            game.Score = req.params.score;
+            
+            games.insert(game, function(err, doc){
+                console.log('Game save...');
+                console.log('\t Error: ' + JSON.stringify(err));
+                console.log('\t  Game: ' + JSON.stringify(doc));
+            });
+        }
+    });
+   
 });
 
 

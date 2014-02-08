@@ -2,7 +2,7 @@
 <html>
 	<head>		
 		<link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet">
-		<link href='http://fonts.googleapis.com/css?family=Roboto:400,100' rel='stylesheet' type='text/css'>
+		<link href='//fonts.googleapis.com/css?family=Roboto:400,100' rel='stylesheet' type='text/css'>
 		<link rel="stylesheet" text="text/css" href="css/site.css"/>
 	</head>
 
@@ -10,12 +10,12 @@
 	
 		<div class="container" data-bind="with: setgame.viewModel">
         
-            <%- partial('_header') %>
+            <%- partial('_header', {user: user}) %>
             
 			<hr>
 
 			<div class="jumbotron" data-bind="visible: setgame.viewModel.currentTab() === 'home' || setgame.viewModel.currentTab() === 'practice'">
-				<%- partial('_home') %>
+				<%- partial('_home', {user: user}) %>
 			</div>
             
             <div class="jumbotron hidden" data-bind="visible: setgame.viewModel.currentTab() === 'stats'">
@@ -31,9 +31,9 @@
 
 
 		<!-- Keep scripts at bottom to improve load times -->
-		<script src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
+		<script src="//code.jquery.com/jquery-2.0.3.min.js"></script>
 		<script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
-		<script src="http://ajax.aspnetcdn.com/ajax/knockout/knockout-2.2.1.js"></script>
+		<script src="//ajax.aspnetcdn.com/ajax/knockout/knockout-3.0.0.js"></script>
 
    		<script type="text/javascript" src="js/pretty.js"></script>
     	<script type="text/javascript" src="js/view-model.js"></script>

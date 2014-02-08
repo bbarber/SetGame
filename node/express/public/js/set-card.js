@@ -39,7 +39,7 @@ setgame.card = function (piece, numPieces) {
         return (self.numPieces).toString() +
         (self.piece.pieceColor.value + 1).toString() +
         (self.piece.pieceType.value + 1).toString() +        
-        (self.piece.pieceShade.value + 1).toString() + '.gif';
+        (self.piece.pieceShade.value + 1).toString() + '.png';
     }
     
         

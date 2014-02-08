@@ -6,7 +6,7 @@ setgame.viewModel.LeaderboardVM = (function () {
     self.averageGames = ko.observableArray();
     self.last30Days = ko.observableArray();
 
-    self.leaderBoardTab = ko.observable('todays');
+    self.leaderBoardTab = ko.observable('today');
     self.leaderNav = function (tab) {
         $(".leader-nav").removeClass('active');
         $('#leader-' + tab).parent().addClass('active');

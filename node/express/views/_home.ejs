@@ -3,9 +3,10 @@
     <a class="btn btn-large btn-success" 
     data-bind="text: currentTab() === 'practice' ? 'Practice meow' : 'Play meow',
                 css: currentTab() === 'practice' ? 'btn-inverse' : 'btn-success'" 
-    onclick="setgame.game.startDailyGame();">Play meow</a>
+    onclick="setgame.game.startDailyGame(<%= JSON.stringify(user) %>);">Play meow</a>
     <div id="login" class="hidden" data-bind="visible: setgame.viewModel.login() && setgame.viewModel.currentTab() !== 'practice'">
-        <span class="btn btn-inverse">Twitter</span>
+        <!--<span class="btn btn-inverse">Twitter</span>-->
+        <a href="/auth/twitter">Twitter</a>
         <span class="btn btn-inverse">Google</span>
         <span class="btn btn-inverse">Facebook</span>
     </div>
@@ -18,7 +19,7 @@
    <div id="board-container">
        <div data-bind="foreach: board">
            <div class="row show-grid" data-bind="foreach: $data">
-               <img class="span3 card" data-bind="attr:{src: 'img/cards/' + fileName()}, click: toggleSelection, css: { selected: isSelected }" />
+               <img class="span3 card" data-bind="attr:{src: 'img/cards/' + fileName()}, click: toggleSelection, css: { selected: isSelected }" alt="Oops!" />
            </div>
        </div>
    </div>
