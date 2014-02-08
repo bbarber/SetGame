@@ -30,8 +30,7 @@ app.use(express.logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded());
 app.use(express.methodOverride());
-app.use(express.static(path.join(__dirname, 'public')));
-app.use(express.static(path.join(__dirname, 'public/img'), {maxAge: 86400000}));
+app.use(express.static(path.join(__dirname, 'public'), {maxAge: 23421113423}));
 app.use(express.cookieParser());
 app.use(express.bodyParser());
 app.use(express.session({ secret: 'keyboard cat' }));
@@ -43,12 +42,6 @@ app.use(app.router);
 if ('development' == app.get('env')) {
     app.use(express.errorHandler());
 }
-
-
-
-
-
-
 
 
 app.get('/', routes.index);
