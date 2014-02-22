@@ -9,20 +9,30 @@ var user = require('./routes/user');
 var http = require('http');
 var path = require('path');
 var seed = require('seed-random');
-var mongo = require('mongodb');
-var monk = require('monk');
 var passport = require('passport')
 
-var db = monk(process.env.IP + ':27017/test');
-var users = db.get('users');
-var games = db.get('games');
 
 var app = express();
 
 
+var mongodb = require('mongodb');
+
+var games = {};
+var users = {};
+mongodb.connect('mongodb://127.0.0.1:27017/test', function(err, db) {
+    games = db.collection('games');
+    users = db.collection('users');
+
+    app.get('/users', function(){ users.find().toArray(console.log)});
+
+});
+
+
+
+
 // all environments
 app.use(partials());
-app.set('port', process.env.PORT || 3000);
+app.set('port', 3000);
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 app.use(express.favicon());
@@ -30,7 +40,7 @@ app.use(express.logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded());
 app.use(express.methodOverride());
-app.use(express.static(path.join(__dirname, 'public'), {maxAge: 23421113423}));
+app.use(express.static(path.join(__dirname, 'public'), {maxAge: 31536000}));
 app.use(express.cookieParser());
 app.use(express.bodyParser());
 app.use(express.session({ secret: 'keyboard cat' }));
@@ -45,7 +55,6 @@ if ('development' == app.get('env')) {
 
 
 app.get('/', routes.index);
-app.get('/users', user.list(db));
 
 var TwitterStrategy = require('passport-twitter').Strategy;
 
@@ -68,7 +77,7 @@ passport.deserializeUser(function(user, done) {
 passport.use(new TwitterStrategy({
     consumerKey: 'ufDSp6R98HGuu8OInPzQQ',
     consumerSecret: 'DvINlmdcNFxgEkKPM2IR96wvABj8AEwTVV1hjJNEH4',
-    callbackURL: "https://setgame-c9-branmantwo.c9.io/auth/twitter/oauth_callback"
+    callbackURL: "/auth/twitter/oauth_callback"
 },
 function(token, tokenSecret, profile, done) {
     
@@ -78,6 +87,8 @@ function(token, tokenSecret, profile, done) {
         username: profile.username
     };
     
+    console.log(twitterUser);
+
     users.findOne(twitterUser, function(err, user) {
         
         if (user) {
@@ -122,9 +133,6 @@ app.get('/auth/twitter/oauth_callback',
 );
 
 
-// app.get('/user', function(req, res){
-//     res.send(req.user);
-// });
 
 
 app.get('/api/GetDailySeed/:time', function(req, res){
@@ -139,7 +147,7 @@ app.get('/api/GetDailySeed/:time', function(req, res){
 });
 
 app.get('/api/GetAllGames', function(req, res){
-    games.find({}, function(err, doc){
+    games.find({}).toArray(function(err, doc){
         res.send(doc);
     });
 });
@@ -151,7 +159,7 @@ app.get('/api/Completed/:username/:score/:seed', function(req, res){
       UserName: req.params.username
     };
     
-    games.find(game, function(err, doc){
+    games.find(game).toArray(function(err, doc){
         
         // Check for duplicates
         if(doc.length === 0) {
@@ -160,11 +168,16 @@ app.get('/api/Completed/:username/:score/:seed', function(req, res){
             game.Score = req.params.score;
             
             games.insert(game, function(err, doc){
-                console.log('Game save...');
+                console.log('Game saved...');
                 console.log('\t Error: ' + JSON.stringify(err));
                 console.log('\t  Game: ' + JSON.stringify(doc));
+                res.send(doc);
             });
         }
+	else {
+		console.log('duplicate game, not saving...');
+		res.send('duplicate game');
+	}
     });
    
 });

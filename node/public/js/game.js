@@ -82,7 +82,7 @@ setgame.game = (function () {
                 url: 'api/Completed/' + game.username + "/" + score + "/" + setgame.viewModel.seed(),
                 dataType: 'json',
                 success: function () {
-                    getStats(GetUserName());
+			setgame.viewModel.LeaderboardVM.getAllGames()
                 }
             });
         }
@@ -132,17 +132,6 @@ setgame.game = (function () {
             }
         }
 
-    }
-
-    game.getStats = function (userName) {
-        console.error("Fix this ajax");
-        $.ajax({
-            url: 'api/GetAllGames',
-            dataType: 'json',
-            success: function (games) {
-                setgame.viewModel.allGames(games);
-            }
-        });
     }
 
     return game;
