@@ -6,6 +6,9 @@ lib-cov
 *.out
 *.pid
 *.gz
+*.lock
+*.0
+*.ns
  
 pids
 logs
@@ -13,4 +16,5 @@ results
  
 node_modules
 npm-debug.log
-node/data
+data
+*.*~

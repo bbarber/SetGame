@@ -114,6 +114,7 @@ ul h3:hover
     -webkit-border-radius: 0;
     -moz-border-radius: 0;
     border-radius: 0;
+    cursor: pointer;
 }
 .pulls-right
 {
