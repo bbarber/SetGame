@@ -71,21 +71,24 @@ passport.use(new TwitterStrategy({
     callbackURL: "/auth/twitter/oauth_callback"
 },
 function(token, tokenSecret, profile, done) {
-    
-    var twitterUser = {
-        uid: profile.id, 
-        provider: 'twitter', 
+    findOrCreateUser({
+        uid: profile.id,
+        provider: 'twitter',
         username: profile.username
-    };
+    }, done);
+}));
 
-    users.findOne(twitterUser, function(err, user) {
-        
-        if (user) {
-            done(null, user);
+
+
+
+var findOrCreateUser = function (user, done) {
+    users.findOne(user, function(err, existingUser) {
+        if (existingUser) {
+	    done(null, existingUser);
         }
         else if(!err) {
-            users.insert(twitterUser, function(err, user) {
-                done(null, user);
+            users.insert(user, function(err, newUser) {
+                done(null, newUser);
             });
         }
         else {
@@ -93,7 +96,8 @@ function(token, tokenSecret, profile, done) {
             console.error(JSON.stringify(err));
         }
     });
-}));
+};
+
 
 
 
@@ -114,6 +118,59 @@ app.get('/auth/twitter/oauth_callback',
 );
 
 
+var FacebookStrategy = require('passport-facebook').Strategy;
+
+passport.use(new FacebookStrategy({
+    clientID: '1449238911976358',
+    clientSecret: '5b9bcfffaa9ccfa7a1b82008096fb187',
+    callbackURL: "/auth/facebook/callback"
+  },
+  function(accessToken, refreshToken, profile, done) {
+    findOrCreateUser({
+        uid: profile.id,
+        provider: 'facebook',
+        username: profile.username
+    }, done);
+  }
+));
+
+app.get('/auth/facebook',
+  passport.authenticate('facebook'));
+
+app.get('/auth/facebook/callback',
+  passport.authenticate('facebook', { failureRedirect: '/' }),
+  function(req, res) {
+    // Successful authentication, redirect home.
+    res.redirect('/');
+  });
+
+
+var GoogleStrategy = require('passport-google').Strategy;
+
+passport.use(new GoogleStrategy({
+    returnURL: 'http://76.84.45.141/auth/google/return',
+    realm: 'http://76.84.45.141/'
+  },
+  function(identifier, profile, done) {
+    console.log(arguments);
+    findOrCreateUser({
+        uid: identifier,
+        provider: 'google',
+        username: profile.name.givenName
+    }, done);
+  }
+));
+
+
+app.get('/auth/google',
+  passport.authenticate('google'));
+
+app.get('/auth/google/return', 
+  passport.authenticate('google', { failureRedirect: '/' }),
+  function(req, res) {
+    // Successful authentication, redirect home.
+    res.redirect('http://76.84.45.141');
+  });
 
 
 app.get('/api/GetDailySeed/:time', function(req, res){

@@ -7,8 +7,10 @@
     <div id="login" class="hidden" data-bind="visible: setgame.viewModel.login() && setgame.viewModel.currentTab() !== 'practice'">
         <!--<span class="btn btn-inverse">Twitter</span>-->
         <a href="/auth/twitter">Twitter</a>
-        <span class="btn btn-inverse">Google</span>
-        <span class="btn btn-inverse">Facebook</span>
+        <!--<span class="btn btn-inverse">Google</span>-->
+	<a href="/auth/google">Google</a>
+        <!--<span class="btn btn-inverse">Facebook</span>-->
+	<a href="/auth/facebook">Facebook</a>
     </div>
 </div>
 <div class="hidden" data-bind="visible: gameState() === 'loading'">
