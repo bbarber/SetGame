@@ -1,16 +1,14 @@
+
 <div data-bind="if: gameState() === 'stopped'">
     <h1>Set Game</h1>
     <a class="btn btn-large btn-success" 
     data-bind="text: currentTab() === 'practice' ? 'Practice meow' : 'Play meow',
                 css: currentTab() === 'practice' ? 'btn-inverse' : 'btn-success'" 
     onclick="setgame.game.startDailyGame(<%= JSON.stringify(user) %>);">Play meow</a>
-    <div id="login" class="hidden" data-bind="visible: setgame.viewModel.login() && setgame.viewModel.currentTab() !== 'practice'">
-        <!--<span class="btn btn-inverse">Twitter</span>-->
-        <a href="/auth/twitter">Twitter</a>
-        <!--<span class="btn btn-inverse">Google</span>-->
-	<a href="/auth/google">Google</a>
-        <!--<span class="btn btn-inverse">Facebook</span>-->
-	<a href="/auth/facebook">Facebook</a>
+    <div id="login" class="hidden" 
+	data-bind="visible: setgame.viewModel.login() && setgame.viewModel.currentTab() !== 'practice',
+		   foreach: ['Twitter', 'Google', 'Facebook']">
+        <span class="btn btn-inverse" data-bind='text: $data, click: function(){ window.location.href = "/auth/" + $data}'></span>
     </div>
 </div>
 <div class="hidden" data-bind="visible: gameState() === 'loading'">
