@@ -22,9 +22,6 @@ var users = {};
 mongodb.connect('mongodb://127.0.0.1:27017/test', function(err, db) {
     games = db.collection('games');
     users = db.collection('users');
-
-    app.get('/users', function(){ users.find().toArray(console.log)});
-
 });
 
 
@@ -65,11 +62,7 @@ passport.serializeUser(function(user, done) {
 });
 
 passport.deserializeUser(function(user, done) {
-    console.log('Deserializing user...');
-    console.log('\t  User: ' + JSON.stringify(user));
     users.findOne({uid: user.uid, provider: user.provider}, function(err, user){
-        console.log('Found deserialized user...');
-        console.log('\t  User: ' + JSON.stringify(user));
         done(null, user); 
     });
 });
@@ -86,30 +79,20 @@ function(token, tokenSecret, profile, done) {
         provider: 'twitter', 
         username: profile.username
     };
-    
-    console.log(twitterUser);
 
     users.findOne(twitterUser, function(err, user) {
         
         if (user) {
-            console.log('Existing twitter user found.');
-            console.log('\t  User: ' + JSON.stringify(user));
-            
             done(null, user);
         }
         else if(!err) {
-            console.log('New twitter user. Inserting to users collection...');
             users.insert(twitterUser, function(err, user) {
-                console.log('Inserted new twitter user...');
-                console.log('\t Error: ' + JSON.stringify(err));
-                console.log('\t  User: ' + JSON.stringify(user));
-                
                 done(null, user);
             });
         }
         else {
-            console.log('Error occured while finding twitter user...');
-            console.log('\t Error: ' + JSON.stringify(err));
+            console.error('Error occured while finding twitter user...');
+            console.error(JSON.stringify(err));
         }
     });
 }));
@@ -168,15 +151,12 @@ app.get('/api/Completed/:username/:score/:seed', function(req, res){
             game.Score = req.params.score;
             
             games.insert(game, function(err, doc){
-                console.log('Game saved...');
-                console.log('\t Error: ' + JSON.stringify(err));
-                console.log('\t  Game: ' + JSON.stringify(doc));
                 res.send(doc);
             });
         }
 	else {
-		console.log('duplicate game, not saving...');
-		res.send('duplicate game');
+            console.log('duplicate game, not saving...');
+            res.send('duplicate game');
 	}
     });
    
