@@ -121,6 +121,16 @@ ul h3:hover
     float:right;
 }
 
+.pulls-left
+{
+    float:left;
+}
+
+hr
+{
+    clear: both;
+}
+
 .btn-large
 {
     font-size: 20px;
@@ -133,6 +143,7 @@ body
     padding-bottom: 40px;
     font-family: 'Roboto', sans-serif;
     font-weight: 400 !important;
+    min-width: 470px
 }
 
 /* Custom container */

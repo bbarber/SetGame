@@ -53,7 +53,12 @@ if ('development' == app.get('env')) {
 
 app.get('/', routes.index);
 
-var TwitterStrategy = require('passport-twitter').Strategy;
+
+app.get('/logout', function(req, res){
+  req.logout();
+  res.redirect('/');
+});
+
 
 passport.serializeUser(function(user, done) {
     done(null, {uid: user.uid, provider: user.provider});
@@ -64,6 +69,10 @@ passport.deserializeUser(function(user, done) {
         done(null, user); 
     });
 });
+
+
+
+var TwitterStrategy = require('passport-twitter').Strategy;
 
 passport.use(new TwitterStrategy({
     consumerKey: 'ufDSp6R98HGuu8OInPzQQ',
