@@ -7,7 +7,7 @@
     onclick="setgame.game.startDailyGame(<%= JSON.stringify(user) %>);">Play meow</a>
     <div id="login" class="hidden" 
 	data-bind="visible: setgame.viewModel.login() && setgame.viewModel.currentTab() !== 'practice',
-		   foreach: ['Twitter', 'Google', 'Facebook']">
+		   foreach: ['Twitter', 'Facebook', 'Google']">
         <span class="btn btn-inverse" data-bind='text: $data, click: function(){ window.location.href = "/auth/" + $data}'></span>
     </div>
 </div>
