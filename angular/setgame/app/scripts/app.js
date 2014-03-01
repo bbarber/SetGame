@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('angularApp', [
+angular.module('setgameApp', [
   'ngCookies',
   'ngResource',
   'ngSanitize',
