@@ -1,6 +1,6 @@
 var passport = require('passport');
 
-module.exports.set = function(app, users, hostname) {
+module.exports.set = function(app, users, hostname, secrets) {
 
     app.use(passport.initialize());
     app.use(passport.session());
@@ -10,8 +10,8 @@ module.exports.set = function(app, users, hostname) {
     var google = require('./google.js');
     
     // Sets the auth/callback routes
-    twitter.set(app, passport);
-    facebook.set(app, passport);
+    twitter.set(app, passport, secrets.twitter);
+    facebook.set(app, passport, secrets.facebook);
     google.set(app, passport, hostname);
     
     

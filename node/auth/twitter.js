@@ -1,10 +1,10 @@
 var TwitterStrategy = require('passport-twitter').Strategy;
 
-module.exports.set = function(app, passport) {  
+module.exports.set = function(app, passport, secret) {  
   
     passport.use(new TwitterStrategy({
-        consumerKey: 'ufDSp6R98HGuu8OInPzQQ',
-        consumerSecret: 'DvINlmdcNFxgEkKPM2IR96wvABj8AEwTVV1hjJNEH4',
+        consumerKey: secret.consumerKey,
+        consumerSecret: secret.consumerSecret,
         callbackURL: "/auth/twitter/oauth_callback"
     },
     function(token, tokenSecret, profile, done) {

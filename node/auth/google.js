@@ -4,7 +4,7 @@ var GoogleStrategy = require('passport-google').Strategy;
 module.exports.set = function(app, passport, hostname) {
 
     passport.use(new GoogleStrategy({
-        returnURL: host + 'auth/google/return',
+        returnURL: hostname + 'auth/google/return',
         realm: hostname
       },
       function(identifier, profile, done) {

@@ -8,22 +8,12 @@ var routes = require('./routes');
 var api = require('./api');
 var auth = require('./auth');
 var config = require('./config');
+var secrets = require('./secrets');
 var http = require('http');
 var path = require('path');
 var mongodb = require('mongodb');
 
-
 var app = express();
-
-
-mongodb.connect(config.mongoip, function(err, db) {
-    var users = db.collection('users');
-    var games = db.collection('games');
-    
-    // Creates auth/api endpoints
-    auth.set(app, users, config.hostname);
-    api.set(app, games);
-});
 
 
 
@@ -43,8 +33,17 @@ app.use(express.bodyParser());
 app.use(express.session({ secret: 'keyboard cat' }));
 app.use(express.errorHandler());
 
-
 app.get('/', routes.index);
+
+
+mongodb.connect(config.mongoip, function(err, db) {
+    var users = db.collection('users');
+    var games = db.collection('games');
+    
+    // Creates auth/api endpoints
+    auth.set(app, users, config.hostname, secrets);
+    api.set(app, games);
+});
 
 
 http.createServer(app).listen(app.get('port'), function() {
