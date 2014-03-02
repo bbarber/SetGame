@@ -16,7 +16,6 @@ var mongodb = require('mongodb');
 var app = express();
 
 
-
 // all environments
 app.use(partials());
 app.set('port', 3000);
