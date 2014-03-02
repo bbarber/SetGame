@@ -1,10 +1,11 @@
 var GoogleStrategy = require('passport-google').Strategy;
 
-module.exports.set = function(app, passport) {
+
+module.exports.set = function(app, passport, hostname) {
 
     passport.use(new GoogleStrategy({
-        returnURL: 'http://76.84.45.141/auth/google/return',
-        realm: 'http://76.84.45.141/'
+        returnURL: host + 'auth/google/return',
+        realm: hostname
       },
       function(identifier, profile, done) {
         passport.findOrCreateUser({
@@ -19,6 +20,6 @@ module.exports.set = function(app, passport) {
     app.get('/auth/google/return', passport.authenticate('google', { failureRedirect: '/' }),
       function(req, res) {
         // Successful authentication, redirect home.
-        res.redirect('http://76.84.45.141');
+        res.redirect(hostname);
       });
 };

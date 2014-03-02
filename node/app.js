@@ -7,6 +7,7 @@ var partials = require('express-partials');
 var routes = require('./routes');
 var api = require('./api');
 var auth = require('./auth');
+var config = require('./config');
 var http = require('http');
 var path = require('path');
 var mongodb = require('mongodb');
@@ -15,12 +16,12 @@ var mongodb = require('mongodb');
 var app = express();
 
 
-mongodb.connect('mongodb://127.0.0.1:27017/test', function(err, db) {
+mongodb.connect(config.mongoip, function(err, db) {
     var users = db.collection('users');
     var games = db.collection('games');
     
     // Creates auth/api endpoints
-    auth.set(app, users);
+    auth.set(app, users, config.hostname);
     api.set(app, games);
 });
 
@@ -40,12 +41,7 @@ app.use(express.static(path.join(__dirname, 'public'), {maxAge: 365 * 24 * 60 * 
 app.use(express.cookieParser());
 app.use(express.bodyParser());
 app.use(express.session({ secret: 'keyboard cat' }));
-app.use(app.router);
-
-// development only
-if ('development' === app.get('env')) {
-    app.use(express.errorHandler());
-}
+app.use(express.errorHandler());
 
 
 app.get('/', routes.index);
