@@ -16,8 +16,8 @@ var app = express();
 
 
 mongodb.connect('mongodb://127.0.0.1:27017/test', function(err, db) {
-    var games = db.collection('games');
     var users = db.collection('users');
+    var games = db.collection('games');
     
     // Creates auth/api endpoints
     auth.set(app, users);
@@ -40,8 +40,6 @@ app.use(express.static(path.join(__dirname, 'public'), {maxAge: 365 * 24 * 60 * 
 app.use(express.cookieParser());
 app.use(express.bodyParser());
 app.use(express.session({ secret: 'keyboard cat' }));
-app.use(passport.initialize());
-app.use(passport.session());
 app.use(app.router);
 
 // development only

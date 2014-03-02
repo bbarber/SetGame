@@ -16,8 +16,8 @@ module.exports.set = function(app, passport) {
     }));
 
     
-    app.get('auth/twitter', passport.authenticate('twitter'));
-    app.get('auth/twitter/oauth_callback', passport.authenticate('twitter', {
+    app.get('/auth/twitter', passport.authenticate('twitter'));
+    app.get('/auth/twitter/oauth_callback', passport.authenticate('twitter', {
         successRedirect: '/',
         failureRedirect: '/login'
     }));

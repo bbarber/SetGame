@@ -1,7 +1,10 @@
 var passport = require('passport');
 
-model.exports.set = function(app, users) {
+module.exports.set = function(app, users) {
 
+    app.use(passport.initialize());
+    app.use(passport.session());
+    
     var twitter = require('./twitter.js');
     var facebook = require('./facebook.js');
     var google = require('./google.js');
@@ -23,7 +26,7 @@ model.exports.set = function(app, users) {
     });
     
     // Auth callback functions call this to find/insert user
-    passport.findOrCreateuser = function (user, done) {
+    passport.findOrCreateUser = function (user, done) {
         users.findOne(user, function(err, existingUser) {
             if (existingUser) {
                 done(null, existingUser);

@@ -15,8 +15,8 @@ module.exports.set = function(app, passport) {
       }
     ));
     
-    app.get('auth/twitter', passport.authenticate('google'));
-    app.get('auth/google/return', passport.authenticate('google', { failureRedirect: '/' }),
+    app.get('/auth/google', passport.authenticate('google'));
+    app.get('/auth/google/return', passport.authenticate('google', { failureRedirect: '/' }),
       function(req, res) {
         // Successful authentication, redirect home.
         res.redirect('http://76.84.45.141');

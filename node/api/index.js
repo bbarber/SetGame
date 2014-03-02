@@ -1,6 +1,6 @@
 var seed = require('seed-random');
 
-module.exports.set = function(app) {
+module.exports.set = function(app, games) {
         
     app.get('/api/GetDailySeed/:time', function(req,res) {
         seed(req.params.time, {global: true});
