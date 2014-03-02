@@ -22,6 +22,24 @@ model.exports.set = function(app, users) {
         });
     });
     
+    // Auth callback functions call this to find/insert user
+    passport.findOrCreateuser = function (user, done) {
+        users.findOne(user, function(err, existingUser) {
+            if (existingUser) {
+                done(null, existingUser);
+            }
+            else if(!err) {
+                users.insert(user, function(err, newUser) {
+                    done(null, newUser);
+                });
+            }
+            else {
+                console.error('Error occured while finding user...');
+                console.error(JSON.stringify(err));
+            }
+        });
+    };
+    
     app.get('/logout', function(req, res){
       req.logout();
       res.redirect('/');

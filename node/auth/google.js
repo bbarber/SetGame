@@ -7,8 +7,7 @@ module.exports.set = function(app, passport) {
         realm: 'http://76.84.45.141/'
       },
       function(identifier, profile, done) {
-        console.log(arguments);
-        findOrCreateUser({
+        passport.findOrCreateUser({
             uid: identifier,
             provider: 'google',
             username: profile.name.givenName

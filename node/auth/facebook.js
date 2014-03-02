@@ -8,7 +8,7 @@ module.exports.set = function(app, passport) {
         callbackURL: "/auth/facebook/callback"
       },
       function(accessToken, refreshToken, profile, done) {
-        findOrCreateUser({
+        passport.findOrCreateUser({
             uid: profile.id,
             provider: 'facebook',
             username: profile.username
