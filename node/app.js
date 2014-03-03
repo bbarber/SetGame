@@ -1,17 +1,14 @@
-/**
- * Module dependencies.
- */
 
-var express = require('express');
-var partials = require('express-partials');
-var routes = require('./routes');
-var api = require('./api');
-var auth = require('./auth');
-var config = require('./config');
-var secrets = require('./secrets');
-var http = require('http');
-var path = require('path');
-var mongodb = require('mongodb');
+var express = require('express'),
+    partials = require('express-partials'),
+    routes = require('./routes'),
+    api = require('./api'),
+    auth = require('./auth'),
+    config = require('./config'),
+    secrets = require('./secrets'),
+    http = require('http'),
+    path = require('path'),
+    mongodb = require('mongodb');
 
 var app = express();
 
@@ -36,8 +33,8 @@ app.get('/', routes.index);
 
 
 mongodb.connect(config.mongoip, function(err, db) {
-    var users = db.collection('users');
-    var games = db.collection('games');
+    var users = db.collection('users'),
+        games = db.collection('games');
     
     // Creates auth/api endpoints
     auth.set(app, users, config.hostname, secrets);
