@@ -1,10 +1,5 @@
-var init = function(files) {
-    setgame = {
-        viewModel: {
-            board:[]
-        }
-    };
-
+var load = function(files) {
+    
     for(var i = 0; i < files.length; i++) {
         var path = '../public/js/' + files[i];        
 
@@ -21,9 +16,4 @@ var init = function(files) {
 };
 
 
-var cleanup = function() {
-    
-};
-
-module.exports.init = init;
-module.exports.cleanup = cleanup;
+module.exports.load = load;
