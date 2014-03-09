@@ -1,42 +1,11 @@
-var files = ['engine', 'set-card'];
-var assert = require('assert');
+var assert = require('assert')
+  , test = require('./test-base');
 
-
-var testInit = function() {
-    setgame = {
-        viewModel: {
-            board:[]
-        }
-    };
-    
-    for(var i = 0; i < files.length; i++) {
-        var path = '../public/js/' + files[i];        
-
-        // Clear the module cache if it exists
-        if(require.resolve(path)) {
-            require.cache[require.resolve(path)] = null;
-        }
-        
-        require(path);
-    }    
-    
-    // only loads once, node will cache
-    ko = require('knockout')
-};
-
-
-describe('engine', function() {
-    describe('testme', function() {
-        it('should pass', function(){            
-            assert.equal('Thanks Chad!', 'Thanks Chad!');    
-        })        
-    })
-})
 
 describe('engine', function(){
     describe('file reference', function() {
         it('should load engine module', function(){
-            testInit();
+            test.init(['engine', 'set-card']);
             assert(setgame.engine != null);
         })
     })
@@ -47,7 +16,7 @@ describe('engine', function() {
         it('should create a deck with 81 cards', function() {
             
             // arrange
-            testInit();
+            test.init(['engine', 'set-card']);
             assert.equal(setgame.engine.deck.length, 0);
             
             // act
@@ -64,7 +33,7 @@ describe('engine', function() {
         it('should create board with 12 cards in 3x4 layout', function() {
             
             // arrange
-            testInit();
+            test.init(['engine', 'set-card']);
             assert.equal(setgame.viewModel.board.length, 0);
             
             // act
