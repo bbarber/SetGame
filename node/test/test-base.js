@@ -5,7 +5,7 @@ var load = function(files) {
 
         // Clear the module cache if it exists
         if(require.resolve(path)) {
-            require.cache[require.resolve(path)] = null;
+            delete require.cache[require.resolve(path)];
         }
 
         require(path);
@@ -15,6 +15,9 @@ var load = function(files) {
     ko = require('knockout')
 };
 
+
+// jQuery needs a window/document, so grab what we need instead
+// of pulling in the jQuery npm package and requiring it
 var map = function ( elems, callback, arg ) {
     var value, key,
         ret = [],
