@@ -16,6 +16,7 @@
     "passport-twitter": "~1.0.2",
     "passport-facebook": "~1.0.2",
     "passport-google": "~0.3.0",
-    "mocha": "~1.17.1"
+    "mocha": "~1.17.1",
+    "knockout": "~3.1.0"
   }
 }
