@@ -94,12 +94,12 @@ setgame.game = (function () {
         var fileNames = [];
         for (var i in foundSets) {
             fileNames.push($.map(foundSets[i], function (val) {
-                return val.fileName;
+                return val.fileName();
             }).sort());
         }
 
         var curSetFileNames = $.map(set, function (val, i) {
-            return val.fileName;
+            return val.fileName();
         }).sort();
 
 
