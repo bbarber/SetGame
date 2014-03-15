@@ -12,12 +12,17 @@ setgame.viewModel.LeaderboardVM = (function () {
         $('#leader-' + tab).parent().addClass('active');
         self.leaderBoardTab(tab);
     };
+    
+    setgame.viewModel.currentTab.subscribe(function(tabValue){
+        if(tabValue === 'leaderboard') {
+            self.getAllGames();
+        }
+    });
 
     self.getAllGames = function () {
         $.ajax({            
             url: 'api/GetAllGames',
-            dataType: 'json',
-            async: false,
+            dataType: 'json',            
             success: function (games) {
                 setgame.viewModel.allGames(games);
                 self.todaysGames(getTodays());
@@ -90,8 +95,6 @@ setgame.viewModel.LeaderboardVM = (function () {
         return formatGames(averages);
     }
 
-
-
     function getAverage() {
         var dictionary = [];
         var averages = [];
@@ -129,8 +132,6 @@ setgame.viewModel.LeaderboardVM = (function () {
 
         return formatGames(averages);
     }
-
-
 
     function formatGames(games) {
         var formattedGames = [];

@@ -5,17 +5,17 @@
     data-bind="text: currentTab() === 'practice' ? 'Practice meow' : 'Play meow',
                 css: currentTab() === 'practice' ? 'btn-inverse' : 'btn-success'" 
     onclick="setgame.game.startDailyGame(<%= JSON.stringify(user) %>);">Play meow</a>
-    <div id="login" class="hidden" 
+    <div id="login"
 	data-bind="visible: setgame.viewModel.login() && setgame.viewModel.currentTab() !== 'practice',
 		   foreach: ['Twitter', 'Facebook', 'Google']">
         <span class="btn btn-inverse" data-bind='text: $data, click: function(){ window.location.href = "/auth/" + $data}'></span>
     </div>
 </div>
-<div class="hidden" data-bind="visible: gameState() === 'loading'">
+<div data-bind="visible: gameState() === 'loading'">
     <h1>Set Game</h1>
     <img id="spinner" src="img/ajax-loader.gif" />
 </div>
-<div class="hidden" data-bind="visible: gameState() === 'started'">
+<div data-bind="visible: gameState() === 'started'">
    <div id="board-container">
        <div data-bind="foreach: board">
            <div class="row show-grid" data-bind="foreach: $data">
@@ -45,6 +45,10 @@
            </div>
        </div>
    </div>
+    <!-- used for image caching -->
+    <div data-bind="foreach: setgame.cardsCache()" style="display: none;">
+        <img data-bind="attr:{src: 'img/cards/' + $data}" />
+    </div>
 </div>
 
 

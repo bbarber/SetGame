@@ -1,38 +1,30 @@
-var setgame = (function () {
 
-    var module = {};
+var setgame = {};
 
-    module.viewModel = new function () {
-        var self = this;
+setgame.viewModel = (function () {
 
-        self.currentTab = ko.observable('home');
-        self.gameState = ko.observable('stopped');
-        self.board = ko.observableArray();
-        self.selections = ko.observableArray();
-        self.foundSets = ko.observableArray();
-        self.startTime = ko.observable();
+    var viewModel = {};
+   
+    viewModel.currentTab = ko.observable('home');
+    viewModel.gameState = ko.observable('stopped');
+    viewModel.board = ko.observableArray();
+    viewModel.selections = ko.observableArray();
+    viewModel.foundSets = ko.observableArray();
+    viewModel.startTime = ko.observable();
+    viewModel.score = ko.observable();
+    viewModel.login = ko.observable(false);
+    viewModel.seed = ko.observable();
+    viewModel.wasPractice = ko.observable(false);
+    viewModel.allGames = ko.observableArray();
+    viewModel.LeaderboardVM = {};
 
-        self.score = ko.observable();
-        self.login = ko.observable(false);
-        self.seed = ko.observable();
-        self.wasPractice = ko.observable(false);
-
-        self.allGames = ko.observableArray();
-
-        self.LeaderboardVM = {};
-    }
-
-    return module;
+    return viewModel;
 }());
 
 
 $(function () {
-    setgame.game.getTodaysSeed(
-        function() {
-            // Showtime!
-            ko.applyBindings(setgame.viewModel);
-            $('.hidden').removeClass('hidden');
-        }
-    );
+    // Showtime!
+    ko.applyBindings(setgame.viewModel);
+    $('.hidden').removeClass('hidden');      
 });
 

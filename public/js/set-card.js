@@ -62,6 +62,16 @@ setgame.card = function (piece, numPieces) {
     
 };
 
+setgame.cardsCache = function() {
+    var files = [];
+    for(var i = 1; i <= 3; i++)
+        for(var j = 1; j <= 3; j++)
+            for(var k = 1; k <= 3; k++)
+                for(var l = 1; l <= 3; l++)
+                    files.push(i.toString() + j.toString() + k.toString() + l.toString() + '.png');
+    return files;
+};
+
 Array.prototype.remove = function () {
     var what, a = arguments, L = a.length, ax;
     while (L && this.length) {
