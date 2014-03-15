@@ -11,11 +11,11 @@
         <span class="btn btn-inverse" data-bind='text: $data, click: function(){ window.location.href = "/auth/" + $data}'></span>
     </div>
 </div>
-<div data-bind="visible: gameState() === 'loading'">
+<div class="hidden" data-bind="visible: gameState() === 'loading'">
     <h1>Set Game</h1>
     <img id="spinner" src="img/ajax-loader.gif" />
 </div>
-<div data-bind="visible: gameState() === 'started'">
+<div class="hidden" data-bind="visible: gameState() === 'started'">
    <div id="board-container">
        <div data-bind="foreach: board">
            <div class="row show-grid" data-bind="foreach: $data">
