@@ -1,9 +1,6 @@
 var passport = require('passport');
 
 module.exports.set = function(app, users, hostname, secrets) {
-
-    app.use(passport.initialize());
-    app.use(passport.session());
     
     var twitter = require('./twitter.js');
     var facebook = require('./facebook.js');

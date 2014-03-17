@@ -8,7 +8,8 @@ var express = require('express'),
     secrets = require('./secrets'),
     http = require('http'),
     path = require('path'),
-    mongodb = require('mongodb');
+    mongodb = require('mongodb'),
+    passport = require('passport');
 
 var app = express();
 
@@ -28,6 +29,8 @@ app.use(express.cookieParser());
 app.use(express.bodyParser());
 app.use(express.session({ secret: 'keyboard cat' }));
 app.use(express.errorHandler());
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.get('/', routes.index);
 
