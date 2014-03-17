@@ -8,7 +8,7 @@ module.exports.set = function(app, passport, secret) {
         callbackURL: "/auth/twitter/oauth_callback"
     },
     function(token, tokenSecret, profile, done) {
-        passport.findOrCreateUser({
+        app.findOrCreateUser({
             uid: profile.id,
             provider: 'twitter',
             username: profile.username

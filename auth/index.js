@@ -23,7 +23,7 @@ module.exports.set = function(app, users, hostname, secrets) {
     });
     
     // Auth callback functions call this to find/insert user
-    passport.findOrCreateUser = function (user, done) {
+    app.findOrCreateUser = function (user, done) {
         users.findOne(user, function(err, existingUser) {
             if (existingUser) {
                 done(null, existingUser);

@@ -8,7 +8,7 @@ module.exports.set = function(app, passport, hostname) {
         realm: hostname
       },
       function(identifier, profile, done) {
-        passport.findOrCreateUser({
+        app.findOrCreateUser({
             uid: identifier,
             provider: 'google',
             username: profile.name.givenName
