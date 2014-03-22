@@ -29,9 +29,8 @@ function prettyDate(date_str) {
 		[4730400000, '1 Century'], // 60*60*24*365*100*1.5
     ];
 
-    var time = ('' + date_str).replace(/-/g, "/").replace(/[TZ]/g, " "),
-		dt = new Date,
-		seconds = ((dt - new Date(time) + (dt.getTimezoneOffset() * 60000)) / 1000),
+    var dt = new Date,
+		seconds = ((dt - new Date(date_str) + (dt.getTimezoneOffset() * 60000)) / 1000),
 		token = ' Ago',
 		i = 0,
 		format;
