@@ -35,10 +35,11 @@ setgame.viewModel.LeaderboardVM = (function () {
     };
 
     function getTodays() {
+        
         var array = setgame.viewModel.allGames().filter(function (game) {
             return game.Seed === setgame.viewModel.seed();
         }).sort(function (a, b) {
-            return a.Score - b.Score
+            return a.Score - b.Score;
         });
 
         return formatGames(array);

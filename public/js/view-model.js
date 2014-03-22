@@ -23,8 +23,10 @@ setgame.viewModel = (function () {
 
 
 $(function () {
-    // Showtime!
-    ko.applyBindings(setgame.viewModel);
-    $('.hidden').removeClass('hidden');      
+    setgame.game.getTodaysSeed(function(){        
+        // Showtime!    
+        ko.applyBindings(setgame.viewModel);
+        $('.hidden').removeClass('hidden');      
+    });
 });
 
