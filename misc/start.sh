@@ -2,8 +2,8 @@
 
 pkill -f node
 pkill -f mongod
-rm ~/setgame/node/data/mongod.lock
+rm ~/setgame/data/mongod.lock
 
 
-mongod --dbpath ~/setgame/node/data/ --rest --port 27017 > ~/setgame/node/misc/logs/mongod.log &
-node ~/setgame/node/app.js > ~/setgame/node/misc/logs/node.log &
+mongod --dbpath ~/setgame/data/ --rest --port 27017 > ~/setgame/misc/logs/mongod.log &
+node ~/setgame/app.js > ~/setgame/misc/logs/node.log &
