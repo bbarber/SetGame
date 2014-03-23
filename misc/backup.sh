@@ -1,12 +1,8 @@
-./stop.sh
+#!/bin/bash
 
+date=$(date +"%Y-%m-%d")
+filename="$date.tar.gz"
 
-file='date +%Y-%m-%d'
+#backup the entire data folder
+tar -zcvf $filename /home/pi/setgame/data
 
-
-zip % ~/setgame/data/
-
-./dropbox_uploader.sh upload ~/setgame/data/*
-
-
-./start.sh
