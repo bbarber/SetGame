@@ -4,7 +4,7 @@
 file='date +%Y-%m-%d'
 
 
-zip % ~/setgame/data/
+zip '~/misc/data/ + file' ~/setgame/data/*
 
 ./dropbox_uploader.sh upload ~/setgame/data/*
 
