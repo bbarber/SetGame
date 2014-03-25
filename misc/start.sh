@@ -5,8 +5,8 @@ lastBackup=""
 # Creates a nightly backup of the mongodb files
 while true
 do
-    curDate=`date +"%Y-%m-%d"`
-
+    curDate=`TZ='America/Chicago' date +"%Y-%m-%d"`
+    echo $curDate
     if [ "$curDate" != "$lastBackup" ]
     then
         ./backup.sh
