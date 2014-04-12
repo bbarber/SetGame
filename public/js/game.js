@@ -37,7 +37,6 @@ setgame.game = (function () {
             success: function (seed) {
                 Math.seedrandom(seed);
                 setgame.viewModel.seed(seed);
-                setgame.viewModel.LeaderboardVM.getAllGames();
 
                 callback();
             }
@@ -82,7 +81,6 @@ setgame.game = (function () {
                 url: 'api/Completed/' + game.username + "/" + score + "/" + setgame.viewModel.seed(),
                 dataType: 'json',
                 success: function () {
-			setgame.viewModel.LeaderboardVM.getAllGames()
                 }
             });
         }

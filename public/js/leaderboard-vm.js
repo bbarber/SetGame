@@ -1,5 +1,5 @@
 setgame.viewModel.LeaderboardVM = (function () {
-    var self = this;
+    var self = {};
 
     self.todaysGames = ko.observableArray();
     self.fastestGames = ko.observableArray();
@@ -10,7 +10,12 @@ setgame.viewModel.LeaderboardVM = (function () {
     self.leaderNav = function (tab) {
         $(".leader-nav").removeClass('active');
         $('#leader-' + tab).parent().addClass('active');
-        self.leaderBoardTab(tab);
+        self.leaderBoardTab(tab);        
+        
+
+        if(tab === 'fastest'){self.fastestGames(getFastest());}
+        if(tab === 'average'){self.averageGames(getAverage());}
+        if(tab === 'last30Days'){self.last30Days(getLast30DayAverage());}                   
     };
     
     setgame.viewModel.currentTab.subscribe(function(tabValue){
@@ -20,18 +25,43 @@ setgame.viewModel.LeaderboardVM = (function () {
     });
 
     self.getAllGames = function () {
-        $.ajax({            
-            url: 'api/GetAllGames',
-            dataType: 'json',            
-            success: function (games) {
-                setgame.viewModel.allGames(games);
-                self.todaysGames(getTodays());
-                self.fastestGames(getFastest());
-                self.averageGames(getAverage());
-                self.last30Days(getLast30DayAverage());
-                ninja();
+        
+        $('#leaderboard-container').hide();
+        $(".meter > span").width(0);
+        $('.meter').show();
+        
+        $.ajax({
+             xhr: function(){
+                var xhr = new window.XMLHttpRequest();
+                //Download progress
+                xhr.addEventListener("progress", function(evt){
+                    if (evt.lengthComputable) {
+                        var percentComplete = evt.loaded / evt.total;
+                        var widthPercent = Math.ceil(percentComplete * 100) + '%';
+                        $(".meter > span").animate({
+                            width: widthPercent
+                        }, 800);
+                 }
+               }, false);
+               return xhr;
+             },
+             type: 'GET',
+             url: "/api/GetAllgames",
+             dataType: 'json',
+             success: function(games){
+                $(".meter > span").animate({
+                    width: '100%'
+                }, 800, function(){
+                    $(".meter").fadeOut(function(){
+                        $('#leaderboard-container').fadeIn(function(){
+                            setgame.viewModel.allGames(games);
+                            self.todaysGames(getTodays());                            
+                            ninja();
+                        });
+                    });
+                });
             }
-        });
+         });
     };
 
     function getTodays() {
