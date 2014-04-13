@@ -1,5 +1,5 @@
 		.meter { 
-			height: 3px;
+			height: 6px;
             box-sizing: content-box;
             position: fixed;
             top: 0;
@@ -12,8 +12,8 @@
 			  linear,
 			  left bottom,
 			  left top,
-			  color-stop(0, rgb(43,194,83)),
-			  color-stop(1, rgb(84,240,84))
+			  color-stop(0, #08C),
+			  color-stop(1, #08C)
 			 );
 			background-image: -moz-linear-gradient(
 			  center bottom,

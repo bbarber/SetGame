@@ -3,10 +3,6 @@
     box-sizing: border-box;
 }
 
-.ninja-col
-{
-	color:transparent;
-}
 
 #stats-container
 {
@@ -27,6 +23,17 @@
     {
         text-align: center !important;
     }
+
+.ninja-col 
+{
+  transition: color 0.1s ease;
+  color: transparent;  
+}
+
+tr:hover > .ninja-col
+{
+  color: initial;
+}
 
 #found-label
 {

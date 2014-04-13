@@ -27,7 +27,8 @@ setgame.viewModel.LeaderboardVM = (function () {
     self.getAllGames = function () {
         
         $('#leaderboard-container').hide();
-        $(".meter > span").width(0);
+        $(".meter > span").width('10%');
+        $(".meter > span").height('5px');
         $('.meter').show();
         
         $.ajax({
@@ -50,14 +51,12 @@ setgame.viewModel.LeaderboardVM = (function () {
              dataType: 'json',
              success: function(games){
                 $(".meter > span").animate({
-                    width: '100%'
-                }, 100, function(){
-                    $(".meter").fadeOut(function(){
-                        $('#leaderboard-container').fadeIn(function(){
-                            setgame.viewModel.allGames(games);
-                            self.todaysGames(getTodays());
-                            ninja();
-                        });
+                    width: '100%',
+                    height: 0
+                }, 300, function(){
+                    $('#leaderboard-container').fadeIn(function(){
+                        setgame.viewModel.allGames(games);
+                        self.todaysGames(getTodays());
                     });
                 });
             }
@@ -195,16 +194,6 @@ setgame.viewModel.LeaderboardVM = (function () {
             result += (Math.floor(score % 60) + 's')
 
         return result;
-    }
-
-    function ninja() {
-        $('.ninja-row').hover(
-            function () {
-                $(this).children('.ninja-col').animate({ color: '#333333' }, 200);
-            },
-            function () {
-                $(this).children('.ninja-col').animate({ color: 'transparent' }, 200);
-            });
     }
 
     return self;

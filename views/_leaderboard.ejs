@@ -23,7 +23,7 @@
             </tr>
         </thead>
         <tbody data-bind="foreach: todaysGames()">
-            <tr class="ninja-row">
+            <tr>
                 <td data-bind="text: $index() + 1" class="ninja-col"></td>
                 <td data-bind="text: $data.UserName"></td>
                 <td data-bind="text: $data.Score"></td>
@@ -48,7 +48,7 @@
             </tr>
         </thead>
         <tbody data-bind="foreach: fastestGames()">
-            <tr class="ninja-row">
+            <tr>
                 <td data-bind="text: $index() + 1" class="ninja-col"></td>
                 <td data-bind="text: $data.UserName"></td>
                 <td data-bind="text: $data.Score"></td>
@@ -75,7 +75,7 @@
             </tr>
         </thead>
         <tbody data-bind="foreach: averageGames()">
-            <tr class="ninja-row">
+            <tr>
                 <td data-bind="text: $index() + 1" class="ninja-col"></td>
                 <td data-bind="text: $data.UserName"></td>
                 <td data-bind="text: $data.Score"></td>
@@ -100,7 +100,7 @@
             </tr>
         </thead>
         <tbody data-bind="foreach: last30Days()">
-            <tr class="ninja-row">
+            <tr>
                 <td data-bind="text: $index() + 1" class="ninja-col"></td>
                 <td data-bind="text: $data.UserName"></td>
                 <td data-bind="text: $data.Score"></td>
