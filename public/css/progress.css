@@ -1,9 +1,9 @@
 		.meter { 
-			height: 30px;
-			position: relative;
+			height: 3px;
             box-sizing: content-box;
-            border: 1px solid #ddd;
-            padding: 1px;
+            position: fixed;
+            top: 0;
+            width: 100%;
 		}
 		.meter > span {
 			display: block;

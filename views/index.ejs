@@ -14,6 +14,10 @@
 
 <body>
 
+    <div class="meter">
+	   <span style="width: 0%"></span>
+    </div>
+    
     <div class="container" data-bind="with: setgame.viewModel">
         <%- partial('_header', {user: user}) %>
         <hr>
@@ -29,8 +33,6 @@
         <div class="jumbotron hidden" data-bind="visible: setgame.viewModel.currentTab() === 'leaderboard'">
             <%- partial('_leaderboard') %>
         </div>
-
-        <hr>
     </div>
 
 

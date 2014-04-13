@@ -40,22 +40,22 @@ setgame.viewModel.LeaderboardVM = (function () {
                         var widthPercent = Math.ceil(percentComplete * 100) + '%';
                         $(".meter > span").animate({
                             width: widthPercent
-                        }, 800);
+                        }, 100);
                  }
                }, false);
                return xhr;
              },
              type: 'GET',
-             url: "/api/GetAllgames",
+             url: "/api/GetAllGames",
              dataType: 'json',
              success: function(games){
                 $(".meter > span").animate({
                     width: '100%'
-                }, 800, function(){
+                }, 100, function(){
                     $(".meter").fadeOut(function(){
                         $('#leaderboard-container').fadeIn(function(){
                             setgame.viewModel.allGames(games);
-                            self.todaysGames(getTodays());                            
+                            self.todaysGames(getTodays());
                             ninja();
                         });
                     });
