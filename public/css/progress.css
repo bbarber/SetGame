@@ -17,8 +17,8 @@
 			 );
 			background-image: -moz-linear-gradient(
 			  center bottom,
-			  rgb(43,194,83) 37%,
-			  rgb(84,240,84) 69%
+			  rgb(0,136,204) 37%,
+			  rgb(0,136,204) 69%
 			 );
 			position: relative;
 			overflow: hidden;
@@ -47,8 +47,7 @@
 			      transparent
 			   );
 			z-index: 1;
-			-webkit-background-size: 50px 50px;
-			-moz-background-size: 50px 50px;
+			background-size: 50px 50px;
 			-webkit-animation: move 2s linear infinite;
 			overflow: hidden;
 		}
