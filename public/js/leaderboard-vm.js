@@ -47,7 +47,7 @@ setgame.viewModel.LeaderboardVM = (function () {
                return xhr;
              },
              type: 'GET',
-             url: "/api/GetAllGames",
+             url: "/api/GetAllGames/100",
              dataType: 'json',
              success: function(games){
                 $(".meter > span").animate({

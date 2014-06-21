@@ -14,8 +14,14 @@ module.exports.set = function(app, games) {
     });
     
     
-    app.get('/api/GetAllGames', function(req, res){
-        games.find({}).toArray(function(err, doc){
+    app.get('/api/GetAllGames/:max', function(req, res){
+        
+        var max = parseInt(req.params.max || 0, 10);
+        
+        games.find({})
+             .sort({Score:1})
+             .limit(max)
+             .toArray(function(err, doc){
             res.send(doc);
         });
     });
