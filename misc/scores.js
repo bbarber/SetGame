@@ -1,4 +1,30 @@
 // This is for initial import or seed data for testing locally
+
+// Polyfill for older version of mongo
+if ( !Date.prototype.toISOString ) {
+  ( function() {
+    
+    function pad(number) {
+      if ( number < 10 ) {
+        return '0' + number;
+      }
+      return number;
+    }
+ 
+    Date.prototype.toISOString = function() {
+      return this.getUTCFullYear() +
+        '-' + pad( this.getUTCMonth() + 1 ) +
+        '-' + pad( this.getUTCDate() ) +
+        'T' + pad( this.getUTCHours() ) +
+        ':' + pad( this.getUTCMinutes() ) +
+        ':' + pad( this.getUTCSeconds() ) +
+        '.' + (this.getUTCMilliseconds() / 1000).toFixed(3).slice(2, 5) +
+        'Z';
+    };
+  
+  }() );
+}
+
 db.games.insert([    
     { UserName: '_Branden'	, Score:    102.412	, DatePlayed: new Date('2013-01-21T00:36:21.397').toISOString()	, Seed:     'null'},
     { UserName: '_Branden'	, Score:    153.18	, DatePlayed: new Date('2013-01-21T19:11:03.627').toISOString()	, Seed:     'null'},
