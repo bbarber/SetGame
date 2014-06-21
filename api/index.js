@@ -18,11 +18,12 @@ module.exports.set = function(app, games) {
         
         var max = parseInt(req.params.max || 0, 10);
         
-        games.find({})
-             .sort({Score:1})
-             .limit(max)
-             .toArray(function(err, doc){
-            res.send(doc);
+        games.find({}).toArray(function(err, doc){
+            var sortedGames = doc.sort(function(g1, g2){
+                return parseFloat(g1.Score, 10) -  parseFloat(g2.Score, 10);
+            });
+            
+            res.send(sortedGames.slice(0, max));
         });
     });
     
