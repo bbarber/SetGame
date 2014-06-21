@@ -47,7 +47,7 @@ setgame.viewModel.LeaderboardVM = (function () {
                return xhr;
              },
              type: 'GET',
-             url: "/api/GetAllGames/200",
+             url: "/api/GetAllGames",
              dataType: 'json',
              success: function(games){
                 $(".meter > span").animate({
@@ -68,7 +68,7 @@ setgame.viewModel.LeaderboardVM = (function () {
         var array = setgame.viewModel.allGames().filter(function (game) {
             return game.Seed === setgame.viewModel.seed();
         }).sort(function (a, b) {
-            return a.Score - b.Score;
+            return parseFloat(a.Score, 10) - parseFloat(b.Score, 10)
         });
 
         return formatGames(array);
@@ -76,10 +76,10 @@ setgame.viewModel.LeaderboardVM = (function () {
 
     function getFastest() {
         var array = setgame.viewModel.allGames().sort(function (a, b) {
-            return a.Score - b.Score
+            return parseFloat(a.Score, 10) - parseFloat(b.Score, 10)
         });
 
-        return formatGames(array);
+        return formatGames(array.slice(0, 200));
     }
 
     function getLast30DayAverage() {
