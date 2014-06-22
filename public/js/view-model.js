@@ -23,6 +23,10 @@ setgame.viewModel = (function () {
 
 
 $(function () {
+    
+    // Remove ugly hashbang from oauth redirects
+    history.pushState('', document.title, window.location.pathname);
+    
     setgame.game.getTodaysSeed(function(){        
         // Showtime!    
         ko.applyBindings(setgame.viewModel);
