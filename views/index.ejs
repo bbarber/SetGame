@@ -12,43 +12,28 @@
     <link rel="stylesheet" href="css/progress.css" />
 </head>
 
-<body>
+<body ng-app="setgame">
 
     <div class="meter">
 	   <span style="width: 0%"></span>
     </div>
     
-    <div class="container" data-bind="with: setgame.viewModel">
-        <%- partial('_header', {user: user}) %>
-        <hr>
-
-        <div class="jumbotron" data-bind="visible: setgame.viewModel.currentTab() === 'home' || setgame.viewModel.currentTab() === 'practice'">
-            <%- partial('_home', {user: user}) %>
-        </div>
-
-        <div class="jumbotron hidden" data-bind="visible: setgame.viewModel.currentTab() === 'stats'">
-            <%- partial('_stats') %>
-        </div>
-
-        <div class="jumbotron hidden" data-bind="visible: setgame.viewModel.currentTab() === 'leaderboard'">
-            <%- partial('_leaderboard') %>
-        </div>
+    <div class="container" ng-view>
     </div>
 
 
     <!-- Keep scripts at bottom to improve load times -->
-    <script src="//code.jquery.com/jquery-2.0.3.min.js"></script>
-    <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
-    <script src="//ajax.aspnetcdn.com/ajax/knockout/knockout-3.0.0.js"></script>
-
-    <script type="text/javascript" src="js/pretty.js"></script>
-    <script type="text/javascript" src="js/view-model.js"></script>
-    <script type="text/javascript" src="js/leaderboard-vm.js"></script>
-
-    <script type="text/javascript" src="js/set-card.js"></script>
-    <script type="text/javascript" src="js/engine.js"></script>
-    <script type="text/javascript" src="js/game.js"></script>
-    <script type="text/javascript" src="js/seedrandom.js"></script>
+    
+    <!-- Eventually these will use the minified versions -->
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.19/angular.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.19/angular-route.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.19/angular-resource.js"></script>
+    
+    <script type="text/javascript" src="js/app.js"></script>
+    <script type="text/javascript" src="js/controllers/home-controller.js"></script>
+    
+    <script type="text/javascript" src="js/lib/pretty.js"></script>
+    <script type="text/javascript" src="js/lib/seedrandom.js"></script>
 
     <script>
         (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -56,7 +41,7 @@
         m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
         })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-        ga('create', 'UA-48446604-1', '76.84.45.141');
+        ga('create', 'UA-48446604-1', 'setga.me');
         ga('send', 'pageview');
     </script>
 

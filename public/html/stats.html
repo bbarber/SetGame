@@ -1,0 +1,9 @@
+<h1>Stats</h1>
+<div id="score" data-bind="if: score() > 0">
+    <h3>Last Score </h3>
+    <h3 data-bind="visible: Math.floor((score() / 60)) > 0, text: Math.floor((score() / 60)) + 'm '"></h3>
+    <h3 data-bind="visible: Math.floor((score() % 60)) > 0, text: Math.floor((score() % 60)) + 's'"></h3>
+</div>
+<a class="btn btn-inverse" onclick="setgame.game.practiceMeow()" data-bind="visible: wasPractice" >Play again</a>
+
+
