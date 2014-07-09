@@ -8,10 +8,10 @@
         </li>
 	</ul>
 	<ul class="nav nav-pills pulls-right">
-		<li class="active"><a>Home</a></li>
-		<li><a>Practice</a></li>
-		<li><a>Stats</a></li>					
-        <li><a>Leaderboard</a></li>
+		<li ng-class="{active: isHome}"><a>Home</a></li>
+		<li ng-class="{active: isPractice}"><a>Practice</a></li>
+		<li ng-class="{active: isStats}"><a>Stats</a></li>					
+        <li ng-class="{active: isLeaderboard}"><a>Leaderboard</a></li>
 	</ul>
 </div>
 
