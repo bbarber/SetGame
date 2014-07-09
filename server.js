@@ -32,7 +32,7 @@ app.use(express.errorHandler());
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.get('/', routes.index);
+app.get('/*', routes.index);
 
 
 mongodb.connect(config.mongoip, function(err, db) {
