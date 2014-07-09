@@ -12,5 +12,8 @@ setgame.config(['$routeProvider', '$locationProvider',
         $routeProvider.when('/', {
             templateUrl: 'html/home.html',
             controller: 'HomeController'
-        }) 
+        });
+        
+        $locationProvider.html5Mode(true);
+        $locationProvider.hashPrefix('!');
 }]);

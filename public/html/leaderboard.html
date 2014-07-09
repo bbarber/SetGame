@@ -1,13 +1,13 @@
-<div id="leaderboard-container" data-bind="with: LeaderboardVM">
+<div id="leaderboard-container">
 
     <ul class="nav nav-tabs">
-        <li class="leader-nav active"><a id="leader-today" data-bind="click: function () { leaderNav('today') }">Today's Puzzle</a></li>
-        <li class="leader-nav"><a id="leader-fastest" data-bind="click: function () { leaderNav('fastest') }">Fastest Time</a></li>
-        <li class="leader-nav"><a id="leader-average" data-bind="click: function () { leaderNav('average') }">Average Time</a></li>
-        <li class="leader-nav"><a id="leader-last30Days" data-bind="click: function () { leaderNav('last30Days') }">Last 30 Days</a></li>
+        <li class="leader-nav active"><a id="leader-today">Today's Puzzle</a></li>
+        <li class="leader-nav"><a id="leader-fastest">Fastest Time</a></li>
+        <li class="leader-nav"><a id="leader-average">Average Time</a></li>
+        <li class="leader-nav"><a id="leader-last30Days">Last 30 Days</a></li>
     </ul>
 
-    <table class="table table-striped" data-bind="visible: leaderBoardTab() == 'today'">
+    <table class="table table-striped">
         <thead>
             <tr>
                 <td></td>
@@ -22,17 +22,17 @@
                 </td>
             </tr>
         </thead>
-        <tbody data-bind="foreach: todaysGames()">
+        <tbody>
             <tr>
-                <td data-bind="text: $index() + 1" class="ninja-col"></td>
-                <td data-bind="text: $data.UserName"></td>
-                <td data-bind="text: $data.Score"></td>
-                <td data-bind="text: $data.DatePlayed"></td>
+                <td class="ninja-col"></td>
+                <td></td>
+                <td></td>
+                <td></td>
             </tr>
         </tbody>
     </table>
 
-    <table class="table table-striped" data-bind="visible: leaderBoardTab() == 'fastest'">
+    <table class="table table-striped">
         <thead>
             <tr>
                 <td></td>
@@ -47,17 +47,17 @@
                 </td>
             </tr>
         </thead>
-        <tbody data-bind="foreach: fastestGames()">
+        <tbody>
             <tr>
-                <td data-bind="text: $index() + 1" class="ninja-col"></td>
-                <td data-bind="text: $data.UserName"></td>
-                <td data-bind="text: $data.Score"></td>
-                <td data-bind="text: $data.DatePlayed"></td>
+                <td class="ninja-col"></td>
+                <td></td>
+                <td></td>
+                <td></td>
             </tr>
         </tbody>
     </table>
 
-    <table class="table table-striped" data-bind="visible: leaderBoardTab() == 'average'">
+    <table class="table table-striped">
         <thead>
             <tr>
                 <td></td>
@@ -74,17 +74,17 @@
 
             </tr>
         </thead>
-        <tbody data-bind="foreach: averageGames()">
+        <tbody>
             <tr>
-                <td data-bind="text: $index() + 1" class="ninja-col"></td>
-                <td data-bind="text: $data.UserName"></td>
-                <td data-bind="text: $data.Score"></td>
-                <td data-bind="text: $data.GamesPlayed"></td>
+                <td class="ninja-col"></td>
+                <td></td>
+                <td></td>
+                <td></td>
             </tr>
         </tbody>
     </table>
 
-    <table class="table table-striped" data-bind="visible: leaderBoardTab() == 'last30Days'">
+    <table class="table table-striped">
         <thead>
             <tr>
                 <td></td>
@@ -99,12 +99,12 @@
                 </td>
             </tr>
         </thead>
-        <tbody data-bind="foreach: last30Days()">
+        <tbody>
             <tr>
-                <td data-bind="text: $index() + 1" class="ninja-col"></td>
-                <td data-bind="text: $data.UserName"></td>
-                <td data-bind="text: $data.Score"></td>
-                <td data-bind="text: $data.GamesPlayed"></td>
+                <td class="ninja-col"></td>
+                <td></td>
+                <td></td>
+                <td></td>
             </tr>
         </tbody>
     </table>
