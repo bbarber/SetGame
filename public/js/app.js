@@ -5,8 +5,7 @@ var setgame = angular.module('setgame', [
     'ngResource'    
 ]);
 
-setgame.config(
-['$routeProvider', '$locationProvider', function ($routeProvider, $locationProvider) {
+setgame.config(['$routeProvider', '$locationProvider', function ($routeProvider, $locationProvider) {
         
     $routeProvider.when('/', {
         templateUrl: 'html/home.html',
