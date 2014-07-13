@@ -1,5 +1,4 @@
-*
-{
+* {
     box-sizing: border-box;
 }
 
@@ -7,236 +6,134 @@ html {
     overflow-y: scroll;
 }
 
-#stats-container
-{
-    border: 1px solid #ddd;
-    border-radius: 5px;
-}
 
-    #stats-container table
-    {
-    }
-
-.table
-{
+.table {
     margin: 0 auto;
 }
 
-    .table th, .table td
-    {
+    .table th, .table td {
         text-align: center !important;
     }
 
-.ninja-col
-{
-  color: transparent;
+.ninja-col {
+    color: transparent;
 }
 
-tr:hover .ninja-col
-{
-  color: initial;
+tr:hover .ninja-col {
+    color: initial;
 }
 
-#found-label
-{
-    font-size:20px;
+#found-label {
+    font-size: 20px;
 }
 
-.hidden
-{
+.hidden {
     display: none;
 }
 
-#board-container
-{
+#board-container {
     display: inline-block;
 }
 
-    #board-container .card
-    {
+    #board-container .card {
         width: 92px;
         height: 65px;
         margin: 4px 10px;
     }
 
-    #board-container .selected
-    {
+    #board-container .selected {
         border: 1px solid #08C;
     }
 
-.found-card
-{
+.found-card {
     width: 46px;
     height: 32px;
 }
 
-#spinner
-{
+#spinner {
     margin-bottom: 34px;
 }
 
-.dropdown-h3
-{
+.dropdown-h3 {
     width: 110%;
     text-align: center;
 }
 
-ul h3:hover
-{
+ul h3:hover {
     background-color: #EEE;
     border-radius: 5px;
 }
 
-#setsfound
-{
+#setsfound {
     display: table;
     margin-top: -50px;
 }
 
-#score
-{
+
+#score h3 {
+    display: inline;
 }
 
-    #score h3
-    {
-        display: inline;
-    }
-    
-    #score a
-    {
-        margin-top: 20px;
-        font-size: 20px;
-    }
+#score a {
+    margin-top: 20px;
+    font-size: 20px;
+}
 
-#login
-{
+#login {
     margin-top: 20px;
 }
 
-    #login span
-    {
+    #login span {
         margin: 2px;
     }
-       
-.nav>li>a
-{
+
+.nav > li > a {
     -webkit-border-radius: 0;
     -moz-border-radius: 0;
     border-radius: 0;
     cursor: pointer;
 }
-.pulls-right
-{
-    float:right;
+
+.pulls-right {
+    float: right;
 }
 
-.pulls-left
-{
-    float:left;
+.pulls-left {
+    float: left;
 }
 
-hr
-{
+hr {
     clear: both;
 }
 
-.btn-large
-{
+.btn-large {
     font-size: 20px;
-    margin-top:20px;
+    margin-top: 20px;
 }
 
-body
-{
+body {
     padding-top: 20px;
     padding-bottom: 40px;
     font-family: 'Roboto', sans-serif;
     font-weight: 400 !important;
-    min-width: 470px
+    min-width: 470px;
 }
 
-/* Custom container */
-.container-narrow
-{
-    margin: 0 auto;
-    max-width: 700px;
-}
 
-    .container-narrow > hr
-    {
-        margin: 20px 0;
-    }
-
-/* Main marketing message and sign up button */
-.jumbotron
-{
+.jumbotron {
     margin: 60px 0;
     text-align: center;
 }
 
-    .jumbotron h1
-    {
+    .jumbotron h1 {
         font-size: 72px;
         font-weight: 100;
         line-height: 1;
         letter-spacing: -3px;
     }
 
-    .jumbotron a
-    {
+    .jumbotron a {
         padding: 14px 24px;
     }
-
-/* Supporting marketing content */
-.marketing
-{
-    margin: 60px 0;
-    height: 96px;
-}
-
-    .marketing p + h4
-    {
-        margin-top: 28px;
-    }
-
-.dropdown-menu {
-    margin:0
-}
-
-
-/* Flatten das boostrap */
-.well, 
-.navbar-inner, 
-.popover, 
-.btn, 
-.tooltip, 
-input, 
-select, 
-textarea, 
-pre, 
-.progress, 
-.modal, 
-.add-on, 
-.alert, 
-.table-bordered, 
-.nav>.active>a, 
-.dropdown-menu, 
-.tooltip-inner, 
-.badge, 
-.label, 
-.img-polaroid,
-.nav-pills .dropdown-menu
-{
-       -moz-box-shadow: none;
-	-webkit-box-shadow: none;
-	        box-shadow: none;
-	-webkit-border-radius: 0;
-	   -moz-border-radius: 0;
-	        border-radius: 0;
-	border-collapse: collapse;
-	background-image: none;
-}
-
-
 
 
