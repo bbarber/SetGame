@@ -1,11 +1,16 @@
 * {
     box-sizing: border-box;
+    -webkit-user-select: none;
+    user-select: none;
 }
 
 html {
     overflow-y: scroll;
 }
 
+h1, h2, h3 {
+    cursor: default;
+}
 
 .table {
     margin: 0 auto;
@@ -45,6 +50,7 @@ tr:hover .ninja-col {
         border: 1px solid #08C;
     }
 
+
 .found-card {
     width: 46px;
     height: 32px;
@@ -72,6 +78,8 @@ ul h3:hover {
 
 #score h3 {
     display: inline;
+    -webkit-user-select:text;
+    user-select: text;
 }
 
 #score a {
@@ -135,5 +143,3 @@ body {
     .jumbotron a {
         padding: 14px 24px;
     }
-
-

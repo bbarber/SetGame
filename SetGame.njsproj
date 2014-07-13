@@ -23,6 +23,7 @@
     <Content Include="README.md" />
     <Compile Include="config.js" />
     <Compile Include="public\js\directives\progress.js" />
+    <Compile Include="public\js\lib\analytics.js" />
     <Compile Include="server.js" />
     <Compile Include="api\index.js" />
     <Compile Include="auth\facebook.js" />
