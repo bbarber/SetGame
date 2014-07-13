@@ -4,8 +4,13 @@ setgame.directive('sgHeader', function() {
     return {
         restrict: 'E',
         templateUrl: 'html/header.html',
+        replace: true,
         controller: ['$scope', '$location', function($scope, $location) {
-            
+
+            // Select home on page load
+            $scope.isHome = true;
+
+
             $scope.$on('$locationChangeStart', function () {
                 var path = $location.path();
                 

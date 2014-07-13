@@ -5,38 +5,36 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>SetGame</title>
     <meta name="viewport" content="width=780, user-scalable=no">
-    
+
     <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet">
     <link href='//fonts.googleapis.com/css?family=Roboto:400,100' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="css/site.css" />
     <link rel="stylesheet" href="css/progress.css" />
 </head>
 
-<body ng-app="setgame">
+<body ng-app="setgame">    
 
-    <div class="meter">
-	   <span style="width: 0%"></span>
-    </div>
-    
-    <sg-header></sg-header>
-    
-    <div class="container" ng-view>
+	<sg-progress></sg-progress>
+
+    <div class="container">
+        <sg-header></sg-header>
+        <ng-view></ng-view>
     </div>
 
 
     <!-- Keep scripts at bottom to improve load times -->
-    
     <!-- Eventually these will use the minified versions -->
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.19/angular.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.19/angular-route.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.19/angular-resource.js"></script>
-    
+
     <script type="text/javascript" src="js/app.js"></script>
     <script type="text/javascript" src="js/controllers/home-controller.js"></script>
     <script type="text/javascript" src="js/controllers/stats-controller.js"></script>
     <script type="text/javascript" src="js/controllers/leaderboard-controller.js"></script>
-    <script type="text/javascript" src="js/directives/sg-header.js"></script>
-    
+    <script type="text/javascript" src="js/directives/header.js"></script>
+    <script type="text/javascript" src="js/directives/progress.js"></script>
+
     <script type="text/javascript" src="js/lib/pretty.js"></script>
     <script type="text/javascript" src="js/lib/seedrandom.js"></script>
 

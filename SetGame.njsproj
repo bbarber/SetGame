@@ -17,9 +17,11 @@
   <PropertyGroup Condition="'$(Configuration)' == 'Release'" />
   <ItemGroup>
     <Content Include="package.json" />
+    <Content Include="public\html\progress.html" />
     <Content Include="secrets.json" />
     <Content Include="README.md" />
     <Compile Include="config.js" />
+    <Compile Include="public\js\directives\progress.js" />
     <Compile Include="server.js" />
     <Compile Include="api\index.js" />
     <Compile Include="auth\facebook.js" />
@@ -122,7 +124,7 @@
     <Compile Include="public\js\controllers\home-controller.js" />
     <Compile Include="public\js\controllers\leaderboard-controller.js" />
     <Compile Include="public\js\controllers\stats-controller.js" />
-    <Compile Include="public\js\directives\sg-header.js" />
+    <Compile Include="public\js\directives\header.js" />
     <Compile Include="public\js\lib\pretty.js" />
     <Compile Include="public\js\lib\seedrandom.js" />
   </ItemGroup>
