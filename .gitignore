@@ -13,6 +13,11 @@ lib-cov
 pids
 logs
 results
+
+#Visaul Studio Files
+*.suo
+obj
+
  
 node_modules
 npm-debug.log

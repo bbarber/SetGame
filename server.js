@@ -32,8 +32,6 @@ app.use(express.errorHandler());
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.get('/*', routes.index);
-
 
 mongodb.connect(config.mongoip, function(err, db) {
     var users = db.collection('users'),
@@ -42,6 +40,10 @@ mongodb.connect(config.mongoip, function(err, db) {
     // Creates auth/api endpoints
     auth.set(app, users, config.hostname, secrets);
     api.set(app, games);
+    
+    // Have the catch-all route after the api routes
+    // so we can use angular routing on the client
+    app.get('/*', routes.index);
 });
 
 
