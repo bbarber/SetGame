@@ -12,10 +12,7 @@ setgame.viewModel.LeaderboardVM = (function () {
         $('#leader-' + tab).parent().addClass('active');
         self.leaderBoardTab(tab);        
         
-
-        if(tab === 'fastest'){self.fastestGames(getFastest());}
-        if(tab === 'average'){self.averageGames(getAverage());}
-        if(tab === 'last30Days'){self.last30Days(getLast30DayAverage());}                   
+            
     };
     
     setgame.viewModel.currentTab.subscribe(function(tabValue){
@@ -27,7 +24,7 @@ setgame.viewModel.LeaderboardVM = (function () {
     self.getAllGames = function () {
         
         $('#leaderboard-container').hide();
-        $(".meter > span").width('10%');
+        $(".meter > span").width('0%');
         $(".meter > span").height('5px');
         $('.meter').show();
         
@@ -47,7 +44,7 @@ setgame.viewModel.LeaderboardVM = (function () {
                return xhr;
              },
              type: 'GET',
-             url: "/api/GetAllGames",
+             url: "/api/GetLeaderboard/" + setgame.game.getToday(),
              dataType: 'json',
              success: function(games){
                 $(".meter > span").animate({
@@ -56,113 +53,17 @@ setgame.viewModel.LeaderboardVM = (function () {
                 }, 300, function(){
                     $('#leaderboard-container').fadeIn(function(){
                         setgame.viewModel.allGames(games);
-                        self.todaysGames(getTodays());
+                        self.todaysGames(formatGames(games.Today));
+                        self.fastestGames(formatGames(games.Fastest));
+                        self.averageGames(formatGames(games.Average));
+                        self.last30Days(formatGames(games.MonthAverage));
                     });
                 });
             }
          });
     };
 
-    function getTodays() {
-        
-        var array = setgame.viewModel.allGames().filter(function (game) {
-            return game.Seed === setgame.viewModel.seed();
-        }).sort(function (a, b) {
-            return parseFloat(a.Score, 10) - parseFloat(b.Score, 10)
-        });
-
-        return formatGames(array);
-    }
-
-    function getFastest() {
-        var array = setgame.viewModel.allGames().sort(function (a, b) {
-            return parseFloat(a.Score, 10) - parseFloat(b.Score, 10)
-        });
-
-        return formatGames(array.slice(0, 200));
-    }
-
-    function getLast30DayAverage() {
-
-        var dictionary = [];
-        var averages = [];
-
-        var games = setgame.viewModel.allGames().filter(function (game) { 
-            return new Date(game.DatePlayed) > new Date(new Date() - 2592000000);
-        });
-
-        $.each(games, function (i, game) {
-            dictionary[game.UserName] = dictionary[game.UserName] == null
-                ? game.Score
-                : dictionary[game.UserName] + "," + game.Score;
-        });
-
-        for (var i in dictionary) {
-            if (dictionary.hasOwnProperty(i)) {
-                var times = dictionary[i].toString().split(',');
-                var username = i;
-
-                var sum = 0.0;
-                $.each(times, function (j, time) {
-                    sum += parseFloat(time);
-                });
-
-                var average = sum / times.length;
-
-
-                averages.push({
-                    UserName: username,
-                    Score: average,
-                    GamesPlayed: times.length
-                });
-            }
-        } // End for loop
-
-        averages.sort(function (a, b) {
-            return parseFloat(a.Score) - parseFloat(b.Score);
-        });
-
-        return formatGames(averages);
-    }
-
-    function getAverage() {
-        var dictionary = [];
-        var averages = [];
-
-        $.each(setgame.viewModel.allGames(), function (i, game) {
-            dictionary[game.UserName] = dictionary[game.UserName] == null
-                ? game.Score
-                : dictionary[game.UserName] + "," + game.Score;
-        });
-
-        for (var i in dictionary) {
-            if (dictionary.hasOwnProperty(i)) {
-                var times = dictionary[i].toString().split(',');
-                var username = i;
-
-                var sum = 0.0;
-                $.each(times, function (j, time) {
-                    sum += parseFloat(time);
-                });
-
-                var average = sum / times.length;
-
-
-                averages.push({
-                    UserName: username,
-                    Score: average,
-                    GamesPlayed: times.length
-                });
-            }
-        } // End for loop
-
-        averages.sort(function (a, b) {
-            return parseFloat(a.Score) - parseFloat(b.Score);
-        });
-
-        return formatGames(averages);
-    }
-
+    
     function formatGames(games) {
         var formattedGames = [];
         $.each(games, function (i, game) {
@@ -171,7 +72,9 @@ setgame.viewModel.LeaderboardVM = (function () {
                 UserName: game.UserName,
                 Score: game.Score != null ? formatScore(game.Score) : null,
                 DatePlayed: game.DatePlayed != null ? formatDate(game.DatePlayed) : null,
-                GamesPlayed: game.GamesPlayed != null ? game.GamesPlayed : null
+                GamesPlayed: game.GamesPlayed != null ? game.GamesPlayed : null,
+                Fastest: game.Fastest != null ? formatScore(game.Fastest) : null,
+                Average: game.Average != null ? formatScore(game.Average) : null,
             });
         });
 

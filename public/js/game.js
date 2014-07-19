@@ -42,6 +42,14 @@ setgame.game = (function () {
             }
         });
     }
+    
+    game.getToday = function() {
+      // Caclulate offset milliseconds, so we can use local time
+        var offset = new Date().getTimezoneOffset() * 1000 * 60;
+        var today = Math.floor((Date.now() - offset) / 1000 / 60 / 60 / 24);  
+        
+        return today;
+    };
 
     game.checkIfValidSet = function (set) {
 

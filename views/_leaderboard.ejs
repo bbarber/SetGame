@@ -68,6 +68,9 @@
                     <h5>Average Time</h5>
                 </td>
                 <td>
+                    <h5>Fastest Time</h5>
+                </td>
+                <td>
                     <h5>Games Played</h5>
                 </td>
 
@@ -78,7 +81,8 @@
             <tr>
                 <td data-bind="text: $index() + 1" class="ninja-col"></td>
                 <td data-bind="text: $data.UserName"></td>
-                <td data-bind="text: $data.Score"></td>
+                <td data-bind="text: $data.Average"></td>
+                <td data-bind="text: $data.Fastest"></td>
                 <td data-bind="text: $data.GamesPlayed"></td>
             </tr>
         </tbody>
@@ -103,7 +107,7 @@
             <tr>
                 <td data-bind="text: $index() + 1" class="ninja-col"></td>
                 <td data-bind="text: $data.UserName"></td>
-                <td data-bind="text: $data.Score"></td>
+                <td data-bind="text: $data.Average"></td>
                 <td data-bind="text: $data.GamesPlayed"></td>
             </tr>
         </tbody>
