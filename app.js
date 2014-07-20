@@ -1,15 +1,15 @@
 
 var express = require('express'),
-    partials = require('express-partials'),
-    routes = require('./routes'),
-    api = require('./api'),
-    auth = require('./auth'),
-    config = require('./config'),
+   partials = require('express-partials'),
+     routes = require('./routes'),
+        api = require('./api'),
+       auth = require('./auth'),
+     config = require('./config'),
     secrets = require('./secrets'),
-    http = require('http'),
-    path = require('path'),
+       http = require('http'),
+       path = require('path'),
     mongodb = require('mongodb'),
-    passport = require('passport');
+   passport = require('passport');
 
 var app = express();
 
@@ -27,7 +27,7 @@ app.use(express.methodOverride());
 app.use(express.static(path.join(__dirname, 'public'), {maxAge: 365 * 24 * 60 * 60 * 1000}));
 app.use(express.cookieParser());
 app.use(express.bodyParser());
-app.use(express.session({ secret: 'keyboard cat' }));
+app.use(express.session({ secret: secrets.session.secret }));
 app.use(express.errorHandler());
 app.use(passport.initialize());
 app.use(passport.session());
