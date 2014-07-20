@@ -6,12 +6,13 @@ setgame.game = (function () {
         if (setgame.viewModel.currentTab() === 'practice') {
             game.start();
         }
-        else if (user == null) {
+        else if (!user) {
             setgame.viewModel.login(true);
         }
         else {
             setgame.viewModel.login(false);
             game.username = user ? user.username : null;
+            localStorage['hero'] = localStorage['hero'] || game.username || user;
             game.start();
         }
     }
@@ -20,8 +21,7 @@ setgame.game = (function () {
 
         var isPractice = setgame.viewModel.currentTab() === 'practice';
         Math.seedrandom(isPractice ? Date.now() : setgame.viewModel.seed());
-
-        setgame.viewModel.gameState('loading');
+        
         setgame.viewModel.gameState('started');
         setgame.engine.initializeBoard();
         setgame.viewModel.startTime(new Date().getTime());
@@ -42,6 +42,14 @@ setgame.game = (function () {
             }
         });
     }
+    
+    game.getToday = function() {
+      // Caclulate offset milliseconds, so we can use local time
+        var offset = new Date().getTimezoneOffset() * 1000 * 60;
+        var today = Math.floor((Date.now() - offset) / 1000 / 60 / 60 / 24);  
+        
+        return today;
+    };
 
     game.checkIfValidSet = function (set) {
 

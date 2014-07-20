@@ -18,6 +18,11 @@ setgame.viewModel = (function () {
     viewModel.allGames = ko.observableArray();
     viewModel.LeaderboardVM = {};
 
+    viewModel.logout = function() {
+        localStorage.clear();
+        window.location = '/logout';
+    };
+    
     return viewModel;
 }());
 
