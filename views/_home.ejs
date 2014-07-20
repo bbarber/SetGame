@@ -5,7 +5,7 @@
     data-bind="text: currentTab() === 'practice' ? 'Practice meow' : 'Play meow',
                 css: currentTab() === 'practice' ? 'btn-inverse' : 'btn-success'" 
     onclick="setgame.game.startDailyGame(localStorage['hero'] || <%= JSON.stringify(user) %>);">Play meow</a>
-    <div id="login"
+    <div id="login" class="hidden"
 	data-bind="visible: setgame.viewModel.login() && setgame.viewModel.currentTab() !== 'practice',
 		   foreach: ['Twitter', 'Facebook', 'Google']">
         <span class="btn btn-inverse" data-bind='text: $data, click: function(){ window.location.href = "/auth/" + $data}'></span>
