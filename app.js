@@ -44,6 +44,9 @@ mongodb.connect(config.mongoip, function(err, db) {
     api.set(app, games);
 });
 
+process.on('uncaughtException', function(err) {
+  console.error('Uncaught exception: ' + err);
+});
 
 http.createServer(app).listen(app.get('port'), function() {
     console.log('Express server listening on port ' + app.get('port'));
