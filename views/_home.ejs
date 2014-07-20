@@ -4,7 +4,7 @@
     <a class="btn btn-large btn-success" 
     data-bind="text: currentTab() === 'practice' ? 'Practice meow' : 'Play meow',
                 css: currentTab() === 'practice' ? 'btn-inverse' : 'btn-success'" 
-    onclick="setgame.game.startDailyGame(<%= JSON.stringify(user) %>);">Play meow</a>
+    onclick="setgame.game.startDailyGame(localStorage['hero'] || <%= JSON.stringify(user) %>);">Play meow</a>
     <div id="login"
 	data-bind="visible: setgame.viewModel.login() && setgame.viewModel.currentTab() !== 'practice',
 		   foreach: ['Twitter', 'Facebook', 'Google']">
