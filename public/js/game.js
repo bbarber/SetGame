@@ -13,6 +13,7 @@ setgame.game = (function () {
             setgame.viewModel.login(false);
             game.username = user ? user.username : null;
             localStorage['hero'] = localStorage['hero'] || game.username || user;
+            game.username = localStorage['hero'];
             game.start();
         }
     }
