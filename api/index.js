@@ -16,43 +16,41 @@ module.exports.set = function(app, games) {
     
     app.get('/api/GetLeaderboard/:time', function(req, res) {
         games.find({}).toArray(function(err, doc){
+            
+            
             var seed = getDailySeed(req.params.time);
-            
-            
-            
-            
-            var todays = doc.filter(function(game){
-                return game.Seed === seed;
-            }).map(gameFormat);
-            
-            
-            var fastest = doc.sort(function(a, b){
+            var games = doc.sort(function(a, b) {
                 return parseFloat(a.Score) - parseFloat(b.Score);
-            }).slice(0, 200).map(gameFormat);
+            });
+            
+            var todays = games.filter(function(game){
+                return game.Seed === seed;
+            }).map(gameFormat);            
+            
+            var fastest = games.slice(0, 200).map(gameFormat);
             
 
             var userGames = {};
             var lastMonthGames = {};
             
-            for(var i = 0; i < doc.length; i++) {
+            for(var i = 0; i < games.length; i++) {
                 
                 var msPerDay = 24 * 60 * 60 * 1000;
-                var diffDays = (new Date() - new Date(doc[i].DatePlayed)) / msPerDay
+                var diffDays = (new Date() - new Date(games[i].DatePlayed)) / msPerDay
 
-                if(!(doc[i].UserName in userGames))
-                    userGames[doc[i].UserName] = [doc[i]];
+                if(!(games[i].UserName in userGames))
+                    userGames[games[i].UserName] = [games[i]];
                 else
-                    userGames[doc[i].UserName].push(doc[i]);
+                    userGames[games[i].UserName].push(games[i]);
                 
                 
                 if(diffDays <= 30) {
-                   if(!(doc[i].UserName in lastMonthGames))
-                        lastMonthGames[doc[i].UserName] = [doc[i]];
+                   if(!(games[i].UserName in lastMonthGames))
+                        lastMonthGames[games[i].UserName] = [games[i]];
                     else
-                        lastMonthGames[doc[i].UserName].push(doc[i]);
+                        lastMonthGames[games[i].UserName].push(games[i]);
                 }                
-            }
-            
+            }           
             
             
             var averages = getAverage(userGames);
@@ -122,7 +120,9 @@ module.exports.set = function(app, games) {
                 });
             }
            
-        return averages;
+        return averages.sort(function(a, b){
+            return a.Average - b.Average;
+        });
     }
     
     function getDailySeed(time) {
@@ -138,9 +138,10 @@ module.exports.set = function(app, games) {
     
     function gameFormat(game){
         return {
-                UserName: game.UserName,
-                Score: game.Score,
-                DatePlayed: game.DatePlayed
+            UserName: game.UserName,
+            Score: game.Score,
+            DatePlayed: game.DatePlayed,
+            Seed: game.Seed
         };        
     }
     
