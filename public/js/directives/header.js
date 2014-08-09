@@ -1,14 +1,12 @@
 'use strict';
 
-setgame.directive('sgHeader', function () {
+setgame.directive('sgHeader', ['common', function (common) {
     return {
         restrict: 'E',
         templateUrl: 'html/header.html',
         replace: true,
         controller: ['$scope', '$location', function ($scope, $location) {
-            $scope.isCurrentPath = function (path) {
-                return $location.path().toLowerCase() === path.toLowerCase();
-            };
+            $scope.isCurrentPath = common.isCurrentPath;
         }]
     };
-});
+}]);
