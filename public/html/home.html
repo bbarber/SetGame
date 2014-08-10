@@ -1,5 +1,5 @@
 
 <div id="home" class="jumbotron">
     <h1>Set Game</h1>
-    <button type="button" class="btn btn-large" ng-class="{'btn-success' : isFoRealz, 'btn-inverse': !isFoRealz}">{{ isFoRealz ? 'Play' : 'Practice'}} meow</button>
+    <button type="button" class="btn btn-large btn-success" ng-class="{'btn-inverse': isPractice}" ng-click="start()">{{ isPractice ? 'Practice' : 'Play'}} meow</button>
 </div>
