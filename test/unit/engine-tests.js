@@ -3,8 +3,9 @@
 describe('engine-service', function() {
     beforeEach(angular.mock.module('setgame'));
 
-    describe('should exist', function() {
-        it('should return full deck', inject(function(engine) {
+
+    describe('module', function() {
+        it('should exist', inject(function(engine) {
             should.exist(engine);
         }));
     });
