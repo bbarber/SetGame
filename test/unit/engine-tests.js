@@ -1,12 +1,12 @@
 'use strict';
 
-describe('service', function() {
+describe('engine-service', function() {
     beforeEach(angular.mock.module('setgame'));
 
-
-    describe('engine', function() {
+    describe('should exist', function() {
         it('should return full deck', inject(function(engine) {
-            console.log("herro??");
+            console.log(chai == null);
+            should.exist(engine);
         }));
     });
 

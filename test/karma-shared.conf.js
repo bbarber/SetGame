@@ -22,6 +22,10 @@ module.exports = function() {
       'public/js/directives/*.js',
       'public/js/services/*.js',
       'public/js/constants/*.js',
+
+       //Test-Specific Code
+      'node_modules/chai/chai.js',
+      'test/lib/chai.js'
     ]
   }
 };
