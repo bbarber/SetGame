@@ -5,7 +5,6 @@ describe('engine-service', function() {
 
     describe('should exist', function() {
         it('should return full deck', inject(function(engine) {
-            console.log(chai == null);
             should.exist(engine);
         }));
     });

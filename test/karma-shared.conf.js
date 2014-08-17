@@ -25,7 +25,13 @@ module.exports = function() {
 
        //Test-Specific Code
       'node_modules/chai/chai.js',
-      'test/lib/chai.js'
+      'test/lib/chai.js',
+
+      //extra testing code
+      'bower_components/angular-mocks/angular-mocks.js',
+
+      //mocha stuff
+      'test/mocha.conf.js'
     ]
   }
 };

@@ -74,6 +74,11 @@ module.exports = function(grunt) {
       },
       e2e_auto: {
         configFile: './test/karma-e2e.conf.js'
+      },
+      travis: {
+        configFile: './test/karma-travis.conf.js',
+        autoWatch: false,
+        singleRun: true
       }
     },
 
@@ -130,4 +135,7 @@ module.exports = function(grunt) {
 
   //server daemon
   grunt.registerTask('serve', ['connect:webserver']);
+
+  //travic-ci
+  grunt.registerTask('test:travis', ['karma:travis']);
 };
