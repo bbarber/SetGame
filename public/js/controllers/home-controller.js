@@ -1,13 +1,8 @@
 'use strict';
 
-setgame.controller('HomeController', ['$scope', '$location', 'common', function ($scope, $location, common) {
+setgame.controller('HomeController', ['$scope', '$location', 'common', 'game', function ($scope, $location, common, game) {
 
     $scope.isPractice = common.isCurrentPath('/practice');
-    $scope.start = start;
-
-    function start(){
-        common.isPractice = $scope.isPractice;
-        console.log(common.isPractice);
-    }
+    $scope.start = game.start;
 
 }]);

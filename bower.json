@@ -1,0 +1,10 @@
+{
+  "name": "setgame",
+  "dependencies": {
+    "bootstrap.css": "2.3.2",
+    "angular": "1.2.19",
+    "angular-route": "1.2.19",
+    "angular-resource": "1.2.19",
+    "angular-mocks": "1.2.19",
+  }
+}
