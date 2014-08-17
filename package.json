@@ -1,10 +1,10 @@
 {
-  "name": "application-name",
+  "name": "setgame",
   "version": "0.0.1",
   "private": true,
   "scripts": {
     "start": "node server.js",
-    "test": "grunt travis"
+    "test": "grunt test:travis"
   },
   "dependencies": {
     "angular": "^1.2.21",
