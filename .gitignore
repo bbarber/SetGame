@@ -9,7 +9,7 @@ lib-cov
 *.lock
 *.0
 *.ns
- 
+
 pids
 logs
 results
@@ -18,8 +18,10 @@ results
 *.suo
 obj
 
- 
+
 node_modules
+bower_components
+
 npm-debug.log
 data
 *.*~
