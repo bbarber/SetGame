@@ -6,7 +6,6 @@ describe('e2e', function() {
 
     describe('todo', function() {
         it('should return full deck', function() {
-            console.log("todo...");
         });
     });
 
