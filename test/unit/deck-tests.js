@@ -12,7 +12,7 @@ describe('deck-service', function() {
 
 
     describe('getDeck', function() {
-        it('should have 81 cards', inject(function(deck){
+        it('should have exactly 81 cards', inject(function(deck){
             var deck = deck.getDeck();
             deck.should.have.length(81);
         }));
@@ -26,7 +26,7 @@ describe('deck-service', function() {
             deck1.should.equal(deck2);
         }));
 
-        it('should have 27 of each attribute cards', inject(function(deck, card){
+        it('should have exactly 27 of each attribute cards', inject(function(deck, card){
             var deck = deck.getDeck();
 
             var red    = deck.filter(function(c){return c.color === card.color.red});

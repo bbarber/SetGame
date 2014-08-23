@@ -52,6 +52,11 @@ setgame.factory('engine', ['deck', 'card', function(deck, card) {
     }
 
     function isValidSet(cards) {
+
+        // Make sure they're three different cards
+        if(!isUnique(cards))
+            return false;
+
         for(var attr in card) {
 
             // Look at each attribute, and see if they're
@@ -79,6 +84,23 @@ setgame.factory('engine', ['deck', 'card', function(deck, card) {
         return values[0] !== values[1]
             && values[0] !== values[2]
             && values[1] !== values[2];
+    }
+
+    function isUnique(cards) {
+        for(var i = 0; i < cards.length - 1; i++) {
+            for(var j = i + 1; j < cards.length; j++) {
+
+                // If any of the cards are the same, they're not unique
+                var isSame = cards[i].color  === cards[j].color
+                          && cards[i].fill   === cards[j].fill
+                          && cards[i].shape  === cards[j].shape
+                          && cards[i].number === cards[j].number
+
+                if(isSame) return false;
+            }
+        }
+
+        return true;
     }
 
 
