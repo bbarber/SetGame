@@ -67,6 +67,10 @@ module.exports = function(grunt) {
         options: {
           spawn: false
         }
+      },
+      assets: {
+        files: ['public/**'],
+        tasks: ['test:travis']
       }
     }
 
