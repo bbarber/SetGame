@@ -36,16 +36,15 @@ app.use(passport.session());
 mongodb.connect(config.mongoip, function(err, db) {
     var users = db.collection('users'),
         games = db.collection('games');
-    
+
     // Creates auth/api endpoints
     auth.set(app, users, config.hostname, secrets);
     api.set(app, games);
-    
+
     // Have the catch-all route after the api routes
     // so we can use angular routing on the client
     app.get('/*', routes.index);
 });
-
 
 http.createServer(app).listen(app.get('port'), function() {
     console.log('Express server listening on port ' + app.get('port'));

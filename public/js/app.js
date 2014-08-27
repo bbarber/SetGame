@@ -2,11 +2,11 @@
 
 var setgame = angular.module('setgame', [
     'ngRoute',
-    'ngResource'    
+    'ngResource'
 ]);
 
 setgame.config(['$routeProvider', '$locationProvider', function ($routeProvider, $locationProvider) {
-        
+
     $routeProvider.when('/', {
         templateUrl: 'html/home.html',
         controller: 'HomeController'
@@ -26,8 +26,8 @@ setgame.config(['$routeProvider', '$locationProvider', function ($routeProvider,
     .otherwise({
         redirectTo: '/'
     });
-    
-    
+
+
     $locationProvider.html5Mode(true);
     $locationProvider.hashPrefix('!');
 }]);

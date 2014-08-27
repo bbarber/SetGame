@@ -6,10 +6,11 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-contrib-connect');
   grunt.loadNpmTasks('grunt-karma');
+  grunt.loadNpmTasks('grunt-express-server');
 
   grunt.initConfig({
     shell: {
-      options : {
+      options: {
         stdout: true
       },
       npm_install: {
@@ -20,38 +21,9 @@ module.exports = function(grunt) {
       }
     },
 
-    connect: {
-      options: {
-        base: 'public/'
-      },
-      webserver: {
-        options: {
-          port: 8888,
-          keepalive: true
-        }
-      },
-      devserver: {
-        options: {
-          port: 8888
-        }
-      },
-      testserver: {
-        options: {
-          port: 9999
-        }
-      },
-      coverage: {
-        options: {
-          base: 'coverage/',
-          port: 5555,
-          keepalive: true
-        }
-      }
-    },
-
     open: {
       devserver: {
-        path: 'http://localhost:8888'
+        path: 'http://localhost:3000'
       },
       coverage: {
         path: 'http://localhost:5555'
@@ -64,16 +36,10 @@ module.exports = function(grunt) {
         autoWatch: false,
         singleRun: true
       },
-      unit_auto: {
-        configFile: './test/karma-unit.conf.js'
-      },
       e2e: {
         configFile: './test/karma-e2e.conf.js',
         autoWatch: false,
         singleRun: true
-      },
-      e2e_auto: {
-        configFile: './test/karma-e2e.conf.js'
       },
       travis: {
         configFile: './test/karma-travis.conf.js',
@@ -82,60 +48,43 @@ module.exports = function(grunt) {
       }
     },
 
-    watch: {
-      assets: {
-        files: ['public/css/*.css','public/js/**/*.js'],
-        tasks: ['concat']
+    express: {
+      options: {
+        // Override defaults here
+      },
+      dev: {
+        options: {
+          script: 'server.js',
+          port: 3000
+        }
       }
     },
 
-    concat: {
-      styles: {
-        dest: './public/assets/app.css',
-        src: [
-          'bower_components/bootstrap.css/css/bootstrap.css',
-          'public/css/flat.css',
-          'public/css/progress.css',
-          'public/css/site.css'
-        ]
-      },
-      scripts: {
+    watch: {
+      express: {
+        files: ['server.js', 'api/**', 'auth/**', 'routes/**', 'views/**'],
+        tasks: ['express:dev'],
         options: {
-          separator: ';'
-        },
-        dest: './public/assets/app.js',
-        src: [
-          'bower_components/angular/angular.js',
-          'bower_components/angular-route/angular-route.js',
-          'bower_components/angular-route/angular-resource.js',
-          'public/js/lib/*.js',
-          'public/js/app.js',
-          'public/js/constants/*.js',
-          'public/js/controllers/*.js',
-          'public/js/directives/*.js',
-          'public/js/services/*.js',
-          'public/js/constants/*.js'
-        ]
+          spawn: false
+        }
       }
     }
+
+
   });
 
-  grunt.registerTask('test', ['connect:testserver','karma:unit', 'karma:e2e']);
+  grunt.registerTask('test', ['karma:unit', 'karma:e2e']);
   grunt.registerTask('test:unit', ['karma:unit']);
-  grunt.registerTask('test:e2e', ['connect:testserver', 'karma:e2e']);
+  grunt.registerTask('test:e2e', ['karma:e2e']);
+  grunt.registerTask('test:travis', ['karma:travis']);
 
   //installation-related
-  grunt.registerTask('install', ['shell:npm_install','shell:bower_install']);
+  grunt.registerTask('install', ['shell:npm_install', 'shell:bower_install']);
 
   //defaults
   grunt.registerTask('default', ['dev']);
 
   //development
-  grunt.registerTask('dev', ['install', 'concat', 'connect:devserver', 'open:devserver', 'watch:assets']);
+  grunt.registerTask('dev', ['install', 'express:dev', 'open:devserver', 'watch']);
 
-  //server daemon
-  grunt.registerTask('serve', ['connect:webserver']);
-
-  //travic-ci
-  grunt.registerTask('test:travis', ['karma:travis']);
 };
