@@ -3,7 +3,7 @@
 setgame.controller('HomeController', ['$scope', 'common', 'engine', 'user', 'GameApi',
   function($scope, common, engine, user, GameApi) {
 
-    $scope.isPractice = common.isCurrentPath('/practice');
+    $scope.isPractice = common.isPractice();
     $scope.seed = null;
 
 
@@ -17,6 +17,8 @@ setgame.controller('HomeController', ['$scope', 'common', 'engine', 'user', 'Gam
 
 
     $scope.start = function() {
+      console.log('starting..');
+
       if ($scope.isPractice || user.isLoggedIn) {
         $scope.board = engine.createBoard();
       }
