@@ -41,8 +41,8 @@ module.exports = function(grunt) {
         autoWatch: false,
         singleRun: true
       },
-      travis: {
-        configFile: './test/karma-travis.conf.js',
+      headless: {
+        configFile: './test/karma-headless.conf.js',
         autoWatch: false,
         singleRun: true
       }
@@ -71,6 +71,10 @@ module.exports = function(grunt) {
       assets: {
         files: ['public/**'],
         tasks: ['test:travis']
+      },
+      unittests: {
+        files: ['test/unit/**/*.js'],
+        tasks: ['test:headless']
       }
     }
 
@@ -80,7 +84,7 @@ module.exports = function(grunt) {
   grunt.registerTask('test', ['karma:unit', 'karma:e2e']);
   grunt.registerTask('test:unit', ['karma:unit']);
   grunt.registerTask('test:e2e', ['karma:e2e']);
-  grunt.registerTask('test:travis', ['karma:travis']);
+  grunt.registerTask('test:headless', ['karma:headless']);
 
   //installation-related
   grunt.registerTask('install', ['shell:npm_install', 'shell:bower_install']);
