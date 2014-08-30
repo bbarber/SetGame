@@ -8,7 +8,7 @@ setgame.factory('GameApi', ['$resource', function ($resource) {
 
   return $resource('', {}, {
     getAllGames: { url: '/api/GetAllGames', isArray: true, },
-    getDailySeed: { url: '/api/GetDailySeed/' + today },
+    getDailySeed: { url: '/api/GetDailySeed/' + today, cache: true },
     saveScore: { url: '/api/Completed/:username/:score' }
   });
 }]);

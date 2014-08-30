@@ -7,6 +7,7 @@ setgame.controller('HomeController', ['$scope', 'common', 'engine', 'user', 'Gam
     $scope.seed = null;
 
 
+
     GameApi.getDailySeed(function(seed) {
       $scope.seed = seed;
     });

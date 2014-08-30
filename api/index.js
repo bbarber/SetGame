@@ -2,18 +2,6 @@ var seed = require('seed-random');
 
 module.exports.set = function(app, games) {
 
-    app.get('/api/GetDailySeed/:time', function(req,res) {
-        seed(req.params.time, {global: true});
-
-        var r1 = Math.random().toFixed(10).substr(2);
-        var r2 = Math.random().toFixed(10).substr(2);
-        var r3 = Math.random().toFixed(10).substr(2);
-        var r4 = Math.random().toFixed(10).substr(2);
-
-        res.send({seed: r1 + r2 + r3 + r4});
-    });
-
-
     app.get('/api/GetAllGames', function(req, res){
         games.find({}).toArray(function(err, doc){
             res.send(doc);

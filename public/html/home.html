@@ -1,9 +1,18 @@
 <div id="home" class="jumbotron">
-  <h1>Set Game</h1>
-  <sg-meow-btn></sg-meow-btn>
 
-  <sg-board></sg-board>
+  <h1 ng-hide="isStarted">Set Game</h1>
 
-  <sg-found-sets></sg-found-sets>
+  <button type="button" class="btn btn-large btn-success" ng-class="{'btn-inverse': isPractice}" ng-click="start()" ng-hide="isStarted">
+    {{ isPractice ? 'Practice' : 'Play'}} meow
+  </button>
+
+  <div class="board" ng-show="isStarted">
+    board placeholder
+  </div>
+
+  <div class="found-sets" ng-show="isStarted">
+    found sets placeholder
+  </div>
+
 
 </div>
