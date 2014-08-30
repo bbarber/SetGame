@@ -6,8 +6,8 @@ setgame.directive('sgHeader', ['common',
       restrict: 'E',
       templateUrl: 'html/directives/sg-header.html',
       replace: true,
-      controller: ['$scope', '$location',
-        function($scope, $location) {
+      controller: ['$scope',
+        function($scope) {
           $scope.isCurrentPath = common.isCurrentPath;
         }
       ]

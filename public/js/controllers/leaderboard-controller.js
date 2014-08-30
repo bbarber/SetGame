@@ -1,5 +1,7 @@
 'use strict';
 
-setgame.controller('LeaderboardController', ['$scope', function ($scope) {
+setgame.controller('LeaderboardController', ['$scope',
+  function($scope) {
 
-}]);
+  }
+]);

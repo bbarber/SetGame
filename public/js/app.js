@@ -1,33 +1,35 @@
 'use strict';
 
 var setgame = angular.module('setgame', [
-    'ngRoute',
-    'ngResource'
+  'ngRoute',
+  'ngResource'
 ]);
 
-setgame.config(['$routeProvider', '$locationProvider', function ($routeProvider, $locationProvider) {
+setgame.config(['$routeProvider', '$locationProvider',
+  function($routeProvider, $locationProvider) {
 
     $routeProvider.when('/', {
+      templateUrl: 'html/home.html',
+      controller: 'HomeController'
+    })
+      .when('/practice', {
         templateUrl: 'html/home.html',
         controller: 'HomeController'
-    })
-    .when('/practice', {
-        templateUrl: 'html/home.html',
-        controller: 'HomeController'
-    })
-    .when('/stats', {
+      })
+      .when('/stats', {
         templateUrl: 'html/stats.html',
         controller: 'StatsController'
-    })
-    .when('/leaderboard', {
+      })
+      .when('/leaderboard', {
         templateUrl: 'html/leaderboard.html',
         controller: 'LeaderboardController'
-    })
-    .otherwise({
+      })
+      .otherwise({
         redirectTo: '/'
-    });
+      });
 
 
     $locationProvider.html5Mode(true);
     $locationProvider.hashPrefix('!');
-}]);
+  }
+]);
