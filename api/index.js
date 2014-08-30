@@ -1,7 +1,7 @@
 var seed = require('seed-random');
 
 module.exports.set = function(app, games) {
-        
+
     app.get('/api/GetDailySeed/:time', function(req,res) {
         seed(req.params.time, {global: true});
 
@@ -10,16 +10,16 @@ module.exports.set = function(app, games) {
         var r3 = Math.random().toFixed(10).substr(2);
         var r4 = Math.random().toFixed(10).substr(2);
 
-        res.send(r1 + r2 + r3 + r4);
+        res.send({seed: r1 + r2 + r3 + r4});
     });
-    
-    
+
+
     app.get('/api/GetAllGames', function(req, res){
-        games.find({}).toArray(function(err, doc){            
+        games.find({}).toArray(function(err, doc){
             res.send(doc);
         });
     });
-    
+
     app.get('/api/Completed/:username/:score/:seed', function(req, res){
 
         var game = {
@@ -43,6 +43,6 @@ module.exports.set = function(app, games) {
                 console.log('duplicate game, not saving...');
                 res.send('duplicate game');
             }
-        });   
+        });
     });
 };

@@ -70,7 +70,7 @@ module.exports = function(grunt) {
       },
       assets: {
         files: ['public/**'],
-        tasks: ['test:travis']
+        tasks: ['test:headless']
       },
       unittests: {
         files: ['test/unit/**/*.js'],
