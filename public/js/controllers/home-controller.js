@@ -21,6 +21,7 @@ setgame.controller('HomeController', ['$scope', 'common', 'engine', 'user', 'Gam
 
       if ($scope.isPractice || user.isLoggedIn) {
         $scope.board = engine.createBoard();
+        $scope.isStarted = true;
       }
       else {
         // If they want to play non-practice

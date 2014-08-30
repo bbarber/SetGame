@@ -1,10 +1,10 @@
 'use strict';
 
-setgame.directive('sgBoard', [
+setgame.directive('sgFoundSets', [
   function() {
     return {
       restrict: 'E',
-      templateUrl: 'html/directives/sg-board.html',
+      templateUrl: 'html/directives/sg-found-sets.html',
       replace: true
     };
   }

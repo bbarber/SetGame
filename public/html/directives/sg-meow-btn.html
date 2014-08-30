@@ -1,6 +1,7 @@
 <button type="button"
         class="btn btn-large btn-success"
         ng-class="{'btn-inverse': isPractice}"
-        ng-click="start()">
+        ng-click="start()"
+        ng-hide="isStarted">
   {{ isPractice ? 'Practice' : 'Play'}} meow
 </button>
