@@ -20,5 +20,12 @@ setgame.constant('card', {
     one: 1,
     two: 2,
     three: 3
+  },
+  toImg: function(card) {
+    return card.number.toString()
+         + card.color.toString()
+         + card.shape.toString()
+         + card.fill.toString()
+         + '.png';
   }
 });
