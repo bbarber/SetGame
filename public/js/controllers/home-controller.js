@@ -15,13 +15,12 @@ setgame.controller('HomeController', ['$scope', 'common', 'engine', 'user', 'Gam
 
 
     $scope.start = function() {
-      console.log('starting..');
 
       if ($scope.isPractice || user.isLoggedIn) {
 
         var board = engine.createBoard();
 
-        // Format a little easier for the UI
+        // Format a little, easier for the UI
         $scope.board = [
           [board[0], board[1], board[2], board[3]],
           [board[4], board[5], board[6], board[7]],
@@ -42,40 +41,81 @@ setgame.controller('HomeController', ['$scope', 'common', 'engine', 'user', 'Gam
 
     var selectedCards = [];
 
+    $scope.foundSets = [];
+
     $scope.toggleSelection = function(selectedCard) {
       selectedCard.isSelected = !selectedCard.isSelected;
 
-      // Prevent adding the same card twice
-      if (selectedCard.isSelected)
+      if (selectedCard.isSelected) {
         selectedCards.push(selectedCard);
-      else {
+      }
+
+      // Remove the card, if it gets un-selected
+      if(!selectedCard.isSelected) {
         var index = selectedCards.indexOf(selectedCard);
-        console.log('removing ' + index);
         if (index !== -1) {
           selectedCards.splice(index, 1);
-          console.log('after removing arr len ' + selectedCards.length);
         }
-
       }
 
 
       if (selectedCards.length === 3) {
-        console.log(engine.isValidSet(selectedCards));
-        if (engine.isValidSet(selectedCards)) {
-          console.log('valid set, make sure unique!');
-        }
-
+        checkValidity();
         clearSelection();
       }
 
     };
 
     function clearSelection() {
-      console.log('clearing selection')
       angular.forEach(selectedCards, function(c) {
         c.isSelected = false;
       });
       selectedCards = [];
+    }
+
+    function checkValidity() {
+      if(isDuplicateSet(selectedCards)) {
+        alert('duppppp');
+      }
+      else if (!engine.isValidSet(selectedCards)) {
+        alert('not legit');
+      }
+      else {
+        $scope.foundSets.push(selectedCards);
+        alert('wooo');
+      }
+    }
+
+    function isDuplicateSet(selectedCards) {
+
+      var existingSets = [];
+
+      angular.forEach($scope.foundSets, function(foundSet) {
+        existingSets.push(foundSet.map(function(c){
+          return card.toImg(c);
+        }).sort());
+      });
+
+
+      var selected = selectedCards.map(function(c){
+        return card.toImg(c);
+      }).sort();
+
+      // Can't use angular.forEach here since it can't 'break'
+      // (by design it seems) https://github.com/angular/angular.js/issues/263
+      for(var i in existingSets) {
+
+        var existingSet = existingSets[i];
+
+        // At this point, they're sorted, so we can compare directly
+        if(existingSet[0] === selected[0]
+        && existingSet[1] === selected[1]
+        && existingSet[2] === selected[2]) {
+          return true;
+        }
+      };
+
+      return false;
     }
 
   }

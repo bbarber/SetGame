@@ -27,5 +27,11 @@ setgame.constant('card', {
          + card.shape.toString()
          + card.fill.toString()
          + '.png';
+  },
+  equals: function(card1, card2) {
+    return card1.number === card2.number
+        && card1.color === card2.color
+        && card1.shape === card2.shape
+        && card1.fill === card2.fill;
   }
 });
