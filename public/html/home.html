@@ -16,15 +16,34 @@
     </div>
 
 
-    <!--<div data-bind="foreach: board">
-      <div class="row show-grid" data-bind="foreach: $data">
-<img class="span3 card"
- data-bind="attr:{src: 'img/cards/' + fileName()},
-  click: toggleSelection, css: { selected: isSelected }" alt="Oops!" />
+
+    <hr>
+    <div class="row-fluid marketing">
+      <div class="masthead" id="setsfound">
+        <h3 id="found-label" class="muted">Found Sets</h3>
+      </div>
+
+      <div class="span3"></div>
+      <div class="span2">
+        <div class="row" ng-repeat="set1 in foundSets.slice(0,3)">
+          <div class="span4" ng-repeat="card1 in set1">
+            <img class="found-card" ng-src="img/cards/{{toImg(card1)}}" />
+          </div>
+        </div>
+      </div>
+      <div class="span1"></div>
+      <div class="span2">
+        <div class="row" ng-repeat="set2 in foundSets.slice(3,6)">
+          <div class="span4" ng-repeat="card2 in set2">
+            <img class="found-card" ng-src="img/cards/{{toImg(card2)}}" />
+          </div>
+        </div>
       </div>
     </div>
+
+
   </div>
-  <hr>
+  <!--
   <div class="row-fluid marketing">
     <div class="masthead" id="setsfound">
       <h3 id="found-label" class="muted">Found Sets</h3>
@@ -47,9 +66,6 @@
     </div>
   </div>
 -->
-  <div class="found-sets">
-    found sets placeholder
-  </div>
 
 
 

@@ -7,7 +7,7 @@ setgame.controller('HomeController', ['$scope', 'common', 'engine', 'user', 'Gam
 
     GameApi.getDailySeed(function(seed) {
       // If practice, use current time to seed, otherwise use daily seed
-      Math.seedrandom($scope.isPractice ? Date.now() : seed);
+      Math.seedrandom($scope.isPractice ? 42 /*Date.now()*/ : seed);
     });
 
 
@@ -64,6 +64,10 @@ setgame.controller('HomeController', ['$scope', 'common', 'engine', 'user', 'Gam
         clearSelection();
       }
 
+      if($scope.foundSets.length === 6) {
+        alert('winner winner chicken dinner');
+      }
+
     };
 
     function clearSelection() {
@@ -82,7 +86,6 @@ setgame.controller('HomeController', ['$scope', 'common', 'engine', 'user', 'Gam
       }
       else {
         $scope.foundSets.push(selectedCards);
-        alert('wooo');
       }
     }
 
