@@ -1,17 +1,13 @@
 'use strict';
 
-setgame.controller('HomeController', ['$scope', 'common', 'engine', 'user', 'GameApi', 'card',
-  function($scope, common, engine, user, GameApi, card) {
+setgame.controller('HomeController', ['$scope', '$location', '$rootScope', 'common', 'engine', 'user', 'GameApi', 'card',
+  function($scope, $location, $rootScope, common, engine, user, GameApi, card) {
 
     $scope.isPractice = common.isPractice();
+    $scope.seed = parseInt(new Date().getTime() / (1000 * 60 * 60 * 24), 10);
 
-    GameApi.getDailySeed(function(seed) {
-      // If practice, use current time to seed, otherwise use daily seed
-      Math.seedrandom($scope.isPractice ? 42 /*Date.now()*/ : seed);
-    });
-
-
-
+    // If practice, use current time to seed, otherwise use daily seed
+    Math.seedrandom($scope.isPractice ? Date.now() : $scope.seed);
 
 
     $scope.start = function() {
@@ -28,6 +24,7 @@ setgame.controller('HomeController', ['$scope', 'common', 'engine', 'user', 'Gam
         ];
 
         $scope.isStarted = true;
+        $scope.startTime = new Date().getTime();
       } else {
         // If they want to play non-practice
         // they must be logged in first
@@ -51,7 +48,7 @@ setgame.controller('HomeController', ['$scope', 'common', 'engine', 'user', 'Gam
       }
 
       // Remove the card, if it gets un-selected
-      if(!selectedCard.isSelected) {
+      if (!selectedCard.isSelected) {
         var index = selectedCards.indexOf(selectedCard);
         if (index !== -1) {
           selectedCards.splice(index, 1);
@@ -64,8 +61,8 @@ setgame.controller('HomeController', ['$scope', 'common', 'engine', 'user', 'Gam
         clearSelection();
       }
 
-      if($scope.foundSets.length === 6) {
-        alert('winner winner chicken dinner');
+      if ($scope.foundSets.length === 6) {
+        winning();
       }
 
     };
@@ -78,13 +75,11 @@ setgame.controller('HomeController', ['$scope', 'common', 'engine', 'user', 'Gam
     }
 
     function checkValidity() {
-      if(isDuplicateSet(selectedCards)) {
-        alert('duppppp');
-      }
-      else if (!engine.isValidSet(selectedCards)) {
-        alert('not legit');
-      }
-      else {
+      if (isDuplicateSet(selectedCards)) {
+        alert("Already found");
+      } else if (!engine.isValidSet(selectedCards)) {
+        alert('Not valid set');
+      } else {
         $scope.foundSets.push(selectedCards);
       }
     }
@@ -94,31 +89,44 @@ setgame.controller('HomeController', ['$scope', 'common', 'engine', 'user', 'Gam
       var existingSets = [];
 
       angular.forEach($scope.foundSets, function(foundSet) {
-        existingSets.push(foundSet.map(function(c){
+        existingSets.push(foundSet.map(function(c) {
           return card.toImg(c);
         }).sort());
       });
 
 
-      var selected = selectedCards.map(function(c){
+      var selected = selectedCards.map(function(c) {
         return card.toImg(c);
       }).sort();
 
-      // Can't use angular.forEach here since it can't 'break'
-      // (by design it seems) https://github.com/angular/angular.js/issues/263
-      for(var i in existingSets) {
+
+      for (var i in existingSets) {
 
         var existingSet = existingSets[i];
 
         // At this point, they're sorted, so we can compare directly
-        if(existingSet[0] === selected[0]
-        && existingSet[1] === selected[1]
-        && existingSet[2] === selected[2]) {
+        if (existingSet[0] === selected[0] && existingSet[1] === selected[1] && existingSet[2] === selected[2]) {
           return true;
         }
       };
 
       return false;
+    }
+
+    function winning() {
+      var endTime = new Date().getTime();
+      $rootScope.score = (endTime - $scope.startTime) / 1000;
+
+      if (!$scope.isPractice) {
+        GameApi.saveScore({
+          username: 'foo',
+          score: $rootScope.score,
+          seed: $scope.seed
+        });
+      }
+
+      // Navigate to the stats page so they can see their score
+      $location.path('/stats');
     }
 
   }

@@ -2,8 +2,8 @@
     <h1>Stats</h1>
     <div id="score">
         <h3>Last Score </h3>
-        <h3>{{minutes}}m </h3>
-        <h3>{{seconds}}s </h3>
+        <h3 ng-show="mintues">{{minutes}}m </h3>
+        <h3 ng-show="seconds">{{seconds}}s </h3>
     </div>
     <button type="button" class="btn btn-large btn-inverse" ng-hide="isFoRealz">Play again</button>
 </div>

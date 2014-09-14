@@ -2,6 +2,7 @@
 
 setgame.factory('common', ['$location',
   function($location) {
+
     return {
       isCurrentPath: isCurrentPath,
       isPractice: isPractice
