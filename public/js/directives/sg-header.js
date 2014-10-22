@@ -9,6 +9,16 @@ setgame.directive('sgHeader', ['common',
       controller: ['$scope',
         function($scope) {
           $scope.isCurrentPath = common.isCurrentPath;
+          $scope.user = {
+            Name: '_Branden',
+            Id: 124124124124
+          };
+
+          $scope.toggleDropdown = function($event) {
+            $event.preventDefault();
+            $event.stopPropagation();
+          };
+
         }
       ]
     };

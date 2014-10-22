@@ -15,6 +15,7 @@ module.exports = function() {
       'bower_components/angular/angular.js',
       'bower_components/angular-route/angular-route.js',
       'bower_components/angular-resource/angular-resource.js',
+      'bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js',
 
       //App-specific Code
       'public/js/app.js',

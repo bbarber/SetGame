@@ -2,7 +2,8 @@
 
 var setgame = angular.module('setgame', [
   'ngRoute',
-  'ngResource'
+  'ngResource',
+  'ui.bootstrap'
 ]);
 
 setgame.config(['$routeProvider', '$locationProvider',
