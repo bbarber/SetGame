@@ -124,7 +124,7 @@ setgame.controller('HomeController', ['$scope', '$location', '$window', '$rootSc
 
       if (!$scope.isPractice) {
         GameApi.saveScore({
-          username: 'foo',
+          username: localStorage['hero'],
           score: $rootScope.score,
           seed: $scope.seed
         });
