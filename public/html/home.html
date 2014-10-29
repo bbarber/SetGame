@@ -6,6 +6,10 @@
     <button type="button" class="btn btn-large btn-success" ng-class="{'btn-inverse': isPractice}" ng-click="start()">
       {{ isPractice ? 'Practice' : 'Play'}} meow
     </button>
+
+    <div id="login" ng-show="showLogins">
+        <span class="btn btn-inverse" ng-repeat="auth in ['Twitter', 'Facebook', 'Google']" ng-bind="auth" ng-click="login(auth)"</span>
+    </div>
   </div>
 
   <div ng-show="isStarted">

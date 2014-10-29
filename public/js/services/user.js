@@ -2,7 +2,8 @@
 
 setgame.factory('user', function() {
 
-  var isLoggedIn = true;
+  localStorage['hero'] = localStorage['hero'] || hero;
+  var isLoggedIn = !!localStorage['hero'];
 
   return {
     isLoggedIn: isLoggedIn

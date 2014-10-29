@@ -1,11 +1,11 @@
 <div class="masthead">
 
-  <ul class="nav nav-pills pulls-left">
+  <ul class="nav nav-pills pulls-left" ng-show="isLoggedIn">
     <li class="dropdown" on-toggle="toggled(open)">
-      <a href class="dropdown-toggle">Sup, {{user.Name}}</a>
-      <ul class="dropdown-menu">
+      <a href class="dropdown-toggle">Sup, {{user}}</a>
+      <ul class="dropdown-menu nav">
 				<li>
-				<a href="/logout">logout</a>
+				<a ng-click="logout()">logout</a>
 			</li>
       </ul>
     </li>

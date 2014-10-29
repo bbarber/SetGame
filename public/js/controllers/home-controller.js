@@ -1,7 +1,7 @@
 'use strict';
 
-setgame.controller('HomeController', ['$scope', '$location', '$rootScope', 'common', 'engine', 'user', 'GameApi', 'card',
-  function($scope, $location, $rootScope, common, engine, user, GameApi, card) {
+setgame.controller('HomeController', ['$scope', '$location', '$window', '$rootScope', 'common', 'engine', 'user', 'GameApi', 'card',
+  function($scope, $location, $window, $rootScope, common, engine, user, GameApi, card) {
 
     $scope.isPractice = common.isPractice();
     $scope.seed = parseInt(new Date().getTime() / (1000 * 60 * 60 * 24), 10);
@@ -31,6 +31,11 @@ setgame.controller('HomeController', ['$scope', '$location', '$rootScope', 'comm
         $scope.showLogins = true;
       }
     };
+
+    $scope.login = function(auth) {
+      $window.location.href = 'auth/' + auth;
+    };
+
 
     $scope.toImg = function(c) {
       return card.toImg(c);
