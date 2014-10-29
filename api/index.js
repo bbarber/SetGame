@@ -33,4 +33,109 @@ module.exports.set = function(app, games) {
             }
         });
     });
+
+     app.get('/api/GetLeaderboard/:time', function(req, res) {
+        games.find({}).toArray(function(err, doc){
+
+
+            var seed = getDailySeed(req.params.time);
+            var games = doc.sort(function(a, b) {
+                return parseFloat(a.Score) - parseFloat(b.Score);
+            });
+
+            var todays = games.filter(function(game){
+                return game.Seed === seed;
+            }).map(gameFormat);
+
+            var fastest = games.slice(0, 200).map(gameFormat);
+
+
+            var userGames = {};
+            var lastMonthGames = {};
+
+            for(var i = 0; i < games.length; i++) {
+
+                var msPerDay = 24 * 60 * 60 * 1000;
+                var diffDays = (new Date() - new Date(games[i].DatePlayed)) / msPerDay
+
+                if(!(games[i].UserName in userGames))
+                    userGames[games[i].UserName] = [games[i]];
+                else
+                    userGames[games[i].UserName].push(games[i]);
+
+
+                if(diffDays <= 30) {
+                   if(!(games[i].UserName in lastMonthGames))
+                        lastMonthGames[games[i].UserName] = [games[i]];
+                    else
+                        lastMonthGames[games[i].UserName].push(games[i]);
+                }
+            }
+
+
+            var averages = getAverage(userGames);
+            var monthAverages = getAverage(lastMonthGames);
+
+
+            res.send({
+                Today: todays,
+                Fastest: fastest,
+                Average: averages,
+                MonthAverage: monthAverages
+            });
+        })
+    });
+
+
+    function getAverage(userGames) {
+        var averages = [];
+        for(var name in userGames) {
+                var len = userGames[name].length;
+
+
+                var sum = 0;
+                for(var j = 0; j < userGames[name].length; j++){
+                    sum += parseFloat(userGames[name][j].Score);
+                }
+
+
+                var avg = sum / len;
+
+                var quickest = parseFloat(userGames[name].sort(function(a, b){
+                   return parseFloat(a.Score) - parseFloat(b.Score);
+                })[0].Score);
+
+
+                averages.push({
+                    UserName: name,
+                    Fastest: quickest,
+                    Average: avg,
+                    GamesPlayed: len
+                });
+            }
+
+        return averages.sort(function(a, b){
+            return a.Average - b.Average;
+        });
+    }
+
+    function getDailySeed(time) {
+        seed(time, {global: true});
+
+        var r1 = Math.random().toFixed(10).substr(2);
+        var r2 = Math.random().toFixed(10).substr(2);
+        var r3 = Math.random().toFixed(10).substr(2);
+        var r4 = Math.random().toFixed(10).substr(2);
+        [].map(function(){return {}})
+        return r1 + r2 + r3 + r4;
+    }
+
+    function gameFormat(game){
+        return {
+            UserName: game.UserName,
+            Score: game.Score,
+            DatePlayed: game.DatePlayed,
+            Seed: game.Seed
+        };
+    }
 };

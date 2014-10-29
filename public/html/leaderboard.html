@@ -1,10 +1,36 @@
-<div id="leaderboard-container" class="jumbotron">
+<div id="leaderboard-container" class="jumbotron" ng-switch="currentTab">
 
   <ul class="nav nav-tabs">
-    <li class="leader-nav active"><a>Today's Puzzle</a>li>
-    <li class="leader-nav"><a>Fastest Time</a>li>
-    <li class="leader-nav"><a>Average Time</a>li>
-    <li class="leader-nav"><a>Last 30 Days</a>li>
+    <li class="leader-nav active" ng-click="currentTab = 'today'"><a>Today's Puzzle</a><li>
+    <li class="leader-nav" ng-click="currentTab = 'fastest'"><a>Fastest Time</a><li>
+    <li class="leader-nav" ng-click="currentTab = 'average'"><a>Average Time</a><li>
+    <li class="leader-nav" ng-click="currentTab = '30'"><a>Last 30 Days</a><li>
   </ul>
+
+<table class="table table-striped" ng-switch-when="today">
+        <thead>
+            <tr>
+                <td></td>
+                <td>
+                    <h5>User</h5>
+                </td>
+                <td>
+                    <h5>Time</h5>
+                </td>
+                <td>
+                    <h5>Date</h5>
+                </td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="score in data.Today">
+                <td ng-bind="text: $index() + 1" class="ninja-col"></td>
+                <td ng-bind="text: score.UserName"></td>
+                <td ng-bind="text: score.Score"></td>
+                <td ng-bind="text: score.DatePlayed"></td>
+            </tr>
+        </tbody>
+    </table>
+
 
 </div>

@@ -7,7 +7,7 @@ setgame.factory('GameApi', ['$resource', function ($resource) {
   var today = Math.floor((Date.now() - offset) / 1000 / 60 / 60 / 24);
 
   return $resource('', {}, {
-    getAllGames: { url: '/api/GetAllGames', isArray: true, },
+    getLeaderboard: { url: '/api/GetLeaderboard/:time' },
     saveScore: { url: '/api/Completed/:username/:score/:seed', isArray: true }
   });
 }]);
