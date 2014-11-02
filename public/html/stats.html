@@ -1,8 +1,7 @@
 <div id="stats-container" class="jumbotron">
     <h1>Stats</h1>
-    <div id="score">
-        <h3>Last Score </h3>
-        <h3 ng-show="minutes">{{minutes}}m </h3>
-        <h3 ng-show="seconds">{{seconds}}s </h3>
+    <div id="score" ng-show="score">
+        <h3>Last Score</h3>
+        <h3>{{score|makePretty:'score'}}</h3>
     </div>
 </div>

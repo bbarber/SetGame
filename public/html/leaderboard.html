@@ -1,36 +1,95 @@
-<div id="leaderboard-container" class="jumbotron" ng-switch="currentTab">
+<div id="leaderboard-container" class="jumbotron">
 
-  <ul class="nav nav-tabs">
-    <li class="leader-nav active" ng-click="currentTab = 'today'"><a>Today's Puzzle</a><li>
-    <li class="leader-nav" ng-click="currentTab = 'fastest'"><a>Fastest Time</a><li>
-    <li class="leader-nav" ng-click="currentTab = 'average'"><a>Average Time</a><li>
-    <li class="leader-nav" ng-click="currentTab = '30'"><a>Last 30 Days</a><li>
-  </ul>
-
-<table class="table table-striped" ng-switch-when="today">
+  <tabset justified="true">
+    <tab heading="Today's Puzzle">
+      <table class="table table-striped">
         <thead>
-            <tr>
-                <td></td>
-                <td>
-                    <h5>User</h5>
-                </td>
-                <td>
-                    <h5>Time</h5>
-                </td>
-                <td>
-                    <h5>Date</h5>
-                </td>
-            </tr>
+          <tr>
+            <td></td>
+            <td><h5>User</h5></td>
+            <td><h5>Time</h5></td>
+            <td><h5>Date</h5></td>
+          </tr>
         </thead>
         <tbody>
-            <tr ng-repeat="score in data.Today">
-                <td ng-bind="text: $index() + 1" class="ninja-col"></td>
-                <td ng-bind="text: score.UserName"></td>
-                <td ng-bind="text: score.Score"></td>
-                <td ng-bind="text: score.DatePlayed"></td>
-            </tr>
+          <tr ng-repeat="score in data.Today">
+            <td ng-bind="$index + 1" class="ninja-col"></td>
+            <td ng-bind="score.UserName"></td>
+            <td ng-bind="score.Score"></td>
+            <td ng-bind="score.DatePlayed"></td>
+          </tr>
         </tbody>
-    </table>
+      </table>
+    </tab>
+
+
+    <tab heading="Fastest Time">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <td></td>
+            <td><h5>User</h5></td>
+            <td><h5>Time</h5></td>
+            <td><h5>Date</h5></td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="score in data.Fastest">
+            <td ng-bind="$index + 1" class="ninja-col"></td>
+            <td ng-bind="score.UserName"></td>
+            <td ng-bind="score.Score|makePretty:'score'"></td>
+            <td ng-bind="score.DatePlayed|makePretty:'date'"></td>
+          </tr>
+        </tbody>
+      </table>
+    </tab>
+
+    <tab heading="Average Time">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <td></td>
+            <td><h5>User</h5></td>
+            <td><h5>Average Time</h5></td>
+            <td><h5>Fastest Time</h5></td>
+            <td><h5>Games Played</h5></td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="score in data.Average">
+            <td ng-bind="$index + 1" class="ninja-col"></td>
+            <td ng-bind="score.UserName"></td>
+            <td ng-bind="score.Fastest|makePretty:'score'"></td>
+            <td ng-bind="score.Average|makePretty:'score'"></td>
+            <td ng-bind="score.GamesPlayed|makePretty:'date'"></td>
+          </tr>
+        </tbody>
+      </table>
+    </tab>
+
+    <tab heading="Last 30 Days">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <td></td>
+            <td><h5>User</h5></td>
+            <td><h5>Average Time</h5></td>
+            <td><h5>Games Played</h5></td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="score in data.MonthAverage">
+            <td ng-bind="$index + 1" class="ninja-col"></td>
+            <td ng-bind="score.UserName"></td>
+            <td ng-bind="score.Average|makePretty:'score'"></td>
+            <td ng-bind="score.GamesPlayed|makePretty:'date'"></td>
+          </tr>
+        </tbody>
+      </table>
+    </tab>
+  </tabset>
+
+
 
 
 </div>
