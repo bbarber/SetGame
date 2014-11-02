@@ -15,8 +15,8 @@
           <tr ng-repeat="score in data.Today">
             <td ng-bind="$index + 1" class="ninja-col"></td>
             <td ng-bind="score.UserName"></td>
-            <td ng-bind="score.Score"></td>
-            <td ng-bind="score.DatePlayed"></td>
+            <td ng-bind="score.Score|makePretty:'score'"></td>
+            <td ng-bind="score.DatePlayed|makePretty:'date'"></td>
           </tr>
         </tbody>
       </table>
@@ -61,7 +61,7 @@
             <td ng-bind="score.UserName"></td>
             <td ng-bind="score.Fastest|makePretty:'score'"></td>
             <td ng-bind="score.Average|makePretty:'score'"></td>
-            <td ng-bind="score.GamesPlayed|makePretty:'date'"></td>
+            <td ng-bind="score.GamesPlayed"></td>
           </tr>
         </tbody>
       </table>
@@ -82,7 +82,7 @@
             <td ng-bind="$index + 1" class="ninja-col"></td>
             <td ng-bind="score.UserName"></td>
             <td ng-bind="score.Average|makePretty:'score'"></td>
-            <td ng-bind="score.GamesPlayed|makePretty:'date'"></td>
+            <td ng-bind="score.GamesPlayed"></td>
           </tr>
         </tbody>
       </table>

@@ -15,7 +15,7 @@
   <div ng-show="isStarted">
     <div id="board-container">
       <div class="row show-grid" ng-repeat="row in board">
-        <img ng-repeat="card in row" class="span3 card" ng-src="img/cards/{{toImg(card)}}" ng-class="{selected: card.isSelected}" ng-click="toggleSelection(card)"></img>
+        <img ng-repeat="card in row" class="span3 card" ng-src="img/cards/{{toImg(card)}}" ng-class="{selected: card.isSelected}" ng-click="toggleSelection(card)" draggable="false"></img>
       </div>
     </div>
 
@@ -30,7 +30,7 @@
       <div class="span2">
         <div class="row" ng-repeat="set1 in foundSets.slice(0,3)">
           <div class="span4" ng-repeat="card1 in set1">
-            <img class="found-card" ng-src="img/cards/{{toImg(card1)}}" />
+            <img class="found-card" ng-src="img/cards/{{toImg(card1)}}" draggable="false"  />
           </div>
         </div>
       </div>
@@ -38,7 +38,7 @@
       <div class="span2">
         <div class="row" ng-repeat="set2 in foundSets.slice(3,6)">
           <div class="span4" ng-repeat="card2 in set2">
-            <img class="found-card" ng-src="img/cards/{{toImg(card2)}}" />
+            <img class="found-card" ng-src="img/cards/{{toImg(card2)}}" draggable="false" />
           </div>
         </div>
       </div>

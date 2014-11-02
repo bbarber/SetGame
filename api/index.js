@@ -34,16 +34,19 @@ module.exports.set = function(app, games) {
         });
     });
 
-     app.get('/api/GetLeaderboard/:time', function(req, res) {
+     app.get('/api/GetLeaderboard/:seed', function(req, res) {
         games.find({}).toArray(function(err, doc){
 
 
-            var seed = getDailySeed(req.params.time);
+            var seed = req.params.seed;
             var games = doc.sort(function(a, b) {
                 return parseFloat(a.Score) - parseFloat(b.Score);
             });
 
             var todays = games.filter(function(game){
+              console.log(game.Seed);
+              console.log(seed);
+              console.log(game.Seed === seed);
                 return game.Seed === seed;
             }).map(gameFormat);
 
@@ -117,17 +120,6 @@ module.exports.set = function(app, games) {
         return averages.sort(function(a, b){
             return a.Average - b.Average;
         });
-    }
-
-    function getDailySeed(time) {
-        seed(time, {global: true});
-
-        var r1 = Math.random().toFixed(10).substr(2);
-        var r2 = Math.random().toFixed(10).substr(2);
-        var r3 = Math.random().toFixed(10).substr(2);
-        var r4 = Math.random().toFixed(10).substr(2);
-        [].map(function(){return {}})
-        return r1 + r2 + r3 + r4;
     }
 
     function gameFormat(game){
