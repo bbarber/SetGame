@@ -44,9 +44,6 @@ module.exports.set = function(app, games) {
             });
 
             var todays = games.filter(function(game){
-              console.log(game.Seed);
-              console.log(seed);
-              console.log(game.Seed === seed);
                 return game.Seed === seed;
             }).map(gameFormat);
 

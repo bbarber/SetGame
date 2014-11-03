@@ -4,7 +4,8 @@ setgame.controller('HomeController', ['$scope', '$location', '$window', '$rootSc
   function($scope, $location, $window, $rootScope, common, engine, user, GameApi, card) {
 
     $scope.isPractice = common.isPractice();
-    $scope.seed = parseInt(new Date().getTime() / (1000 * 60 * 60 * 24), 10);
+    var offSetHours = new Date().getTimezoneOffset();
+    $scope.seed = parseInt((new Date().getTime() / (1000 * 60)  - offSetHours) / (60 * 24), 10);
 
     // If practice, use current time to seed, otherwise use daily seed
     Math.seedrandom($scope.isPractice ? Date.now() : $scope.seed);
