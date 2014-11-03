@@ -15,12 +15,13 @@ module.exports = function() {
       'bower_components/angular/angular.js',
       'bower_components/angular-route/angular-route.js',
       'bower_components/angular-resource/angular-resource.js',
-      'bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js',
+      'bower_components/angular-bootstrap/ui-bootstrap-tpls.js',
 
       //App-specific Code
       'public/js/app.js',
       'public/js/services/*.js',
       'public/js/directives/*.js',
+      'public/js/filters/*.js',
       'public/js/services/*.js',
       'public/js/constants/*.js',
 
