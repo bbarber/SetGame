@@ -1,0 +1,26 @@
+<div class="masthead">
+
+  <ul class="nav nav-pills pulls-left" ng-show="isLoggedIn">
+    <li class="dropdown" on-toggle="toggled(open)">
+      <a href class="dropdown-toggle">Sup, {{user}}</a>
+      <ul class="dropdown-menu nav">
+				<li>
+				<a ng-click="logout()">logout</a>
+			</li>
+      </ul>
+    </li>
+  </ul>
+
+  <ul class="nav nav-pills pulls-right">
+    <li ng-class="{active: isCurrentPath('/')}"><a ng-href="/">Home</a>
+    </li>
+    <li ng-class="{active: isCurrentPath('/practice')}"><a ng-href="/practice">Practice</a>
+    </li>
+    <li ng-class="{active: isCurrentPath('/stats')}"><a ng-href="/stats">Stats</a>
+    </li>
+    <li ng-class="{active: isCurrentPath('/leaderboard')}"><a ng-href="/leaderboard">Leaderboard</a>
+    </li>
+  </ul>
+
+  <hr>
+</div>

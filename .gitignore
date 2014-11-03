@@ -9,12 +9,19 @@ lib-cov
 *.lock
 *.0
 *.ns
- 
+
 pids
 logs
 results
- 
+
+#Visaul Studio Files
+*.suo
+obj
+
+
 node_modules
+bower_components
+
 npm-debug.log
 data
 *.*~

@@ -1,15 +1,15 @@
 
 var express = require('express'),
-   partials = require('express-partials'),
-     routes = require('./routes'),
-        api = require('./api'),
-       auth = require('./auth'),
-     config = require('./config'),
+    partials = require('express-partials'),
+    routes = require('./routes'),
+    api = require('./api'),
+    auth = require('./auth'),
+    config = require('./config'),
     secrets = require('./secrets'),
-       http = require('http'),
-       path = require('path'),
+    http = require('http'),
+    path = require('path'),
     mongodb = require('mongodb'),
-   passport = require('passport');
+    passport = require('passport');
 
 var app = express();
 
@@ -27,25 +27,23 @@ app.use(express.methodOverride());
 app.use(express.static(path.join(__dirname, 'public'), {maxAge: 365 * 24 * 60 * 60 * 1000}));
 app.use(express.cookieParser());
 app.use(express.bodyParser());
-app.use(express.session({ secret: secrets.session.secret }));
+app.use(express.session({ secret: 'keyboard cat' }));
 app.use(express.errorHandler());
 app.use(passport.initialize());
 app.use(passport.session());
-
-app.get('/', routes.index);
 
 
 mongodb.connect(config.mongoip, function(err, db) {
     var users = db.collection('users'),
         games = db.collection('games');
-    
+
     // Creates auth/api endpoints
     auth.set(app, users, config.hostname, secrets);
     api.set(app, games);
-});
 
-process.on('uncaughtException', function(err) {
-  console.error('Uncaught exception: ' + err);
+    // Have the catch-all route after the api routes
+    // so we can use angular routing on the client
+    app.get('/*', routes.index);
 });
 
 http.createServer(app).listen(app.get('port'), function() {
