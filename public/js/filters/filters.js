@@ -14,8 +14,8 @@ setgame.filter('makePretty', function() {
       var minutes = parseInt(input / 60, 10);
       var seconds = parseInt(input % 60, 10);
 
-      return minutes ? minutes + 'm ' : ''
-           + seconds ? seconds + 's': '';
+      return (minutes ? minutes + 'm ' : '')
+           + (seconds ? seconds + 's ' : '');
     }
   };
 });
