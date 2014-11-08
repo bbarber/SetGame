@@ -137,5 +137,13 @@ setgame.controller('HomeController', ['$scope', '$location', '$window', '$rootSc
       $location.path('/stats');
     }
 
+
+    if($scope.isMultiPlayer) {
+      socket.emit('join lobby');
+    }
+    else {
+
+    }
+
   }
 ]);
