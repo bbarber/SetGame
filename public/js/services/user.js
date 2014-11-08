@@ -2,10 +2,12 @@
 
 setgame.factory('user', function() {
 
-  localStorage['hero'] = localStorage['hero'] || hero;
-  var isLoggedIn = !!localStorage['hero'];
+  var user = {};
 
-  return {
-    isLoggedIn: isLoggedIn
-  };
+  localStorage['hero'] = localStorage['hero'] || hero;
+
+  user.isLoggedIn = !!localStorage['hero']
+  user.currentUser = localStorage['hero'];
+
+  return user;
 });

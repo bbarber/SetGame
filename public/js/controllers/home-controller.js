@@ -1,7 +1,7 @@
 'use strict';
 
-setgame.controller('HomeController', ['$scope', '$location', '$window', '$rootScope', 'common', 'engine', 'user', 'GameApi', 'card',
-  function($scope, $location, $window, $rootScope, common, engine, user, GameApi, card) {
+setgame.controller('HomeController', ['$scope', '$location', '$window', '$rootScope', 'common', 'engine', 'user', 'GameApi', 'card', 'multi',
+  function($scope, $location, $window, $rootScope, common, engine, user, GameApi, card, multi) {
 
     $scope.isPractice = common.isPractice();
     $scope.isMultiPlayer = common.isMultiPlayer();
@@ -139,11 +139,15 @@ setgame.controller('HomeController', ['$scope', '$location', '$window', '$rootSc
 
 
     if($scope.isMultiPlayer) {
-      socket.emit('join lobby');
+      multi.joinLobby();
     }
-    else {
 
-    }
+
+    $scope.$on('$locationChangeSuccess', function() {
+      if(!common.isMultiPlayer()) {
+        multi.leaveLobby();
+      }
+    });
 
   }
 ]);

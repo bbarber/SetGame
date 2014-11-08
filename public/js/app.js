@@ -36,8 +36,5 @@ setgame.config(['$routeProvider', '$locationProvider',
 
     $locationProvider.html5Mode(true);
     $locationProvider.hashPrefix('!');
-
-
-    var socket = io('/', {'transports': ['websocket', 'polling']});
   }
 ]);
