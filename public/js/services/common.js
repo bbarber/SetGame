@@ -5,7 +5,8 @@ setgame.factory('common', ['$location',
 
     return {
       isCurrentPath: isCurrentPath,
-      isPractice: isPractice
+      isPractice: isPractice,
+      isMultiPlayer: isMultiPlayer
     }
 
     function isCurrentPath(path) {
@@ -14,6 +15,10 @@ setgame.factory('common', ['$location',
 
     function isPractice() {
       return isCurrentPath('/practice');
+    }
+
+    function isMultiPlayer() {
+      return isCurrentPath('/multiplayer');
     }
 
   }

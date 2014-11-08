@@ -4,6 +4,8 @@ setgame.controller('HomeController', ['$scope', '$location', '$window', '$rootSc
   function($scope, $location, $window, $rootScope, common, engine, user, GameApi, card) {
 
     $scope.isPractice = common.isPractice();
+    $scope.isMultiPlayer = common.isMultiPlayer();
+
     var offSetHours = new Date().getTimezoneOffset();
     $scope.seed = parseInt((new Date().getTime() / (1000 * 60)  - offSetHours) / (60 * 24), 10);
 

@@ -1,10 +1,10 @@
 <div id="home">
 
   <div ng-hide="isStarted">
-    <h1>Set Game</h1>
+    <h1 ng-hide="isMultiPlayer">Set Game</h1>
 
     <button type="button" class="btn btn-large btn-success" ng-class="{'btn-inverse': isPractice}" ng-click="start()">
-      {{ isPractice ? 'Practice' : 'Play'}} meow
+      {{ isPractice ? 'Practice meow' : isMultiPlayer ? 'Start' : 'Play meow'}}
     </button>
 
     <div id="login" ng-show="showLogins">

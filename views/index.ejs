@@ -51,6 +51,11 @@
   <script type="text/javascript" src="js/lib/pretty.js"></script>
   <script type="text/javascript" src="js/lib/seedrandom.js"></script>
   <script type="text/javascript" src="js/lib/analytics.js"></script>
+  <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
+  <script>
+    //var socket = io('/', {'transports': ['websocket', 'polling']});
+    var socket = io();
+  </script>
 
   <script>
     var hero = '<%= user ? user.username : "" %>';

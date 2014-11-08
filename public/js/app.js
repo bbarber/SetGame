@@ -17,6 +17,10 @@ setgame.config(['$routeProvider', '$locationProvider',
         templateUrl: 'html/home.html',
         controller: 'HomeController'
       })
+      .when('/multiplayer', {
+        templateUrl: 'html/home.html',
+        controller: 'HomeController'
+      })
       .when('/stats', {
         templateUrl: 'html/stats.html',
         controller: 'StatsController'
