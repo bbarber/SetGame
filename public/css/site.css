@@ -95,6 +95,14 @@ ul h3:hover {
         margin: 2px;
     }
 
+#multi-player {
+  text-align: left;
+}
+
+  #multi-player h1 {
+    font-size: 42px;
+  }
+
 .nav > li > a {
     -webkit-border-radius: 0;
     -moz-border-radius: 0;
@@ -143,3 +151,38 @@ body {
     .jumbotron a {
         padding: 14px 24px;
     }
+
+.lobby-user.ng-enter {
+  opacity: 0;
+  left: -50px;
+  height: 0px;
+}
+
+.lobby-user.ng-leave {
+  opacity: 1;
+  left: 0px;
+  height: 20px;
+}
+
+.lobby-user.ng-enter,
+.lobby-user.ng-leave {
+    -webkit-transition: 200ms cubic-bezier(0.250, 0.460, 0.450, 0.940) all;
+    -moz-transition: 200ms cubic-bezier(0.250, 0.460, 0.450, 0.940) all;
+    -ms-transition: 200ms cubic-bezier(0.250, 0.460, 0.450, 0.940) all;
+    -o-transition: 200ms cubic-bezier(0.250, 0.460, 0.450, 0.940) all;
+    transition: 200ms cubic-bezier(0.250, 0.460, 0.450, 0.940) all;
+    position: relative;
+    display: block;
+}
+
+.lobby-user.ng-enter.ng-enter-active {
+    opacity: 1;
+    left: 0;
+    height: 20px;
+}
+
+.lobby-user.ng-leave.ng-leave-active {
+    opacity: 0;
+    left: -50px;
+    height: 0px;
+}

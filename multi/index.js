@@ -8,23 +8,38 @@ module.exports.set = function(server) {
 
     socket.on('join lobby', function(user) {
       console.log('joined: ' + user);
-      addOrUpdateUser(user);
-      updateLobby();
+      addOrUpdateUser(user, socket.id);
     });
 
-    socket.on('leave lobby', function(user) {
-      console.log('left: ' + user);
-      removeUser(user);
-      updateLobby();
+    socket.on('leave lobby', function() {
+      removeUser(socket.id);
     });
 
-    function addOrUpdateUser(user) {
+    socket.on('disconnect', function() {
+      removeUser(socket.id);
+    });
+
+    socket.on('get lobby', function(callback) {
+      var activeUsers = lobbyUsers.filter(function(user) {
+        // Filter out non-recent lobby users
+        var now = new Date().getTime();
+        return user.date > now - (60 * 60 * 1000);
+      });
+
+      callback(activeUsers);
+    });
+
+    function addOrUpdateUser(user, socketid) {
       if (!isInLobby(user)) {
         // If they're not already in the lob, add them
-        lobbyUsers.push({
+        var newUser = {
           username: user,
+          socketid: socketid,
           date: new Date().getTime()
-        });
+        };
+
+        lobbyUsers.push(newUser);
+        io.emit('join lobby', newUser);
       } else {
         // If they're already in the lobby, update their time
         updateTime(user);
@@ -40,26 +55,20 @@ module.exports.set = function(server) {
       lobbyUsers[index].date = new Date().getTime();
     }
 
-    function indexOfUser(username) {
+    function indexOfUser(socketid) {
       return lobbyUsers.map(function(u) {
-        return u.username;
-      }).indexOf(username);
+        return u.socketid;
+      }).indexOf(socketid);
     }
 
-    function removeUser(username) {
-      var index = indexOfUser(username);
-      lobbyUsers.splice(index, 1);
-    }
+    function removeUser(socketid) {
+      var index = indexOfUser(socketid);
+      var user = lobbyUsers.splice(index, 1)[0];
 
-    function updateLobby() {
-      var activeUsers = lobbyUsers.filter(function(user) {
-        // Filter out non-recent lobby users
-        var now = new Date().getTime();
-        return user.date > now - (60 * 60 * 1000);
-      });
-
-      console.log(activeUsers);
-      io.emit('lobby users', activeUsers);
+      if(user != null) {
+        console.log("left lobby: " + user.username);
+        io.emit('leave lobby', user);
+      }
     }
 
   });

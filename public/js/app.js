@@ -3,6 +3,7 @@
 var setgame = angular.module('setgame', [
   'ngRoute',
   'ngResource',
+  'ngAnimate',
   'ui.bootstrap'
 ]);
 

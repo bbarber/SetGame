@@ -3,13 +3,20 @@
   <div ng-hide="isStarted">
     <h1 ng-hide="isMultiPlayer">Set Game</h1>
 
-    <button type="button" class="btn btn-large btn-success" ng-class="{'btn-inverse': isPractice}" ng-click="start()">
+    <button type="button" class="btn btn-large btn-success" ng-class="{'btn-inverse': isPractice}" ng-click="start()" ng-hide="isMultiPlayer">
       {{ isPractice ? 'Practice meow' : isMultiPlayer ? 'Start' : 'Play meow'}}
     </button>
 
     <div id="login" ng-show="showLogins">
         <span class="btn btn-inverse" ng-repeat="auth in ['Twitter', 'Facebook', 'Google']" ng-bind="auth" ng-click="login(auth)"</span>
     </div>
+  </div>
+
+  <div id="multi-player" ng-show="isMultiPlayer">
+    <h1>Lobby</h1>
+    <ul class="unstyled">
+      <li class="lobby-user" ng-repeat="user in lobbyUsers">{{user.username}}</li>
+    </ul>
   </div>
 
   <div ng-show="isStarted">

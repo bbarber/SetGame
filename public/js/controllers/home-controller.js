@@ -137,17 +137,42 @@ setgame.controller('HomeController', ['$scope', '$location', '$window', '$rootSc
       $location.path('/stats');
     }
 
+    $scope.lobbyUsers = [];
 
-    if($scope.isMultiPlayer) {
-      multi.joinLobby();
+    if(common.isMultiPlayer()) {
+      multi.getLobby(function(lobbyUsers) {
+        $scope.lobbyUsers = lobbyUsers;
+        multi.joinLobby();
+      });
     }
 
 
-    $scope.$on('$locationChangeSuccess', function() {
+    var multCleanup = $scope.$on('$locationChangeSuccess', function() {
       if(!common.isMultiPlayer()) {
         multi.leaveLobby();
       }
     });
+
+    var joinCleanup = $rootScope.$on('join lobby', function(event, user) {
+      $scope.lobbyUsers.push(user);
+      $scope.$apply();
+    });
+
+    var leaveCleanup = $rootScope.$on('leave lobby', function(event, user) {
+      var index = $scope.lobbyUsers.map(function(u) {
+        return u.socketid;
+      }).indexOf(user.socketid);
+
+        $scope.lobbyUsers.splice(index, 1)[0];
+        $scope.$apply();
+    });
+
+    $scope.$on('$destroy', function () {
+      multCleanup();
+      joinCleanup();
+      leaveCleanup();
+    });
+
 
   }
 ]);

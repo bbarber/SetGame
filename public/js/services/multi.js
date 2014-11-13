@@ -1,6 +1,6 @@
 'use strict';
 
-setgame.factory('multi', ['user', function(user) {
+setgame.factory('multi', ['user', '$rootScope', function(user, $rootScope) {
 
     var multi = {};
 
@@ -14,9 +14,20 @@ setgame.factory('multi', ['user', function(user) {
       socket.emit('leave lobby', user.currentUser);
     };
 
-    socket.on('lobby users', function(users){
-      console.log(users);
+    multi.getLobby = function(callback) {
+      socket.emit('get lobby', function(lobbyUsers) {
+        callback(lobbyUsers);
+      });
+    }
+
+    socket.on('join lobby', function(user) {
+      $rootScope.$emit('join lobby', user);
     });
+
+    socket.on('leave lobby', function(user) {
+      $rootScope.$emit('leave lobby', user)
+    });
+
 
     return multi;
   }
