@@ -96,11 +96,19 @@ ul h3:hover {
     }
 
 #multi-player {
-  text-align: left;
+  margin-top: -60px;
 }
+
+  #multi-player ul {
+    text-align: left;
+  }
 
   #multi-player h1 {
     font-size: 42px;
+  }
+
+  #multi-player button {
+    margin-bottom: -120px;
   }
 
 .nav > li > a {

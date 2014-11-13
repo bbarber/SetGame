@@ -13,8 +13,9 @@
   </div>
 
   <div id="multi-player" ng-show="isMultiPlayer">
-    <h1>Lobby</h1>
+    <button type="button" class="btn btn-large btn-success">Start</button>
     <ul class="unstyled">
+      <li><h1>Lobby</h1></li>
       <li class="lobby-user" ng-repeat="user in lobbyUsers">{{user.username}}</li>
     </ul>
   </div>
