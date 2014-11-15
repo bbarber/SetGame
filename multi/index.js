@@ -29,6 +29,11 @@ module.exports.set = function(server) {
       callback(activeUsers);
     });
 
+    socket.on('start game', function(user) {
+      console.log('started game: ' + user);
+      io.emit('start game', new Date().getTime());
+    });
+
     function addOrUpdateUser(user, socketid) {
       if (!isInLobby(user)) {
         // If they're not already in the lob, add them

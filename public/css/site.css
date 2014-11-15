@@ -96,11 +96,13 @@ ul h3:hover {
     }
 
 #multi-player {
-  margin-top: -60px;
+  margin-top: -50px;
 }
 
   #multi-player ul {
+    float: left;
     text-align: left;
+    width: 33%;
   }
 
   #multi-player h1 {
@@ -108,7 +110,7 @@ ul h3:hover {
   }
 
   #multi-player button {
-    margin-bottom: -120px;
+    margin-left: -33%;
   }
 
 .nav > li > a {

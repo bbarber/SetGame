@@ -8,16 +8,18 @@
     </button>
 
     <div id="login" ng-show="showLogins">
-        <span class="btn btn-inverse" ng-repeat="auth in ['Twitter', 'Facebook', 'Google']" ng-bind="auth" ng-click="login(auth)"</span>
+      <span class="btn btn-inverse" ng-repeat="auth in ['Twitter', 'Facebook', 'Google']" ng-bind="auth" ng-click="login(auth)" </span>
     </div>
   </div>
 
   <div id="multi-player" ng-show="isMultiPlayer">
-    <button type="button" class="btn btn-large btn-success">Start</button>
-    <ul class="unstyled">
-      <li><h1>Lobby</h1></li>
-      <li class="lobby-user" ng-repeat="user in lobbyUsers">{{user.username}}</li>
-    </ul>
+      <ul class="unstyled">
+        <li>
+          <h1>Lobby</h1>
+        </li>
+        <li class="lobby-user" ng-repeat="user in lobbyUsers">{{user.username}}</li>
+      </ul>
+    <button type="button" class="btn btn-large btn-success" ng-click="startMulti()" ng-bind="isStartPressed ? 'Ready' : 'Start'">Start</button>
   </div>
 
   <div ng-show="isStarted">
@@ -38,7 +40,7 @@
       <div class="span2">
         <div class="row" ng-repeat="set1 in foundSets.slice(0,3)">
           <div class="span4" ng-repeat="card1 in set1">
-            <img class="found-card" ng-src="img/cards/{{toImg(card1)}}" draggable="false"  />
+            <img class="found-card" ng-src="img/cards/{{toImg(card1)}}" draggable="false" />
           </div>
         </div>
       </div>

@@ -5,6 +5,8 @@ setgame.controller('HomeController', ['$scope', '$location', '$window', '$rootSc
 
     $scope.isPractice = common.isPractice();
     $scope.isMultiPlayer = common.isMultiPlayer();
+    $scope.isMultiStarted = false;
+    $scope.isStartPressed = false;
 
     var offSetHours = new Date().getTimezoneOffset();
     $scope.seed = parseInt((new Date().getTime() / (1000 * 60)  - offSetHours) / (60 * 24), 10);
@@ -146,6 +148,15 @@ setgame.controller('HomeController', ['$scope', '$location', '$window', '$rootSc
       });
     }
 
+    $scope.startMulti = function() {
+      if(!$scope.isMultiStarted) {
+        multi.startGame();
+      }
+    };
+
+    $scope.readyMulti = function() {
+
+    };
 
     var multCleanup = $scope.$on('$locationChangeSuccess', function() {
       if(!common.isMultiPlayer()) {
@@ -167,10 +178,17 @@ setgame.controller('HomeController', ['$scope', '$location', '$window', '$rootSc
         $scope.$apply();
     });
 
+    var startCleanup = $rootScope.$on('start game', function(event, seed) {
+        console.log('someone started the game: ' + seed);
+        $scope.isStartPressed = true;
+        $scope.$apply();
+    });
+
     $scope.$on('$destroy', function () {
       multCleanup();
       joinCleanup();
       leaveCleanup();
+      startCleanup();
     });
 
 
