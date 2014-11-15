@@ -18,7 +18,11 @@ setgame.factory('multi', ['user', '$rootScope', function(user, $rootScope) {
       socket.emit('get lobby', function(lobbyUsers) {
         callback(lobbyUsers);
       });
-    }
+    };
+
+    multi.startGame = function () {
+      socket.emit('start game', user.currentUser);
+    };
 
     socket.on('join lobby', function(user) {
       $rootScope.$emit('join lobby', user);
@@ -28,6 +32,9 @@ setgame.factory('multi', ['user', '$rootScope', function(user, $rootScope) {
       $rootScope.$emit('leave lobby', user)
     });
 
+    socket.on('start game', function() {
+
+    });
 
     return multi;
   }
