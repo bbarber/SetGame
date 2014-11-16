@@ -23,10 +23,8 @@ module.exports.set = function(server) {
     });
 
     socket.on('get lobby', function(callback) {
-      callback(lobbyUsers);
+      callback(lobbyUsers, inProgress);
     });
-
-
 
     socket.on('start game', function(user) {
 
@@ -40,52 +38,35 @@ module.exports.set = function(server) {
 
       io.emit('start game', seed);
 
-      currentGameLobby = [];
-      currentGameLobby.concat(lobbyUsers);
+      currentGameLobby = [].concat(lobbyUsers);
 
       for (var i = 0; i < currentGameLobby.length; i++) {
-        console.log('in the game lobby: ' + currentGameLobby[i].username);
+        console.log('in the current game lobby: ' + currentGameLobby[i].username);
       }
 
     });
 
-    socket.on('user ready', function(seed) {
-      var gameIndex = games.map(function(g) {
-        return g.seed;
-      }).indexOf(seed);
+    socket.on('user ready', function() {
 
-      console.log("Ready w/ seed of: " + seed);
-      console.log("gameIndex: ", gameIndex);
-      console.log("games.length = ", games.length);
-
-      if(gameIndex !== -1) {
-
-        console.log(gameIndex);
-        console.log(games);
-
-        var lobby = games[gameIndex].lobby;
-
-        console.log(lobby);
-
-        var userIndex = lobby.map(function(u) {
+        var userIndex = currentGameLobby.map(function(u) {
           return u.socketid;
         }).indexOf(socket.id);
 
         if(userIndex !== -1) {
-          lobby[userIndex].ready = true;
+          currentGameLobby[userIndex].ready = true;
+          io.emit('user ready', currentGameLobby[userIndex]);
         }
 
-        var numReady = lobby.map(function(u) {
+        var numReady = currentGameLobby.filter(function(u) {
           return u.ready;
         }).length;
 
-        io.emit('user ready', {seed: seed, user: lobby[indexOfUser(socket.id)]});
-
         // If everyone is ready, party time!
-        if(numReady === lobby.length) {
+        if(numReady === currentGameLobby.length) {
+          var seed = new Date().getTime();
           io.emit('party time', seed);
         }
-      }
+
     });
 
     function addUser(user, socketid) {

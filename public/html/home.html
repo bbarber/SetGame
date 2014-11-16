@@ -13,6 +13,8 @@
   </div>
 
   <div id="multi-player" ng-show="isMultiPlayer">
+    <h1 ng-show="inProgress">Game currently in progress</h1>
+    <div ng-hide="inProgress">
       <ul class="unstyled">
         <li>
           <h1>Lobby</h1>
@@ -21,7 +23,8 @@
           <span class="icomoon-checkmark" ng-class="{'user-ready' : user.ready}"></span>
           {{user.username}}</li>
       </ul>
-    <button type="button" class="btn btn-large btn-success" ng-click="startMulti()" ng-bind="isStartPressed ? 'Ready' : 'Start'">Start</button>
+      <button type="button" class="btn btn-large btn-success" ng-click="startMulti()" ng-bind="isStartPressed ? 'Ready' : 'Start'">Start</button>
+    </div>
   </div>
 
   <div ng-show="isStarted">

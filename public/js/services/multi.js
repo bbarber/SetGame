@@ -15,8 +15,8 @@ setgame.factory('multi', ['user', '$rootScope', function(user, $rootScope) {
     };
 
     multi.getLobby = function(callback) {
-      socket.emit('get lobby', function(lobbyUsers) {
-        callback(lobbyUsers);
+      socket.emit('get lobby', function(lobbyUsers, inProgress) {
+        callback(lobbyUsers, inProgress);
       });
     };
 
@@ -24,8 +24,8 @@ setgame.factory('multi', ['user', '$rootScope', function(user, $rootScope) {
       socket.emit('start game', user.currentUser);
     };
 
-    multi.ready = function (seed) {
-      socket.emit('user ready', seed);
+    multi.ready = function () {
+      socket.emit('user ready');
     };
 
     socket.on('join lobby', function(user) {
@@ -40,8 +40,8 @@ setgame.factory('multi', ['user', '$rootScope', function(user, $rootScope) {
       $rootScope.$emit('start game', seed);
     });
 
-    socket.on('user ready', function(seedUser) {
-      $rootScope.$emit('user ready', seedUser);
+    socket.on('user ready', function(user) {
+      $rootScope.$emit('user ready', user);
     });
 
     return multi;
