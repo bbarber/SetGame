@@ -34,7 +34,6 @@ app.use(express.errorHandler());
 app.use(passport.initialize());
 app.use(passport.session());
 
-
 mongodb.connect(config.mongoip, function(err, db) {
     var users = db.collection('users'),
         games = db.collection('games');

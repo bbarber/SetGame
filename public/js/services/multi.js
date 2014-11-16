@@ -24,6 +24,10 @@ setgame.factory('multi', ['user', '$rootScope', function(user, $rootScope) {
       socket.emit('start game', user.currentUser);
     };
 
+    multi.ready = function (seed) {
+      socket.emit('user ready', seed);
+    };
+
     socket.on('join lobby', function(user) {
       $rootScope.$emit('join lobby', user);
     });
@@ -34,6 +38,10 @@ setgame.factory('multi', ['user', '$rootScope', function(user, $rootScope) {
 
     socket.on('start game', function(seed) {
       $rootScope.$emit('start game', seed);
+    });
+
+    socket.on('user ready', function(seedUser) {
+      $rootScope.$emit('user ready', seedUser);
     });
 
     return multi;

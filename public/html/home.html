@@ -17,7 +17,9 @@
         <li>
           <h1>Lobby</h1>
         </li>
-        <li class="lobby-user" ng-repeat="user in lobbyUsers">{{user.username}}</li>
+        <li class="lobby-user" ng-repeat="user in lobbyUsers">
+          <span class="icomoon-checkmark" ng-class="{'user-ready' : user.ready}"></span>
+          {{user.username}}</li>
       </ul>
     <button type="button" class="btn btn-large btn-success" ng-click="startMulti()" ng-bind="isStartPressed ? 'Ready' : 'Start'">Start</button>
   </div>

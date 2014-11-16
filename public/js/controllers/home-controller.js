@@ -5,7 +5,6 @@ setgame.controller('HomeController', ['$scope', '$location', '$window', '$rootSc
 
     $scope.isPractice = common.isPractice();
     $scope.isMultiPlayer = common.isMultiPlayer();
-    $scope.isMultiStarted = false;
     $scope.isStartPressed = false;
 
     var offSetHours = new Date().getTimezoneOffset();
@@ -149,13 +148,12 @@ setgame.controller('HomeController', ['$scope', '$location', '$window', '$rootSc
     }
 
     $scope.startMulti = function() {
-      if(!$scope.isMultiStarted) {
+      if(!$scope.isStartPressed) {
         multi.startGame();
       }
-    };
-
-    $scope.readyMulti = function() {
-
+      else {
+        multi.ready($scope.seed);
+      }
     };
 
     var multCleanup = $scope.$on('$locationChangeSuccess', function() {
@@ -179,10 +177,28 @@ setgame.controller('HomeController', ['$scope', '$location', '$window', '$rootSc
     });
 
     var startCleanup = $rootScope.$on('start game', function(event, seed) {
-        console.log('someone started the game: ' + seed);
-        $scope.isStartPressed = true;
-        $scope.$apply();
+
+        if(!$scope.isStartPressed) {
+          console.log('someone started the game: ' + seed);
+          $scope.isStartPressed = true;
+          $scope.seed = seed;
+          $scope.$apply();
+        }
+
     });
+
+    var readyCleanup = $rootScope.$on('user ready', function(event, seedUser) {
+      if(seedUser.seed === $scope.seed) {
+        var userIndex = $scope.lobbyUsers.map(function(u) {
+          return u.socketid;
+        }).indexOf(seedUser.user.socketid);
+
+        console.log('user is ready: ' + $scope.lobbyUsers[userIndex].username);
+        $scope.lobbyUsers[userIndex].ready = true;        
+        $scope.$apply();
+      }
+    });
+
 
     $scope.$on('$destroy', function () {
       multCleanup();
