@@ -1,7 +1,7 @@
 'use strict';
 
-setgame.controller('HomeController', ['$scope', '$location', '$window', '$rootScope', 'common', 'engine', 'user', 'GameApi', 'card', 'multi',
-  function($scope, $location, $window, $rootScope, common, engine, user, GameApi, card, multi) {
+setgame.controller('HomeController', ['$scope', '$location', '$window', '$rootScope', '$interval', '$timeout', 'common', 'engine', 'user', 'GameApi', 'card', 'multi',
+  function($scope, $location, $window, $rootScope, $interval, $timeout, common, engine, user, GameApi, card, multi) {
 
     $scope.isPractice = common.isPractice();
     $scope.isMultiPlayer = common.isMultiPlayer();
@@ -152,6 +152,7 @@ setgame.controller('HomeController', ['$scope', '$location', '$window', '$rootSc
       if (!$scope.isStartPressed) {
         multi.startGame();
       } else {
+        $scope.heroReady = true;
         multi.ready();
       }
     };
@@ -178,16 +179,28 @@ setgame.controller('HomeController', ['$scope', '$location', '$window', '$rootSc
       $scope.$apply();
     });
 
-    var startCleanup = $rootScope.$on('start game', function(event, seed) {
+    var startCleanup = $rootScope.$on('start game', function() {
 
       if (!$scope.isStartPressed) {
-        console.log('someone started the game: ' + seed);
+        console.log('someone started the game');
         $scope.isStartPressed = true;
-        $scope.seed = seed;
+
+        // Start the timer, fire the lazers!
+        $scope.readyTimerValue = 20;
+        $scope.timer20 = $interval(updateTime, 1000);
+
         $scope.$apply();
       }
 
     });
+
+    function updateTime () {
+      $scope.readyTimerValue = $scope.readyTimerValue - 1;
+      if($scope.readyTimerValue <= 0) {
+        $scope.readyTimerValue = null;
+        $interval.cancel($scope.timer20);
+      }
+    }
 
     var readyCleanup = $rootScope.$on('user ready', function(event, user) {
 
@@ -198,7 +211,10 @@ setgame.controller('HomeController', ['$scope', '$location', '$window', '$rootSc
         console.log('user is ready: ' + $scope.lobbyUsers[userIndex].username);
         $scope.lobbyUsers[userIndex].ready = true;
         $scope.$apply();
+    });
 
+    var partyCleanup = $rootScope.$on('party time', function(event, seed) {
+      console.log("Party time! Excellent! " + seed);
     });
 
 
@@ -207,6 +223,8 @@ setgame.controller('HomeController', ['$scope', '$location', '$window', '$rootSc
       joinCleanup();
       leaveCleanup();
       startCleanup();
+      partyCleanup();
+      $interval.cancel($scope.timer20);
     });
 
 

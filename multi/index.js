@@ -32,11 +32,7 @@ module.exports.set = function(server) {
         return;
 
       inProgress = true;
-
-      var seed = new Date().getTime();
-
-
-      io.emit('start game', seed);
+      io.emit('start game');
 
       currentGameLobby = [].concat(lobbyUsers);
 

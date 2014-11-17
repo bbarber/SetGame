@@ -108,10 +108,11 @@ ul h3:hover {
   #multi-player h1 {
     font-size: 42px;
   }
-
-  #multi-player button {
+  
+  #multi-player .action-area {
     margin-left: -33%;
     outline: none;
+    display: inline-block;
   }
 
 

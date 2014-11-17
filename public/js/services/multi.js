@@ -36,13 +36,18 @@ setgame.factory('multi', ['user', '$rootScope', function(user, $rootScope) {
       $rootScope.$emit('leave lobby', user)
     });
 
-    socket.on('start game', function(seed) {
-      $rootScope.$emit('start game', seed);
+    socket.on('start game', function() {
+      $rootScope.$emit('start game');
     });
 
     socket.on('user ready', function(user) {
       $rootScope.$emit('user ready', user);
     });
+
+    socket.on('party time', function(seed) {
+      $rootScope.$emit('party time', seed);
+    });
+
 
     return multi;
   }
