@@ -90,6 +90,10 @@ setgame.controller('HomeController', ['$scope', '$location', '$window', '$rootSc
         alert('Not valid set');
       } else {
         $scope.foundSets.push(selectedCards);
+
+        if($scope.isMultiPlayer) {
+          multi.foundSet();
+        }
       }
     }
 
@@ -186,7 +190,7 @@ setgame.controller('HomeController', ['$scope', '$location', '$window', '$rootSc
         $scope.isStartPressed = true;
 
         // Start the timer, fire the lazers!
-        $scope.readyTimerValue = 20;
+        $scope.readyTimerValue = 3;
         $scope.seed = seed;
         $scope.timer20 = $interval(updateTime, 1000);
 
@@ -206,11 +210,17 @@ setgame.controller('HomeController', ['$scope', '$location', '$window', '$rootSc
 
     function updateGoTime() {
       $scope.goTimer = $scope.goTimer - 1;
+
       if($scope.goTimer <= 0) {
         $scope.gogogo = true;
         $interval.cancel($scope.timer3);
-      }
 
+        angular.forEach($scope.lobbyUsers, function(user) {
+          user.ready = false;
+        });
+
+        $scope.start();
+      }
     }
 
     var readyCleanup = $rootScope.$on('user ready', function(event, user) {
@@ -229,16 +239,31 @@ setgame.controller('HomeController', ['$scope', '$location', '$window', '$rootSc
       $scope.$apply();
     });
 
+    var foundCleanup = $rootScope.$on('found set', function(event, user) {
+      console.log('found set');
+      console.log(user);
+
+      var userIndex = $scope.lobbyUsers.map(function(u) {
+        console.log('found set socketid: ' + u.socketid);
+        return u.socketid;
+      }).indexOf(user.socketid);
+
+      $scope.lobbyUsers[userIndex].foundSets++;
+      $scope.$apply();
+    });
+
     function startPuzzle() {
-      $interval.cancel($scope.timer20);
-      $scope.readyTimerValue = null;
-      $scope.hideButton = true;
-
-      $timeout(function(){
-
+      if($scope.heroReady) {
+        $interval.cancel($scope.timer20);
+        $scope.readyTimerValue = null;
         $scope.goTimer = 3;
         $scope.timer3 = $interval(updateGoTime, 1000);
-      }, 1000);
+        Math.seedrandom($scope.seed);
+      }
+      else {
+        // They weren't ready in time
+        $scope.inProgress = true;
+      }
     }
 
 
@@ -248,6 +273,7 @@ setgame.controller('HomeController', ['$scope', '$location', '$window', '$rootSc
       leaveCleanup();
       startCleanup();
       partyCleanup();
+      foundCleanup();
       $interval.cancel($scope.timer20);
       $interval.cancel($scope.timer3);
     });

@@ -7,5 +7,6 @@
 <font-face units-per-em="1024" ascent="960" descent="-64" />
 <missing-glyph horiz-adv-x="1024" />
 <glyph unicode="&#x20;" d="" horiz-adv-x="512" />
-<glyph unicode="&#xe600;" d="M864 832l-480-480-224 224-160-160 384-384 640 640z" />
+<glyph unicode="&#x21;" d="M864 832l-480-480-224 224-160-160 384-384 640 640z" />
+<glyph unicode="&#xe600;" d="M512 960l-320-512 320-512 320 512z" />
 </font></defs></svg>

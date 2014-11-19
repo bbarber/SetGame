@@ -21,20 +21,21 @@
         </li>
         <li class="lobby-user" ng-repeat="user in lobbyUsers">
           <span class="icomoon-checkmark" ng-class="{'user-ready' : user.ready}"></span>
+          <span class="icomoon-diamonds" ng-repeat="found in [1,2,3,4,5]" ng-show="user.foundSets >= found"></span>
           {{user.username}}</li>
       </ul>
 
       <div class="action-area">
         <h1 ng-show="readyTimerValue">Game starting in {{readyTimerValue}}</h1>
         <h1 ng-show="goTimer">{{goTimer}}</h1>
-        <button type="button" class="btn btn-large btn-success" ng-hide="hideButton" ng-click="startMulti()" ng-disabled="heroReady" ng-bind="isStartPressed ? 'Ready' : 'Start'">Start</button>
+        <button type="button" class="btn btn-large btn-success" ng-hide="heroReady" ng-click="startMulti()" ng-disabled="heroReady" ng-bind="isStartPressed ? 'Ready' : 'Start'">Start</button>
       </div>
 
     </div>
   </div>
 
   <div ng-show="isStarted">
-    <div id="board-container">
+    <div id="board-container" ng-class="{'multi-board': isMultiPlayer}">
       <div class="row show-grid" ng-repeat="row in board">
         <img ng-repeat="card in row" class="span3 card" ng-src="img/cards/{{toImg(card)}}" ng-class="{selected: card.isSelected}" ng-click="toggleSelection(card)" draggable="false"></img>
       </div>

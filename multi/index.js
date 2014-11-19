@@ -65,12 +65,21 @@ module.exports.set = function(server) {
 
     });
 
+    socket.on('found set', function() {
+      var userIndex = currentGameLobby.map(function(u) {
+        return u.socketid;
+      }).indexOf(socket.id);
+
+      io.emit('found set', currentGameLobby[userIndex])
+    });
+
     function addUser(user, socketid) {
       if (!isInLobby(user)) {
         // If they're not already in the lob, add them
         var newUser = {
           username: user,
-          socketid: socketid
+          socketid: socketid,
+          foundSets: 0
         };
 
         lobbyUsers.push(newUser);

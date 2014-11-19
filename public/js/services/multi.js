@@ -28,6 +28,10 @@ setgame.factory('multi', ['user', '$rootScope', function(user, $rootScope) {
       socket.emit('user ready');
     };
 
+    multi.foundSet = function () {
+      socket.emit('found set');
+    }
+
     socket.on('join lobby', function(user) {
       $rootScope.$emit('join lobby', user);
     });
@@ -47,6 +51,10 @@ setgame.factory('multi', ['user', '$rootScope', function(user, $rootScope) {
     socket.on('party time', function() {
       $rootScope.$emit('party time');
     });
+
+    socket.on('found set', function(user) {
+      $rootScope.$emit('found set', user);
+    })
 
 
     return multi;

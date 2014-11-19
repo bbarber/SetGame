@@ -1,0 +1,59 @@
+
+.lobby-user.ng-enter {
+  opacity: 0;
+  left: -50px;
+  height: 0px;
+}
+
+.lobby-user.ng-leave {
+  opacity: 1;
+  left: 0px;
+  height: 20px;
+}
+
+.lobby-user.ng-enter,
+.lobby-user.ng-leave {
+    -webkit-transition: 200ms cubic-bezier(0.250, 0.460, 0.450, 0.940) all;
+    -moz-transition: 200ms cubic-bezier(0.250, 0.460, 0.450, 0.940) all;
+    -ms-transition: 200ms cubic-bezier(0.250, 0.460, 0.450, 0.940) all;
+    -o-transition: 200ms cubic-bezier(0.250, 0.460, 0.450, 0.940) all;
+    transition: 200ms cubic-bezier(0.250, 0.460, 0.450, 0.940) all;
+    position: relative;
+    display: block;
+}
+
+.lobby-user.ng-enter.ng-enter-active {
+    opacity: 1;
+    left: 0;
+    height: 20px;
+}
+
+.lobby-user.ng-leave.ng-leave-active {
+    opacity: 0;
+    left: -50px;
+    height: 0;
+}
+
+.icomoon-checkmark.user-ready {
+  color: green;
+  margin-left: 0px;
+  opacity: 1;
+}
+
+.icomoon-checkmark {
+  margin-left: -14px;
+  opacity: 0;
+}
+
+.icomoon-checkmark,
+.icomoon-diamonds {
+  -webkit-transition: 200ms cubic-bezier(0.250, 0.460, 0.450, 0.940) all;
+  -moz-transition: 200ms cubic-bezier(0.250, 0.460, 0.450, 0.940) all;
+  -ms-transition: 200ms cubic-bezier(0.250, 0.460, 0.450, 0.940) all;
+  -o-transition: 200ms cubic-bezier(0.250, 0.460, 0.450, 0.940) all;
+  transition: 200ms cubic-bezier(0.250, 0.460, 0.450, 0.940) all;
+}
+
+.ng-hide {
+  display: none !important;
+}
