@@ -36,7 +36,7 @@
 
 .icomoon-checkmark.user-ready {
   color: green;
-  margin-left: 0px;
+  margin-left: 0;
   opacity: 1;
 }
 
@@ -45,15 +45,33 @@
   opacity: 0;
 }
 
-.icomoon-checkmark,
-.icomoon-diamonds {
-  -webkit-transition: 200ms cubic-bezier(0.250, 0.460, 0.450, 0.940) all;
-  -moz-transition: 200ms cubic-bezier(0.250, 0.460, 0.450, 0.940) all;
-  -ms-transition: 200ms cubic-bezier(0.250, 0.460, 0.450, 0.940) all;
-  -o-transition: 200ms cubic-bezier(0.250, 0.460, 0.450, 0.940) all;
-  transition: 200ms cubic-bezier(0.250, 0.460, 0.450, 0.940) all;
+.icomoon-diamonds.ng-hide {
+  margin-left: -14px;
+  opacity: 0;
 }
 
-.ng-hide {
+.icomoon-diamonds {
+  color: red;
+  margin-left: 0;
+  opacity: 1;
+}
+
+.icomoon-diamonds.ng-hide-remove,
+.icomoon-diamonds.ng-hide-remove-active {
+  /* Angular likes to use !important, wtf */
+  display: inline-block !important;
+}
+
+.icomoon-checkmark,
+.icomoon-diamonds {
+  -webkit-transition: 20000ms cubic-bezier(0.250, 0.460, 0.450, 0.940) all;
+  -moz-transition: 20000ms cubic-bezier(0.250, 0.460, 0.450, 0.940) all;
+  -ms-transition: 20000ms cubic-bezier(0.250, 0.460, 0.450, 0.940) all;
+  -o-transition: 20000ms cubic-bezier(0.250, 0.460, 0.450, 0.940) all;
+  transition: 20000ms cubic-bezier(0.250, 0.460, 0.450, 0.940) all;
+}
+
+button.ng-hide {
+  // Prevents a weird flash
   display: none !important;
 }
