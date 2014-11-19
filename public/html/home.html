@@ -25,8 +25,9 @@
       </ul>
 
       <div class="action-area">
-        <h1 ng-show="readyTimerValue">Ready up! {{readyTimerValue}}</h1>
-        <button type="button" class="btn btn-large btn-success" ng-click="startMulti()" ng-disabled="heroReady" ng-bind="isStartPressed ? 'Ready' : 'Start'">Start</button>
+        <h1 ng-show="readyTimerValue">Game starting in {{readyTimerValue}}</h1>
+        <h1 ng-show="goTimer">{{goTimer}}</h1>
+        <button type="button" class="btn btn-large btn-success" ng-hide="hideButton" ng-click="startMulti()" ng-disabled="heroReady" ng-bind="isStartPressed ? 'Ready' : 'Start'">Start</button>
       </div>
 
     </div>

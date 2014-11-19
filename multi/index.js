@@ -32,7 +32,8 @@ module.exports.set = function(server) {
         return;
 
       inProgress = true;
-      io.emit('start game');
+      var seed = new Date().getTime();
+      io.emit('start game', seed);
 
       currentGameLobby = [].concat(lobbyUsers);
 
@@ -59,8 +60,7 @@ module.exports.set = function(server) {
 
         // If everyone is ready, party time!
         if(numReady === currentGameLobby.length) {
-          var seed = new Date().getTime();
-          io.emit('party time', seed);
+          io.emit('party time');
         }
 
     });

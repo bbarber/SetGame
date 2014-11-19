@@ -108,7 +108,11 @@ ul h3:hover {
   #multi-player h1 {
     font-size: 42px;
   }
-  
+
+  #multi-player button {
+    outline: none;
+  }
+
   #multi-player .action-area {
     margin-left: -33%;
     outline: none;
@@ -243,4 +247,8 @@ body {
 
 .icomoon-checkmark:before {
   content: "\e600";
+}
+
+.ng-hide {
+  display: none !important;
 }

@@ -179,7 +179,7 @@ setgame.controller('HomeController', ['$scope', '$location', '$window', '$rootSc
       $scope.$apply();
     });
 
-    var startCleanup = $rootScope.$on('start game', function() {
+    var startCleanup = $rootScope.$on('start game', function(event, seed) {
 
       if (!$scope.isStartPressed) {
         console.log('someone started the game');
@@ -187,6 +187,7 @@ setgame.controller('HomeController', ['$scope', '$location', '$window', '$rootSc
 
         // Start the timer, fire the lazers!
         $scope.readyTimerValue = 20;
+        $scope.seed = seed;
         $scope.timer20 = $interval(updateTime, 1000);
 
         $scope.$apply();
@@ -199,7 +200,17 @@ setgame.controller('HomeController', ['$scope', '$location', '$window', '$rootSc
       if($scope.readyTimerValue <= 0) {
         $scope.readyTimerValue = null;
         $interval.cancel($scope.timer20);
+        startPuzzle();
       }
+    }
+
+    function updateGoTime() {
+      $scope.goTimer = $scope.goTimer - 1;
+      if($scope.goTimer <= 0) {
+        $scope.gogogo = true;
+        $interval.cancel($scope.timer3);
+      }
+
     }
 
     var readyCleanup = $rootScope.$on('user ready', function(event, user) {
@@ -207,15 +218,28 @@ setgame.controller('HomeController', ['$scope', '$location', '$window', '$rootSc
         var userIndex = $scope.lobbyUsers.map(function(u) {
           return u.socketid;
         }).indexOf(user.socketid);
-
         console.log('user is ready: ' + $scope.lobbyUsers[userIndex].username);
         $scope.lobbyUsers[userIndex].ready = true;
         $scope.$apply();
     });
 
-    var partyCleanup = $rootScope.$on('party time', function(event, seed) {
-      console.log("Party time! Excellent! " + seed);
+    var partyCleanup = $rootScope.$on('party time', function() {
+      console.log("Party time! Excellent!");
+      startPuzzle();
+      $scope.$apply();
     });
+
+    function startPuzzle() {
+      $interval.cancel($scope.timer20);
+      $scope.readyTimerValue = null;
+      $scope.hideButton = true;
+
+      $timeout(function(){
+
+        $scope.goTimer = 3;
+        $scope.timer3 = $interval(updateGoTime, 1000);
+      }, 1000);
+    }
 
 
     $scope.$on('$destroy', function() {
@@ -225,6 +249,7 @@ setgame.controller('HomeController', ['$scope', '$location', '$window', '$rootSc
       startCleanup();
       partyCleanup();
       $interval.cancel($scope.timer20);
+      $interval.cancel($scope.timer3);
     });
 
 
