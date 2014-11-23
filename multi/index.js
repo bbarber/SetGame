@@ -33,8 +33,7 @@ module.exports.set = function(server) {
 
       inProgress = true;
       var seed = new Date().getTime();
-      console.log("sending 42 as seeeeeed");
-      io.emit('start game', 42 || seed);
+      io.emit('start game', seed);
 
       currentGameLobby = [];
       for(var i = 0; i < lobbyUsers.length; i++) {
