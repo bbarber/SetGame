@@ -119,6 +119,29 @@ ul h3:hover {
     display: inline-block;
   }
 
+  #multi-player table {
+    margin-top: 20px;
+    width: 100%;
+  }
+
+  #multi-player .result-user{
+    text-align: right;
+  }
+
+  #multi-player .result-score {
+    text-align: left;
+    padding-left: 20px
+  }
+
+  #multi-player .winner {
+    font-size: 20px;
+  }
+
+  #multi-player .results button {
+    margin-top: 20px;
+  }
+
+
 .multi-board {
   margin-left: -33%;
 }

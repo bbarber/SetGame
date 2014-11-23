@@ -30,7 +30,15 @@ setgame.factory('multi', ['user', '$rootScope', function(user, $rootScope) {
 
     multi.foundSet = function () {
       socket.emit('found set');
-    }
+    };
+
+    multi.userComplete = function (score) {
+      socket.emit('user complete', score);
+    };
+
+    multi.gameOver = function () {
+      socket.emit('game over');
+    };
 
     socket.on('join lobby', function(user) {
       $rootScope.$emit('join lobby', user);
@@ -54,7 +62,16 @@ setgame.factory('multi', ['user', '$rootScope', function(user, $rootScope) {
 
     socket.on('found set', function(user) {
       $rootScope.$emit('found set', user);
-    })
+    });
+
+    socket.on('user complete', function(user, score) {
+      $rootScope.$emit('user complete', user, score);
+    });
+
+    socket.on('game over', function() {
+      $rootScope.$emit('game over');
+    });
+
 
 
     return multi;

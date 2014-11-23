@@ -3,9 +3,9 @@ module.exports.set = function(server) {
   var io = require('socket.io')(server);
 
   var lobbyUsers = [];
-  var games = [];
   var inProgress = false;
   var currentGameLobby = [];
+  var gameTimeout;
 
   io.on('connection', function(socket) {
 
@@ -33,14 +33,25 @@ module.exports.set = function(server) {
 
       inProgress = true;
       var seed = new Date().getTime();
-      io.emit('start game', seed);
+      console.log("sending 42 as seeeeeed");
+      io.emit('start game', 42 || seed);
 
-      currentGameLobby = [].concat(lobbyUsers);
+      currentGameLobby = [];
+      for(var i = 0; i < lobbyUsers.length; i++) {
+        currentGameLobby.push({
+          username: lobbyUsers[i].username,
+          socketid: lobbyUsers[i].socketid
+        });
+      }
 
       for (var i = 0; i < currentGameLobby.length; i++) {
         console.log('in the current game lobby: ' + currentGameLobby[i].username);
       }
 
+      gameTimeout = setTimeout(function() {
+        inProgress = false;
+        io.emit('game over');
+      }, (2 * 60 * 1000) + (23 * 1000) /* 23s of warmup time (max) */);
     });
 
     socket.on('user ready', function() {
@@ -54,16 +65,27 @@ module.exports.set = function(server) {
           io.emit('user ready', currentGameLobby[userIndex]);
         }
 
+        printLobby(currentGameLobby);
+        printLobby(lobbyUsers);
+
         var numReady = currentGameLobby.filter(function(u) {
           return u.ready;
         }).length;
+
+        console.log('numReady: ' + numReady);
+        console.log('lobby size: ' + currentGameLobby.length);
 
         // If everyone is ready, party time!
         if(numReady === currentGameLobby.length) {
           io.emit('party time');
         }
-
     });
+
+    function printLobby(lobby) {
+      for (var i = 0; i < lobby.length; i++) {
+        console.log(lobby[i]);
+      }
+    }
 
     socket.on('found set', function() {
       var userIndex = currentGameLobby.map(function(u) {
@@ -71,6 +93,21 @@ module.exports.set = function(server) {
       }).indexOf(socket.id);
 
       io.emit('found set', currentGameLobby[userIndex])
+    });
+
+    socket.on('user complete', function(score) {
+      var userIndex = currentGameLobby.map(function(u) {
+        return u.socketid;
+      }).indexOf(socket.id);
+
+      io.emit('user complete', currentGameLobby[userIndex], score);
+    })
+
+    socket.on('game over', function() {
+      inProgress = false;
+      clearTimeout(gameTimeout);
+      io.emit('game over');
+      currentGameLobby = [];
     });
 
     function addUser(user, socketid) {

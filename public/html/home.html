@@ -15,21 +15,35 @@
   <div id="multi-player" ng-show="isMultiPlayer">
     <h1 ng-show="inProgress">Game in progress</h1>
     <div ng-hide="inProgress">
-      <ul class="unstyled">
+      <ul class="unstyled" ng-class="{invisible: showResults}">
         <li>
           <h1>Lobby</h1>
         </li>
         <li class="lobby-user" ng-repeat="user in lobbyUsers">
           <span class="icomoon-checkmark" ng-class="{'user-ready' : user.ready}"></span>
-          <span class="icomoon-diamonds" ng-repeat="found in [5,4,3,2,1]" ng-show="user.foundSets >= found"></span>
+          <span ng-hide="user.score">
+            <span class="icomoon-diamonds" ng-repeat="found in [1,2,3,4,5].reverse()" ng-show="user.foundSets >= found"></span>
+          </span>
+          <span ng-show="user.score" ng-bind="user.score|makePretty:'score'" tooltip="{{user.score}}"></span>
           {{user.username}}
         </li>
       </ul>
-
       <div class="action-area">
         <h1 ng-show="readyTimerValue">Game starting in {{readyTimerValue}}</h1>
-        <h1 ng-show="goTimer">{{goTimer}}</h1>
-        <button type="button" class="btn btn-large btn-success" ng-hide="heroReady" ng-click="startMulti()" ng-disabled="heroReady" ng-bind="isStartPressed ? 'Ready' : 'Start'">Start</button>
+        <h1 ng-show="goTimer > 0">{{goTimer}}</h1>
+        <button type="button" class="btn btn-large btn-success" ng-hide="heroReady" ng-click="startMulti()" ng-bind="isStartPressed ? 'Ready' : 'Start'"></button>
+
+        <div class="results" ng-show="showResults">
+          <h1>Results</h1>
+          <table>
+            <tr ng-repeat="user in lobbyUsers|orderBy:['score', '-foundSets']" ng-class="{winner: $first}">
+              <td class="result-user">{{user.username}}</td>
+              <td ng-show="user.score" class="result-score" tooltip="{{user.score}}">{{user.score|makePretty:'score'}}</td>
+              <td ng-show="!user.score" class="result-score">did not finish</td>
+            </tr>
+          </table>
+          <button class="btn bt-large" ng-click="replayMulti()">Play again</button>
+        </div>
       </div>
 
     </div>

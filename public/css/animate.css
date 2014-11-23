@@ -64,14 +64,14 @@
 
 .icomoon-checkmark,
 .icomoon-diamonds {
-  -webkit-transition: 20000ms cubic-bezier(0.250, 0.460, 0.450, 0.940) all;
-  -moz-transition: 20000ms cubic-bezier(0.250, 0.460, 0.450, 0.940) all;
-  -ms-transition: 20000ms cubic-bezier(0.250, 0.460, 0.450, 0.940) all;
-  -o-transition: 20000ms cubic-bezier(0.250, 0.460, 0.450, 0.940) all;
-  transition: 20000ms cubic-bezier(0.250, 0.460, 0.450, 0.940) all;
+  -webkit-transition: 200ms cubic-bezier(0.250, 0.460, 0.450, 0.940) all;
+  -moz-transition: 200ms cubic-bezier(0.250, 0.460, 0.450, 0.940) all;
+  -ms-transition: 200ms cubic-bezier(0.250, 0.460, 0.450, 0.940) all;
+  -o-transition: 200ms cubic-bezier(0.250, 0.460, 0.450, 0.940) all;
+  transition: 200ms cubic-bezier(0.250, 0.460, 0.450, 0.940) all;
 }
 
-button.ng-hide {
-  // Prevents a weird flash
+button.ng-hide,
+button.ng-hide-add {
   display: none !important;
 }

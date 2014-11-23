@@ -16,6 +16,9 @@ setgame.controller('HomeController', ['$scope', '$location', '$window', '$rootSc
 
     $scope.start = function() {
 
+      $scope.foundSets = [];
+      $scope.existingSets = [];
+
       if ($scope.isPractice || user.isLoggedIn) {
 
         var board = engine.createBoard();
@@ -91,7 +94,7 @@ setgame.controller('HomeController', ['$scope', '$location', '$window', '$rootSc
       } else {
         $scope.foundSets.push(selectedCards);
 
-        if($scope.isMultiPlayer) {
+        if ($scope.isMultiPlayer) {
           multi.foundSet();
         }
       }
@@ -130,16 +133,22 @@ setgame.controller('HomeController', ['$scope', '$location', '$window', '$rootSc
       var endTime = new Date().getTime();
       $rootScope.score = (endTime - $scope.startTime) / 1000;
 
-      if (!$scope.isPractice) {
+      if (!$scope.isPractice && !$scope.isMultiPlayer) {
         GameApi.saveScore({
           username: localStorage['hero'],
           score: $rootScope.score,
           seed: $scope.seed
         });
+
+        // Navigate to the stats page so they can see their score
+        $location.path('/stats');
       }
 
-      // Navigate to the stats page so they can see their score
-      $location.path('/stats');
+      if ($scope.isMultiPlayer) {
+        multi.userComplete($rootScope.score);
+        $scope.heroComplete = true;
+        $scope.isStarted = false;
+      }
     }
 
     $scope.lobbyUsers = [];
@@ -161,6 +170,21 @@ setgame.controller('HomeController', ['$scope', '$location', '$window', '$rootSc
       }
     };
 
+    $scope.replayMulti = function() {
+      $scope.showResults = false;
+      $scope.heroReady = false;
+      $scope.isStarted = false;
+      $scope.inProgress = false;
+      $scope.isStartPressed = false;
+      $scope.heroComplete = false;
+
+      multi.getLobby(function(lobbyUsers, inProgress) {
+        $scope.inProgress = inProgress;
+        $scope.lobbyUsers = lobbyUsers;
+        $scope.$apply();
+      });
+    };
+
     var multCleanup = $scope.$on('$locationChangeSuccess', function() {
       if (!common.isMultiPlayer()) {
         multi.leaveLobby();
@@ -175,12 +199,14 @@ setgame.controller('HomeController', ['$scope', '$location', '$window', '$rootSc
     });
 
     var leaveCleanup = $rootScope.$on('leave lobby', function(event, user) {
-      var index = $scope.lobbyUsers.map(function(u) {
-        return u.socketid;
-      }).indexOf(user.socketid);
+      if (!$scope.isStartPressed) {
+        var index = $scope.lobbyUsers.map(function(u) {
+          return u.socketid;
+        }).indexOf(user.socketid);
 
-      $scope.lobbyUsers.splice(index, 1)[0];
-      $scope.$apply();
+        $scope.lobbyUsers.splice(index, 1)[0];
+        $scope.$apply();
+      }
     });
 
     var startCleanup = $rootScope.$on('start game', function(event, seed) {
@@ -190,7 +216,7 @@ setgame.controller('HomeController', ['$scope', '$location', '$window', '$rootSc
         $scope.isStartPressed = true;
 
         // Start the timer, fire the lazers!
-        $scope.readyTimerValue = 3;
+        $scope.readyTimerValue = 20;
         $scope.seed = seed;
         $scope.timer20 = $interval(updateTime, 1000);
 
@@ -199,9 +225,9 @@ setgame.controller('HomeController', ['$scope', '$location', '$window', '$rootSc
 
     });
 
-    function updateTime () {
+    function updateTime() {
       $scope.readyTimerValue = $scope.readyTimerValue - 1;
-      if($scope.readyTimerValue <= 0) {
+      if ($scope.readyTimerValue <= 0) {
         $scope.readyTimerValue = null;
         $interval.cancel($scope.timer20);
         startPuzzle();
@@ -211,26 +237,32 @@ setgame.controller('HomeController', ['$scope', '$location', '$window', '$rootSc
     function updateGoTime() {
       $scope.goTimer = $scope.goTimer - 1;
 
-      if($scope.goTimer <= 0) {
-        $scope.gogogo = true;
-        $interval.cancel($scope.timer3);
+      if ($scope.goTimer === 0) {
 
+        // When the puzle start, remove checkmark
         angular.forEach($scope.lobbyUsers, function(user) {
           user.ready = false;
         });
 
         $scope.start();
       }
+
+      // Give them 2mins to complete the puzzle
+      if ($scope.goTimer === (-1 * 2 * 60)) {
+        gameOver();
+      }
+
+
     }
 
     var readyCleanup = $rootScope.$on('user ready', function(event, user) {
 
-        var userIndex = $scope.lobbyUsers.map(function(u) {
-          return u.socketid;
-        }).indexOf(user.socketid);
-        console.log('user is ready: ' + $scope.lobbyUsers[userIndex].username);
-        $scope.lobbyUsers[userIndex].ready = true;
-        $scope.$apply();
+      var userIndex = $scope.lobbyUsers.map(function(u) {
+        return u.socketid;
+      }).indexOf(user.socketid);
+      console.log('user is ready: ' + $scope.lobbyUsers[userIndex].username);
+      $scope.lobbyUsers[userIndex].ready = true;
+      $scope.$apply();
     });
 
     var partyCleanup = $rootScope.$on('party time', function() {
@@ -240,27 +272,77 @@ setgame.controller('HomeController', ['$scope', '$location', '$window', '$rootSc
     });
 
     var foundCleanup = $rootScope.$on('found set', function(event, user) {
-      console.log('found set');
-      console.log(user);
+      var lobbyUser = getLobbyUser(user);
+      lobbyUser.foundSets++;
 
-      var userIndex = $scope.lobbyUsers.map(function(u) {
-        console.log('found set socketid: ' + u.socketid);
-        return u.socketid;
-      }).indexOf(user.socketid);
-
-      $scope.lobbyUsers[userIndex].foundSets++;
       $scope.$apply();
     });
 
+    var completeCleanup = $rootScope.$on('user complete', function(event, user, score) {
+      var lobbyUser = getLobbyUser(user);
+      lobbyUser.foundSets = 0;
+      lobbyUser.score = score;
+
+      checkEveryoneFinished();
+
+      $scope.$apply();
+    });
+
+    var gameOverCleanup = $rootScope.$on('game over', function() {
+      if ($scope.heroReady) {
+        console.log('on game over, calling showResults = true, istarted = false');
+        $scope.showResults = true;
+        $scope.isStarted = false;
+        $scope.$apply();
+      }
+      else {
+        console.log('on game over, calling replayMulti');
+        $scope.replayMulti();
+      }
+    });
+
+
+    function checkEveryoneFinished() {
+      var numComplete = $scope.lobbyUsers.filter(function(user) {
+        return user.score;
+      }).length;
+
+      if (numComplete === $scope.lobbyUsers.length) {
+        gameOver();
+      }
+    }
+
+    function getLobbyUser(user) {
+      var userIndex = $scope.lobbyUsers.map(function(u) {
+        return u.socketid;
+      }).indexOf(user.socketid);
+
+      return $scope.lobbyUsers[userIndex];
+    }
+
+    function gameOver() {
+      $interval.cancel($scope.timer3);
+      $scope.showResults = true;
+      $scope.isStarted = false;
+
+      multi.gameOver();
+    }
+
     function startPuzzle() {
-      if($scope.heroReady) {
+      if ($scope.heroReady) {
         $interval.cancel($scope.timer20);
         $scope.readyTimerValue = null;
         $scope.goTimer = 3;
         $scope.timer3 = $interval(updateGoTime, 1000);
         Math.seedrandom($scope.seed);
-      }
-      else {
+        $scope.gogogo = true;
+
+        // Remove un-ready users
+        $scope.lobbyUsers = $scope.lobbyUsers.filter(function(user) {
+          return user.ready;
+        });
+
+      } else {
         // They weren't ready in time
         $scope.inProgress = true;
       }
@@ -274,6 +356,8 @@ setgame.controller('HomeController', ['$scope', '$location', '$window', '$rootSc
       startCleanup();
       partyCleanup();
       foundCleanup();
+      completeCleanup();
+      gameOverCleanup();
       $interval.cancel($scope.timer20);
       $interval.cancel($scope.timer3);
     });
