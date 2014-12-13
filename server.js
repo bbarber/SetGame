@@ -10,7 +10,6 @@ var express = require('express'),
     path = require('path'),
     mongodb = require('mongodb'),
     passport = require('passport'),
-    io = require('socket.io')(http),
     multi = require('./multi');
 
 var app = express();
@@ -42,7 +41,7 @@ mongodb.connect(config.mongoip, function(err, db) {
     // Creates auth/api/websocket endpoints
     auth.set(app, users, config.hostname, secrets);
     api.set(app, games);
-    multi.set(server);
+    multi.set(app, http);
 
     // Have the catch-all route after the api routes
     // so we can use angular routing on the client

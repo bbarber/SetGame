@@ -1,5 +1,6 @@
-module.exports.set = function(server) {
+module.exports.set = function(app, http) {
 
+  var server = http.createServer(app).listen(8080);
   var io = require('socket.io')(server);
 
   var lobbyUsers = [];
