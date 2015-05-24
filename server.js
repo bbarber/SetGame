@@ -1,3 +1,4 @@
+/// <reference path="typings/node/node.d.ts"/>
 
 var express = require('express'),
     partials = require('express-partials'),
@@ -40,7 +41,7 @@ mongodb.connect(config.mongoip, function(err, db) {
 
     // Creates auth/api/websocket endpoints
     auth.set(app, users, config.hostname, secrets);
-    api.set(app, games);
+    api.set(app, games, http, secrets);
     multi.set(app, http);
 
     // Have the catch-all route after the api routes

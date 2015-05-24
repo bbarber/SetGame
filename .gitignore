@@ -25,4 +25,5 @@ bower_components
 npm-debug.log
 data
 *.*~
+settings.json
 secrets.json
