@@ -114,7 +114,7 @@ module.exports.set = function (app, games, http, secrets) {
                 return parseFloat(a.Score) - parseFloat(b.Score);
             })[0].Score);
             
-            var medianIndex = userGames[name].length / 2;
+            var medianIndex = Math.floor(userGames[name].length / 2);
             var median = userGames[name].sort(function (a, b) {
                 return parseFloat(a.Score) - parseFloat(b.Score);
             })[medianIndex].Score;
