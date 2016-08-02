@@ -113,12 +113,17 @@ module.exports.set = function (app, games, http, secrets) {
             var quickest = parseFloat(userGames[name].sort(function (a, b) {
                 return parseFloat(a.Score) - parseFloat(b.Score);
             })[0].Score);
-
+            
+            var medianIndex = userGames[name].length / 2;
+            var median = userGames[name].sort(function (a, b) {
+                return parseFloat(a.Score) - parseFloat(b.Score);
+            })[medianIndex].Score;
 
             averages.push({
                 UserName: name,
                 Fastest: quickest,
                 Average: avg,
+                Median: median,
                 GamesPlayed: len
             });
         }
