@@ -22,17 +22,18 @@ module.exports.set = function (app, games, http, secrets) {
             if (doc.length === 0) {
 
                 game.DatePlayed = new Date();
-                game.Score = req.params.score;
-
-                var params = '?token=' + secrets.slack.token + '&channel=%23' + secrets.slack.channel;
-                var options = {
-                    url: 'https://dontpaniclabs.slack.com/services/hooks/slackbot' + params,
-                    body: '*SetGame*  `' + game.UserName + '` - `' + game.Score + 's`'
-                };
-                
-                request.post(options);
+                game.Score = req.params.score;               
                 
                 games.insert(game, function (err, doc) {
+                    
+                    // Slackbot message *after* we insert the record
+                    var params = '?token=' + secrets.slack.token + '&channel=%23' + secrets.slack.channel;
+                    var options = {
+                        url: 'https://dontpaniclabs.slack.com/services/hooks/slackbot' + params,
+                        body: '*SetGame*  `' + game.UserName + '` - `' + game.Score + 's`'
+                    };                
+                    request.post(options);
+                    
                     res.send(doc);
                 });
             }
