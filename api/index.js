@@ -29,7 +29,7 @@ module.exports.set = function (app, games, http, secrets) {
                     // Slackbot message *after* we insert the record
                     var params = '?token=' + secrets.slack.token + '&channel=%23' + secrets.slack.channel;
                     var options = {
-                        url: 'https://dontpaniclabs.slack.com/services/hooks/slackbot' + params,
+                        url: 'https://nebraskaglobal.slack.com/services/hooks/slackbot' + params,
                         body: '*SetGame*  `' + game.UserName + '` - `' + game.Score + 's`'
                     };                
                     request.post(options);
