@@ -75,6 +75,7 @@
           <tr>
             <td></td>
             <td><h5>User</h5></td>
+            <td><h5>Fastest Time</h5></td>
             <td><h5>Average Time</h5></td>
             <td><h5>Median Time</h5></td>
             <td><h5>Games Played</h5></td>
@@ -84,6 +85,7 @@
           <tr ng-repeat="score in data.MonthAverage">
             <td ng-bind="$index + 1" class="ninja-col"></td>
             <td ng-bind="score.UserName"></td>
+            <td ng-bind="score.Fastest|makePretty:'score'"></td>
             <td ng-bind="score.Average|makePretty:'score'"></td>
             <td ng-bind="score.Median|makePretty:'score'"></td>
             <td ng-bind="score.GamesPlayed"></td>

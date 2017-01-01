@@ -23,7 +23,7 @@ module.exports.set = function (app, games, http, secrets) {
 
                 game.DatePlayed = new Date();
                 game.Score = req.params.score;               
-                
+              
                 games.insert(game, function (err, doc) {
                     
                     // Slackbot message *after* we insert the record
@@ -50,7 +50,7 @@ module.exports.set = function (app, games, http, secrets) {
 
             var seed = req.params.seed;
             var games = doc.sort(function (a, b) {
-                return parseFloat(a.Score) - parseFloat(b.Score);
+                return a.Score - b.Score;
             });
 
             var todays = games.filter(function (game) {
@@ -105,19 +105,18 @@ module.exports.set = function (app, games, http, secrets) {
 
             var sum = 0;
             for (var j = 0; j < userGames[name].length; j++) {
-                sum += parseFloat(userGames[name][j].Score);
+                sum += userGames[name][j].Score;
             }
-
 
             var avg = sum / len;
 
-            var quickest = parseFloat(userGames[name].sort(function (a, b) {
-                return parseFloat(a.Score) - parseFloat(b.Score);
-            })[0].Score);
-            
+            var quickest = userGames[name].sort(function (a, b) {
+                return a.Score - b.Score;
+            })[0].Score;
+
             var medianIndex = Math.floor(userGames[name].length / 2);
             var median = userGames[name].sort(function (a, b) {
-                return parseFloat(a.Score) - parseFloat(b.Score);
+                return a.Score - b.Score;
             })[medianIndex].Score;
 
             averages.push({
