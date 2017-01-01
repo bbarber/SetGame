@@ -26,7 +26,7 @@ module.exports.set = function (app, games, http, secrets) {
 
                 var params = '?token=' + secrets.slack.token + '&channel=%23' + secrets.slack.channel;
                 var options = {
-                    url: 'https://dontpaniclabs.slack.com/services/hooks/slackbot' + params,
+                    url: 'https://nebraskaglobal.slack.com/services/hooks/slackbot' + params,
                     body: '*SetGame*  `' + game.UserName + '` - `' + game.Score + 's`'
                 };
                 
@@ -49,7 +49,7 @@ module.exports.set = function (app, games, http, secrets) {
 
             var seed = req.params.seed;
             var games = doc.sort(function (a, b) {
-                return parseFloat(a.Score) - parseFloat(b.Score);
+                return a.Score - b.Score;
             });
 
             var todays = games.filter(function (game) {
@@ -104,15 +104,15 @@ module.exports.set = function (app, games, http, secrets) {
 
             var sum = 0;
             for (var j = 0; j < userGames[name].length; j++) {
-                sum += parseFloat(userGames[name][j].Score);
+                sum += userGames[name][j].Score;
             }
 
 
             var avg = sum / len;
 
-            var quickest = parseFloat(userGames[name].sort(function (a, b) {
-                return parseFloat(a.Score) - parseFloat(b.Score);
-            })[0].Score);
+            var quickest = userGames[name].sort(function (a, b) {
+                return a.Score - b.Score;
+            })[0].Score;
 
 
             averages.push({
