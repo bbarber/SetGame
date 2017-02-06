@@ -22,7 +22,7 @@ module.exports.set = function (app, games, http, secrets) {
             if (doc.length === 0) {
 
                 game.DatePlayed = new Date();
-                game.Score = req.params.score;               
+                game.Score = parseFloat(req.params.score);
               
                 games.insert(game, function (err, doc) {
                     
