@@ -37,7 +37,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 
-MongoClient.connect(config.mongoip, { useNewUrlParser: true }, function (err, client) {
+MongoClient.connect(config.mongoip, { useUnifiedTopology: true }, function (err, client) {
     if (err) {
         console.log("Error connecting to db:", err);
     }
