@@ -10,7 +10,7 @@
     "ejs": "*",
     "express": "3.4.8",
     "express-partials": "~0.2.0",
-    "mongodb": "^3.6.2",
+    "mongodb": "^2.2.33",
     "passport": "~0.2.0",
     "passport-facebook": "~1.0.2",
     "passport-google": "~0.3.0",
